@@ -1,26 +1,164 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: #f6f8fa;
+  --foreground: #181818;
+  --primary: #1e88e5;
+  --secondary: #43a047;
+  --surface: #fff;
+  --surface-border: #e5e7eb;
+  --shadow: 0 2px 8px 0 rgb(0 0 0 / 0.04);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #23272f;
     --foreground: #ededed;
+    --primary: #90caf9;
+    --secondary: #66bb6a;
+    --surface: #23272f;
+    --surface-border: #2d333b;
+    --shadow: 0 2px 8px 0 rgb(0 0 0 / 0.18);
   }
+}
+
+/* Forzar tema claro u oscuro con data-theme en <html> */
+html[data-theme="light"] {
+  --background: #f6f8fa;
+  --foreground: #181818;
+  --primary: #1e88e5;
+  --secondary: #43a047;
+  --surface: #fff;
+  --surface-border: #e5e7eb;
+  --shadow: 0 2px 8px 0 rgb(0 0 0 / 0.04);
+}
+html[data-theme="dark"] {
+  --background: #23272f;
+  --foreground: #ededed;
+  --primary: #90caf9;
+  --secondary: #66bb6a;
+  --surface: #23272f;
+  --surface-border: #2d333b;
+  --shadow: 0 2px 8px 0 rgb(0 0 0 / 0.18);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Utilidades de color y fondo */
+.bg-primary { background: var(--primary) !important; color: #fff !important; }
+.bg-secondary { background: var(--secondary) !important; color: #fff !important; }
+.text-primary { color: var(--primary) !important; }
+.text-secondary { color: var(--secondary) !important; }
+.text-foreground { color: var(--foreground) !important; }
+.bg-background { background: var(--background) !important; color: var(--foreground) !important; }
+
+/* Superficies (tarjetas, navbar, etc) */
+.bg-white,
+.card,
+.navbar {
+  background: var(--surface) !important;
+  color: var(--foreground) !important;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--surface-border);
+}
+
+/* Elimina border y shadow de navbar si no se desea */
+.navbar {
+  border-radius: 0;
+  box-shadow: 0 1px 0 0 var(--surface-border);
+  border: none;
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+a:hover, a:focus {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+/* Inputs y botones */
+input, textarea, select, button {
+  color: var(--foreground);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 0.5rem;
+  padding: 0.5em 1em;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--primary);
+  border-color: var(--primary);
+}
+button {
+  cursor: pointer;
+  font-weight: 500;
+}
+button.bg-primary, .bg-primary button {
+  color: #fff !important;
+}
+button.bg-secondary, .bg-secondary button {
+  color: #fff !important;
+}
+
+/* Listas */
+ol, ul {
+  color: var(--foreground);
+}
+
+/* Sombras y bordes */
+.shadow, .card, .bg-white {
+  box-shadow: var(--shadow);
+}
+.border {
+  border: 1px solid var(--surface-border);
+}
+
+/* Responsive headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+@media (max-width: 640px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.1rem; }
+}
+
+/* Utilidad para overlays */
+.overlay {
+  background: rgba(0,0,0,0.3);
+}
+
+/* Scrollbar para dark/light */
+::-webkit-scrollbar {
+  width: 8px;
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface-border);
+  border-radius: 4px;
+}
+
+/* Otros ajustes */
+hr {
+  border: none;
+  border-top: 1px solid var(--surface-border);
+  margin: 2em 0;
 }
