@@ -60,7 +60,7 @@ export default function Home() {
 					{oportunidades.map((op) => (
 						<div
 							key={op.id}
-							className="bg-white dark:bg-[#181818] rounded-xl shadow-md overflow-hidden flex flex-col"
+							className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
 						>
 							<div className="relative w-full h-48">
 								<Image
@@ -99,7 +99,7 @@ export default function Home() {
 				<h2 className="text-2xl font-bold text-foreground mb-4 text-center">
 					Conócenos
 				</h2>
-				<div className="bg-white dark:bg-[#181818] rounded-xl shadow p-6 flex flex-col sm:flex-row gap-6 items-center">
+				<div className="bg-white rounded-xl shadow p-6 flex flex-col sm:flex-row gap-6 items-center">
 					<Image
 						src="/logo.png"
 						alt="Equipo InversorHouse"
