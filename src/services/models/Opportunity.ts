@@ -1,0 +1,28 @@
+import mongoose, { Schema, Document, Model } from "mongoose";
+
+const OpportunitySchema = new Schema({
+  _id: { type: Number, required: true },
+  procedure_type: { type: String, required: true },
+  property_type: { type: String, required: true },
+  sub_property_type: { type: String, required: true },
+  typology: { type: String, required: true },
+  state: { type: String, required: true },
+  province: { type: String, required: true },
+  city: { type: String, required: true },
+  address: { type: String, required: true },
+  zip_code: { type: String, required: true },
+  ref_code: { type: String, required: true },
+  ask_price: { type: Number, required: true },
+  squatted: { type: Boolean, default: false },
+  min_idealista: { type: Number, default: null },
+  max_idealista: { type: Number, default: null }
+});
+
+
+export type IOpportunity = mongoose.InferSchemaType<typeof OpportunitySchema>;
+
+export type IOpportunityDocument = IOpportunity & Document;
+
+const Opportunity: Model<IOpportunityDocument> = mongoose.models.Opportunity || mongoose.model<IOpportunityDocument>('Opportunity', OpportunitySchema);
+
+export default Opportunity;

@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f6f8fa;
-  --foreground: #181818;
-  --primary: #1e88e5;
-  --secondary: #43a047;
-  --surface: #fff;
-  --surface-border: #e5e7eb;
-  --shadow: 0 2px 8px 0 rgb(0 0 0 / 0.04);
+  --background: #d9dce1; /* Gris claro para fondos */
+  --foreground: #0e4465; /* Color principal para textos */
+  --primary: #0e4465; /* Color principal */
+  --secondary: #506b9f; /* Azul acero para botones/detalles activos */
+  --surface: #fff; /* Blanco para tarjetas/superficies */
+  --surface-border: #cfd4df; /* Borde más suave, derivado del gris claro */
+  --shadow: 0 2px 8px 0 rgb(14 68 101 / 0.04); /* Sombra sutil azulada */
 }
 
 /* Forzar tema claro en todo momento */
-html, body {
+html,
+body {
   background: var(--background);
   color: var(--foreground);
 }
@@ -23,12 +24,27 @@ body {
 }
 
 /* Utilidades de color y fondo */
-.bg-primary { background: var(--primary) !important; color: #fff !important; }
-.bg-secondary { background: var(--secondary) !important; color: #fff !important; }
-.text-primary { color: var(--primary) !important; }
-.text-secondary { color: var(--secondary) !important; }
-.text-foreground { color: var(--foreground) !important; }
-.bg-background { background: var(--background) !important; color: var(--foreground) !important; }
+.bg-primary {
+  background: var(--primary) !important;
+  color: #fff !important;
+}
+.bg-secondary {
+  background: var(--secondary) !important;
+  color: #fff !important;
+}
+.text-primary {
+  color: var(--primary) !important;
+}
+.text-secondary {
+  color: var(--secondary) !important;
+}
+.text-foreground {
+  color: var(--foreground) !important;
+}
+.bg-background {
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
 
 /* Superficies (tarjetas, navbar, etc) */
 .bg-white,
@@ -36,7 +52,7 @@ body {
 .navbar {
   background: var(--surface) !important;
   color: var(--foreground) !important;
-  border-radius: 1rem;
+  /* border-radius: 1rem; */
   box-shadow: var(--shadow);
   border: 1px solid var(--surface-border);
 }
@@ -50,17 +66,21 @@ body {
 
 /* Links */
 a {
-  color: var(--primary);
+  color: var(--secondary);
   text-decoration: none;
   transition: color 0.15s;
 }
-a:hover, a:focus {
-  color: var(--secondary);
+a:hover,
+a:focus {
+  color: var(--primary);
   text-decoration: underline;
 }
 
 /* Inputs y botones */
-input, textarea, select, button {
+input,
+textarea,
+select,
+button {
   color: var(--foreground);
   background: var(--surface);
   border: 1px solid var(--surface-border);
@@ -69,28 +89,47 @@ input, textarea, select, button {
   font-size: 1rem;
   transition: background 0.2s, color 0.2s, border 0.2s;
 }
-input:focus, textarea:focus, select:focus {
-  outline: 2px solid var(--primary);
-  border-color: var(--primary);
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--secondary);
+  border-color: var(--secondary);
 }
 button {
   cursor: pointer;
   font-weight: 500;
+  background: var(--secondary);
+  color: #fff;
+  border: none;
+  transition: background 0.2s, color 0.2s;
 }
-button.bg-primary, .bg-primary button {
+button.bg-primary,
+.bg-primary button {
+  background: var(--primary) !important;
   color: #fff !important;
 }
-button.bg-secondary, .bg-secondary button {
+button.bg-secondary,
+.bg-secondary button {
+  background: var(--secondary) !important;
+  color: #fff !important;
+}
+button:hover,
+.bg-primary button:hover,
+.bg-secondary button:hover {
+  background: var(--primary) !important;
   color: #fff !important;
 }
 
 /* Listas */
-ol, ul {
+ol,
+ul {
   color: var(--foreground);
 }
 
 /* Sombras y bordes */
-.shadow, .card, .bg-white {
+.shadow,
+.card,
+.bg-white {
   box-shadow: var(--shadow);
 }
 .border {
@@ -98,24 +137,41 @@ ol, ul {
 }
 
 /* Responsive headings */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--foreground);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--primary);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   font-weight: 700;
   margin-bottom: 0.5em;
 }
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
+h1 {
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
 @media (max-width: 640px) {
-  h1 { font-size: 2rem; }
-  h2 { font-size: 1.25rem; }
-  h3 { font-size: 1.1rem; }
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
 }
 
 /* Utilidad para overlays */
 .overlay {
-  background: rgba(0,0,0,0.3);
+  background: rgba(14, 68, 101, 0.15);
 }
 
 /* Otros ajustes */

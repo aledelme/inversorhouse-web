@@ -1,32 +1,33 @@
+
 import Link from "next/link";
+// import ClerkButton from "./ClerkButton";
 
 export default function Navbar() {
   return <nav className="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
     <div className="flex items-center gap-2">
       <Link href="/" className="flex items-center gap-2">
         <span className="text-xl font-bold text-primary tracking-tight">
-          🏠 Inversor
-          <span className="text-secondary">House</span>
+          🏠 Inversor House
         </span>
       </Link>
     </div>
     <ul className="hidden sm:flex items-center gap-6 text-base font-medium">
       <li>
         <a
-          href="#oportunidades"
+          href="/oportunidades"
           className="hover:text-primary transition"
         >
           Oportunidades
         </a>
       </li>
-      <li>
+      {/* <li>
         <a
           href="#conocenos"
           className="hover:text-primary transition"
         >
           Conócenos
         </a>
-      </li>
+      </li> */}
       <li>
         <a
           href="/faqs"
@@ -36,12 +37,13 @@ export default function Navbar() {
         </a>
       </li>
       <li>
-        <a
+        {/* <a
           href="/login"
           className="bg-primary text-white px-4 py-2 rounded-full hover:bg-secondary transition"
         >
-          Acceder
-        </a>
+          Acceder2
+        </a> */}
+        {/* <ClerkButton /> */}
       </li>
     </ul>
     <div className="sm:hidden flex items-center gap-2">
@@ -51,12 +53,13 @@ export default function Navbar() {
       >
         FAQs
       </a>
-      <a
+      {/* <a
         href="/login"
         className="bg-primary text-white px-4 py-2 rounded-full text-sm"
       >
-        Acceder
-      </a>
+        Acceder1
+      </a> */}
+      {/* <ClerkButton /> */}
     </div>
   </nav>
 
