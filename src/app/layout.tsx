@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import {
-  ClerkProvider,
-} from '@clerk/nextjs'
+// import {
+//   ClerkProvider,
+// } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -30,18 +30,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="es">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <header className="w-full bg-white shadow-sm fixed top-0 left-0 z-20">
-            <Navbar />
-          </header>
-          <main className="pt-13">{children}</main>
-          <Footer />
-        </body>
-      </html>
-    </ClerkProvider>
+    // <ClerkProvider>
+    <html lang="es">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <header className="w-full bg-white shadow-sm fixed top-0 left-0 z-20">
+          <Navbar />
+        </header>
+        <main className="pt-13">{children}</main>
+        <Footer />
+      </body>
+    </html>
+    // </ClerkProvider>
   );
 }
