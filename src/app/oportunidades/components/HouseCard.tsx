@@ -4,37 +4,30 @@ import { IOpportunity } from "@/services/models/Opportunity"
 
 export default function HouseCard({ op }: { op: IOpportunity }) {
     return (
-        <a
+        <div
             key={op._id}
             // href={`https://google.com`}
             rel="noopener noreferrer"
-            style={{
-                display: "block",
-                border: "1px solid #eee",
-                borderRadius: 8,
-                padding: 16,
-                background: "#fff",
-                textDecoration: "none",
-                color: "inherit",
-                boxShadow: "0 2px 8px #0001"
-            }}
+            className="block w-full max-w-full border border-gray-200 rounded-lg p-4 bg-white text-inherit no-underline shadow-sm overflow-hidden"
+            style={{ boxSizing: "border-box" }}
         >
-            <div style={{
-                width: "100%",
-                height: 200,
-                background: "#eee url('https://via.placeholder.com/300x200?text=Foto') center/cover",
-                borderRadius: 6,
-                marginBottom: 12
-            }} />
-            <div style={{ fontWeight: 600, marginBottom: 4 }}>{op.sub_property_type}</div>
-            <div style={{ color: "#555", marginBottom: 4 }}>{op.province} - {op.city}</div>
-            <div style={{ fontWeight: 500, marginBottom: 4 }}>Precio: {op.ask_price.toLocaleString("es-ES", { style: "currency", currency: "EUR" })}</div>
-            <div style={{
-                color: op.squatted ? "#c00" : "#090",
-                fontWeight: 500
-            }}>
+            <div
+                className="w-full h-[200px] bg-gray-200 rounded-md mb-3 overflow-hidden"
+                style={{
+                    // backgroundImage: "url('https://via.placeholder.com/300x200')",
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                    boxSizing: "border-box"
+                }}
+            />
+            <div className="font-semibold mb-1">{op.sub_property_type}</div>
+            <div className="text-gray-600 mb-1">{op.province} - {op.city}</div>
+            <div className="font-medium mb-1">
+                Precio: {op.ask_price.toLocaleString("es-ES", { style: "currency", currency: "EUR" })}
+            </div>
+            <div className={op.squatted ? "text-red-700 font-medium" : "text-green-700 font-medium"}>
                 {op.squatted ? "Ocupado" : "Libre"}
             </div>
-        </a>
+        </div>
     )
 }

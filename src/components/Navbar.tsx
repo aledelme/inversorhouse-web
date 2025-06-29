@@ -48,10 +48,10 @@ export default function Navbar() {
     </ul>
     <div className="sm:hidden flex items-center gap-2">
       <a
-        href="/faqs"
+        href="/oportunidades"
         className="bg-white text-primary px-4 py-2 rounded-full text-sm border border-primary"
       >
-        FAQs
+        Oportunidades
       </a>
       {/* <a
         href="/login"
