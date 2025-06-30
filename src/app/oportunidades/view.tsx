@@ -33,18 +33,18 @@ export default function OpportunitiesView({ opportunities }: { opportunities: IO
     const handleOverlayClick = () => setFiltersOpen(false);
 
     return (
-        <div className="flex min-h-screen relative">
-            {/* Overlay para cerrar filtros en mobile */}
+        <div className="flex min-h-screen relative bg-gray-400">
+            {/* Overlay para cerrar filtros en mobile/tablet */}
             {filtersOpen && (
                 <div
-                    className="fixed inset-0 bg-black/25 z-[1100] block md:hidden"
+                    className="fixed inset-0 bg-black/25 z-[1100] block lg:hidden"
                     onClick={handleOverlayClick}
                 />
             )}
-            {/* Botón para abrir filtros en mobile y sticky en ambos modos */}
+            {/* Botón para abrir filtros en mobile/tablet y sticky en desktop */}
             <button
                 onClick={() => setFiltersOpen(true)}
-                className="fixed md:sticky md:top-[72px] top-[70px] left-4 z-[1200] bg-white border border-gray-200 rounded-md px-5 py-2 shadow font-semibold text-base cursor-pointer block md:hidden"
+                className="fixed lg:sticky lg:top-[72px] top-[70px] left-4 z-[1200] bg-white border border-gray-200 rounded-md px-5 py-2 shadow font-semibold text-base cursor-pointer block lg:hidden"
                 type="button"
             >
                 ☰ Filtros
@@ -53,19 +53,19 @@ export default function OpportunitiesView({ opportunities }: { opportunities: IO
             <aside
                 className={`bg-[#fafbfc] border-r border-gray-200 p-6 box-border transition-transform duration-300 z-[1201]
                     w-[85vw] max-w-[400px] fixed top-0 left-0 h-screen
-                    md:w-[350px] md:max-w-none md:sticky md:top-[56px] md:h-[calc(100vh-56px)] md:translate-x-0
+                    lg:w-[350px] lg:max-w-none lg:sticky lg:top-[56px] lg:h-[calc(100vh-56px)] lg:translate-x-0
                     ${filtersOpen ? "translate-x-0" : "-translate-x-full"}
-                    md:block`}
+                    lg:block`}
                 onClick={e => e.stopPropagation()}
                 tabIndex={-1}
             >
-                {/* Botón cerrar solo en mobile y sticky */}
+                {/* Botón cerrar solo en mobile/tablet y sticky */}
                 <button
                     onClick={e => {
                         e.stopPropagation();
                         setFiltersOpen(false);
                     }}
-                    className="absolute top-4 right-4 bg-white border border-gray-200 rounded-full w-9 h-9 text-2xl cursor-pointer shadow flex items-center justify-center block md:hidden"
+                    className="absolute top-4 right-4 bg-white border border-gray-200 rounded-full w-9 h-9 text-2xl cursor-pointer shadow flex items-center justify-center block lg:hidden"
                     aria-label="Cerrar filtros"
                     type="button"
                 >
@@ -107,7 +107,9 @@ export default function OpportunitiesView({ opportunities }: { opportunities: IO
                         grid gap-6
                         grid-cols-1
                         sm:grid-cols-1
-                        md:grid-cols-[repeat(auto-fit,minmax(290px,1fr))]
+                        md:grid-cols-2
+                        lg::grid-cols-2
+                        xl:grid-cols-3
                         w-full
                         max-w-full
                         overflow-x-hidden

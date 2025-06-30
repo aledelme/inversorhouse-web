@@ -13,9 +13,9 @@ const OpportunitySchema = new Schema({
   zip_code: { type: String, required: true },
   ref_code: { type: String, required: true },
   ask_price: { type: Number, required: true },
-  squatted: { type: Boolean, default: false },
-  min_idealista: { type: Number, default: null },
-  max_idealista: { type: Number, default: null }
+  squatted: { type: Boolean, required: true },
+  min_idealista: { type: Number, required: true },
+  max_idealista: { type: Number, required: true }
 });
 
 
