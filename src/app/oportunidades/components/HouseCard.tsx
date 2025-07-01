@@ -3,6 +3,7 @@
 import { IOpportunity } from "@/services/models/Opportunity"
 import { capitalizeWords } from "@/utils/functions";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HouseCard({ op }: { op: IOpportunity }) {
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
@@ -14,7 +15,11 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
             className="flex flex-col w-full max-w-full border border-gray-200 rounded-2xl p-0 bg-white text-inherit no-underline shadow-md overflow-hidden transition-shadow hover:shadow-lg"
             style={{ boxSizing: "border-box" }}
         >
-            <div
+            <Image
+                alt={`Imagen de la propiedad en ${op.city}`}
+                src={`/houses/${op._id}.png`}
+                width={600}
+                height={360}
                 className="w-full h-64 bg-gray-200 rounded-t-2xl overflow-hidden"
                 style={{
                     backgroundImage: "url('https://placehold.co/600x360?text=Inversor%20House')",
