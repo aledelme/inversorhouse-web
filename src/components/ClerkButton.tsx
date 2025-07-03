@@ -3,8 +3,9 @@ export default function ClerkButton() {
     return (
         <div>
             <SignedOut>
-                <SignInButton mode="modal" />
+                <SignInButton mode="modal">Acceso</SignInButton>
             </SignedOut>
+
             <SignedIn>
                 <UserButton showName />
             </SignedIn>

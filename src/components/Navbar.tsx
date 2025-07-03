@@ -1,9 +1,9 @@
 
 import Link from "next/link";
-// import ClerkButton from "./ClerkButton";
+import ClerkButton from "./ClerkButton";
 
 export default function Navbar() {
-  return <nav className="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
+  return <nav className="mx-auto flex items-center justify-between px-4 py-3 bg-white shadow-md">
     <div className="flex items-center gap-2">
       <Link href="/" className="flex items-center gap-2">
         <span className="text-xl font-bold text-primary tracking-tight">
@@ -13,53 +13,53 @@ export default function Navbar() {
     </div>
     <ul className="hidden sm:flex items-center gap-6 text-base font-medium">
       <li>
-        <a
+        <Link
           href="/oportunidades"
           className="hover:text-primary transition"
         >
           Oportunidades
-        </a>
+        </Link>
       </li>
       {/* <li>
-        <a
+        <Link
           href="#conocenos"
           className="hover:text-primary transition"
         >
           Conócenos
-        </a>
+        </Link>
       </li> */}
       <li>
-        <a
+        <Link
           href="/faqs"
           className="hover:text-primary transition"
         >
           FAQs
-        </a>
+        </Link>
       </li>
       <li>
-        {/* <a
+        {/* <Link
           href="/login"
           className="bg-primary text-white px-4 py-2 rounded-full hover:bg-secondary transition"
         >
           Acceder2
-        </a> */}
-        {/* <ClerkButton /> */}
+        </Link> */}
+        <ClerkButton />
       </li>
     </ul>
     <div className="sm:hidden flex items-center gap-2">
-      <a
+      <Link
         href="/oportunidades"
         className="bg-white text-primary px-4 py-2 rounded-full text-sm border border-primary"
       >
         Oportunidades
-      </a>
-      {/* <a
+      </Link>
+      {/* <Link
         href="/login"
         className="bg-primary text-white px-4 py-2 rounded-full text-sm"
       >
         Acceder1
-      </a> */}
-      {/* <ClerkButton /> */}
+      </Link> */}
+      <ClerkButton />
     </div>
   </nav>
 
