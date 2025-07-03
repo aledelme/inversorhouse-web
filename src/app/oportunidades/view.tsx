@@ -65,11 +65,11 @@ export default function OpportunitiesView({ opportunities }: { opportunities: IO
                         e.stopPropagation();
                         setFiltersOpen(false);
                     }}
-                    className="absolute top-4 right-4 bg-white border border-gray-200 rounded-full w-9 h-9 text-2xl cursor-pointer shadow flex items-center justify-center block lg:hidden"
+                    className="absolute top-4 right-4 bg-white border border-gray-200 rounded-full w-9 h-9 text-2xl cursor-pointer shadow flex items-center justify-center lg:hidden"
                     aria-label="Cerrar filtros"
                     type="button"
                 >
-                    ×
+                    x
                 </button>
                 <FilterSelect
                     label="Provincia"

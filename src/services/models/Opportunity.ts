@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 const OpportunitySchema = new Schema({
-  _id: { type: Number, required: true },
+  _id: { type: String, required: true },
   procedure_type: { type: String, required: true },
   property_type: { type: String, required: true },
   sub_property_type: { type: String, required: true },
@@ -21,7 +21,7 @@ const OpportunitySchema = new Schema({
 
 export type IOpportunity = mongoose.InferSchemaType<typeof OpportunitySchema>;
 
-export type IOpportunityDocument = IOpportunity & Document;
+type IOpportunityDocument = Document<string, IOpportunity>;
 
 const Opportunity: Model<IOpportunityDocument> = mongoose.models.Opportunity || mongoose.model<IOpportunityDocument>('Opportunity', OpportunitySchema);
 
