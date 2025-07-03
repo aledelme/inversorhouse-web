@@ -46,3 +46,4 @@ next-env.d.ts
 # Excel files
 Valoraciones.xlsx
 populate-db.js
+.clerk
