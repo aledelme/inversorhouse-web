@@ -59,7 +59,7 @@ export default function Navbar() {
       >
         Acceder1
       </Link> */}
-      <ClerkButton />
+      {/* <ClerkButton /> */}
     </div>
   </nav>
 

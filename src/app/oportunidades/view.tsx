@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 
 import HouseCard from "./components/HouseCard";
 import FilterSelect from "./components/FilterSelect";
-import { IOpportunity } from "@/services/models/Opportunity";
+import { IOpportunity } from "@/lib/models/Opportunity";
 
 function getUnique<T>(arr: T[], key: keyof T): string[] {
     return Array.from(new Set(arr.map(item => String(item[key]))));

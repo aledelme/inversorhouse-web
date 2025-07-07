@@ -1,6 +1,6 @@
 'use client'
 
-import { IOpportunity } from "@/services/models/Opportunity"
+import { IOpportunity } from "@/lib/models/Opportunity"
 import { capitalizeWords } from "@/utils/functions";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,19 +15,23 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
             className="flex flex-col w-full max-w-full border border-gray-200 rounded-2xl p-0 bg-white text-inherit no-underline shadow-md overflow-hidden transition-shadow hover:shadow-lg"
             style={{ boxSizing: "border-box" }}
         >
-            <Image
-                alt={`Imagen de la propiedad en ${op.city}`}
-                src={`/houses/${op._id}.png`}
-                width={600}
-                height={360}
-                className="w-full h-64 bg-gray-200 rounded-t-2xl overflow-hidden"
-                style={{
-                    backgroundImage: "url('https://placehold.co/600x360?text=Inversor%20House')",
-                    backgroundPosition: "center",
-                    backgroundSize: "cover",
-                    boxSizing: "border-box"
-                }}
-            />
+            <div>
+                <Link href={`/oportunidades/${op._id}`}>
+                    <Image
+                        alt={`Imagen de la propiedad en ${op.city}`}
+                        src={`/houses/${op._id}.png`}
+                        width={600}
+                        height={360}
+                        className="w-full h-64 bg-gray-200 rounded-t-2xl overflow-hidden"
+                        style={{
+                            backgroundImage: "url('https://placehold.co/600x360?text=Inversor%20House')",
+                            backgroundPosition: "center",
+                            backgroundSize: "cover",
+                            boxSizing: "border-box"
+                        }}
+                    />
+                </Link>
+            </div>
             <div className="flex-1 flex flex-col p-4">
                 <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{capitalizeWords(op.city)}</span> - {op.sub_property_type} </div>
                 <div className="text-gray-500 mb-1 text-sm">{op.state}, {op.province}</div>
