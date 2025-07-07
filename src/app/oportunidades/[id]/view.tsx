@@ -32,14 +32,14 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
     }
 
     return (
-        <div className="max-w-3xl mx-auto p-4">
+        <div className="max-w-4xl mx-auto px-6 py-8">
             <div className="mb-6">
                 <Image
                     alt={`Imagen de la propiedad en ${op.city}`}
                     src={`/houses/${op._id}.png`}
                     width={800}
                     height={480}
-                    className="w-full h-100 object-cover rounded-2xl bg-gray-200"
+                    className="w-full aspect-[4/3] object-cover rounded-2xl bg-gray-200"
                     style={{
                         backgroundImage: "url('https://placehold.co/800x480?text=Inversor%20House')",
                         backgroundPosition: "center",
@@ -61,7 +61,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                 Rentabilidad estimada: <span className="font-bold text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
             </div>
             {/* Botones de acción */}
-            <div className="flex flex-row gap-4 mb-4">
+            <div className="flex flex-row flex-wrap gap-4 mb-4">
                 <InvestButton
                     onClick={() => handleAction("ofertar")}
                     text="Ofertar"
@@ -134,7 +134,7 @@ function InvestButton({ onClick, text, tooltip }: InvestButtonProps) {
 function Modal({ children, onClose }: { children: React.ReactNode, onClose: () => void }) {
     return (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 min-w-sm max-w-1/2 relative">
+            <div className="bg-white rounded-lg p-6 min-w-sm max-w-2/3 relative">
                 <button className="absolute top-2 right-2 text-gray-500" onClick={onClose}>✕</button>
                 {children}
             </div>
@@ -176,7 +176,7 @@ function InvestmentForm({
 
     return (
         <form className="flex flex-col gap-4" action={formAction}>
-            <h2 className="text-xl font-bold mb-2">{type === "ofertar" ? "Ofertar" : "Coinvertir"} en {op.city}</h2>
+            <h2 className="font-bold mb-2">{type === "ofertar" ? "Ofertar" : "Coinvertir"} en {op.city}</h2>
             {type === "coinvertir" && (
                 <div>
                     <p>Al coinvertir, participas en una inversión conjunta con otros inversores. Las participaciones y rendimientos se repartirán en función de las cuantias aportadas (min 5000€).</p>
@@ -190,12 +190,12 @@ function InvestmentForm({
                     <p>Te enviaremos un correo electrónico para confirmar tu oferta y uno de nuestros agentes se pondrá en contacto contigo para completar la documentación.</p>
                 </div>
             )}
-            <label>
+            <label className="w-2/3">
                 Teléfono:
                 <input name="phone" type="tel" className="border rounded px-2 py-1 w-full" required />
             </label>
             {type === "coinvertir" && (
-                <label>
+                <label className="w-2/3">
                     Cantidad a invertir (€):
                     <input name="amount" type="number" min={5000} className="border rounded px-2 py-1 w-full" required />
                 </label>

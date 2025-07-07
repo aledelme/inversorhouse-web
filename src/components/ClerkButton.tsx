@@ -1,16 +1,21 @@
 'use client';
+import { useIsMobile } from "@/hooks/useIsMobile";
 // import { DashboardIcon } from "@/components/icons/Dashboard";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { UserIcon } from "./icons/User";
+
 // import { PhoneIcon } from "./icons/Phone";
 export default function ClerkButton() {
+    const isMobile = useIsMobile();
+
     return (
         <div>
             <SignedOut>
-                <SignInButton mode="modal">Acceso</SignInButton>
+                <SignInButton mode="modal">{isMobile ? <UserIcon width={"1.8rem"} height={"1.8rem"} /> : "Acceso"}</SignInButton>
             </SignedOut>
 
             <SignedIn>
-                <UserButton showName >
+                <UserButton showName={!isMobile}>
                     {/* <UserButton.MenuItems>
                         <UserButton.Link labelIcon={<DashboardIcon />} label="Dashboard" href="/dashboard" />
                     </UserButton.MenuItems> */}

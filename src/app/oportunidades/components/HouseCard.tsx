@@ -22,7 +22,7 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
                         src={`/houses/${op._id}.png`}
                         width={600}
                         height={360}
-                        className="w-full h-64 bg-gray-200 rounded-t-2xl overflow-hidden"
+                        className="w-full aspect-[4/3] bg-gray-200 rounded-t-2xl overflow-hidden"
                         style={{
                             backgroundImage: "url('https://placehold.co/600x360?text=Inversor%20House')",
                             backgroundPosition: "center",

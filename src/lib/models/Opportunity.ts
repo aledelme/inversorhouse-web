@@ -15,7 +15,8 @@ const OpportunitySchema = new Schema({
   ask_price: { type: Number, required: true },
   squatted: { type: Boolean, required: true },
   min_idealista: { type: Number, required: true },
-  max_idealista: { type: Number, required: true }
+  max_idealista: { type: Number, required: true },
+  starred: { type: Boolean, default: false },
 });
 
 
