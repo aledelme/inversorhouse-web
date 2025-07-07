@@ -1,9 +1,9 @@
 
 import Link from "next/link";
-// import ClerkButton from "./ClerkButton";
+import ClerkButton from "./ClerkButton";
 
 export default function Navbar() {
-  return <nav className="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
+  return <nav className="mx-auto flex items-center justify-between px-4 py-3 bg-white shadow-md">
     <div className="flex items-center gap-2">
       <Link href="/" className="flex items-center gap-2">
         <span className="text-xl font-bold text-primary tracking-tight">
@@ -43,7 +43,7 @@ export default function Navbar() {
         >
           Acceder2
         </Link> */}
-        {/* <ClerkButton /> */}
+        <ClerkButton />
       </li>
     </ul>
     <div className="sm:hidden flex items-center gap-2">

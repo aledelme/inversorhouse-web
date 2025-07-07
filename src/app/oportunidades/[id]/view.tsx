@@ -1,12 +1,35 @@
 'use client'
-import { IOpportunity } from "@/services/models/Opportunity";
+import { QuestionCircleIcon } from "@/components/icons/QuestionCircle";
+import { IOpportunity } from "@/lib/models/Opportunity";
+import { sendCoinvestment, sendOffer } from "../../../lib/actions";
 import { capitalizeWords } from "@/utils/functions";
+import { SignedOut, SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { useActionState } from "react";
+import React from "react";
 
 export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
+    const { isSignedIn } = useUser();
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalType, setModalType] = useState<"ofertar" | "coinvertir" | null>(null);
+    const [confirmationMsg, setConfirmationMsg] = useState<string | null>(null);
+
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
+
+    function handleAction(type: "ofertar" | "coinvertir") {
+        if (isSignedIn) {
+            setModalType(type);
+            setModalOpen(true);
+        }
+    }
+
+    function handleFormResult(result: { ok: boolean; message: string }) {
+        setModalOpen(false);
+        setConfirmationMsg(result.message);
+    }
 
     return (
         <div className="max-w-3xl mx-auto p-4">
@@ -37,10 +60,155 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
             <div className="mb-4">
                 Rentabilidad estimada: <span className="font-bold text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
             </div>
+            {/* Botones de acción */}
+            <div className="flex flex-row gap-4 mb-4">
+                <InvestButton
+                    onClick={() => handleAction("ofertar")}
+                    text="Ofertar"
+                    tooltip="Haz una oferta para comprar la propiedad"
+                />
+                <InvestButton
+                    onClick={() => handleAction("coinvertir")}
+                    text="Coinvertir"
+                    tooltip="Invierte junto a otros inversores"
+                />
+                <SignedOut>
+                    <SignInButton mode="modal">Accede para participar</SignInButton>
+                </SignedOut>
+                <div>
+                    {confirmationMsg && (
+                        <span className={`text-sm ${confirmationMsg.startsWith("¡Gracias") ? "text-green-700" : "text-red-700"}`}>
+                            {confirmationMsg}
+                        </span>
+                    )}
+                </div>
+            </div>
+            {/* Modal */}
+            {modalOpen && (
+                <Modal onClose={() => setModalOpen(false)}>
+                    <InvestmentForm
+                        type={modalType!}
+                        op={op}
+                        onClose={() => setModalOpen(false)}
+                        onResult={handleFormResult}
+                    />
+                </Modal>
+            )}
             {/* Puedes agregar más detalles aquí según los campos de IOpportunity */}
             <div className="mt-8">
                 <Link href="/oportunidades" className="text-primary underline">← Volver a oportunidades</Link>
             </div>
         </div>
+    );
+}
+
+type InvestButtonProps = {
+    onClick: () => void;
+    text: string;
+    tooltip: string;
+};
+
+function InvestButton({ onClick, text, tooltip }: InvestButtonProps) {
+    const { isLoaded, isSignedIn } = useAuth();
+    if (!isLoaded) return null; // Espera a que la autenticación esté cargada
+
+    return (<div className="flex items-center gap-2">
+        <button
+            className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn}
+            onClick={onClick}
+            type="button"
+        >
+            {text}
+        </button>
+        <div className="relative group flex items-center">
+            <QuestionCircleIcon className="w-8 h-8 " />
+            <span className="absolute left-1/2 -translate-x-1/2 -top-9 w-max px-2 py-1 rounded bg-gray-800 text-white text-xs opacity-0 group-hover:opacity-100 transition pointer-events-none z-10">
+                {tooltip}
+            </span>
+        </div>
+    </div>);
+}
+
+
+// Modal genérico
+function Modal({ children, onClose }: { children: React.ReactNode, onClose: () => void }) {
+    return (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 min-w-sm max-w-1/2 relative">
+                <button className="absolute top-2 right-2 text-gray-500" onClick={onClose}>✕</button>
+                {children}
+            </div>
+        </div>
+    );
+}
+
+// Formulario de inversión
+function InvestmentForm({
+    type,
+    op,
+    onClose,
+    onResult
+}: {
+    type: "ofertar" | "coinvertir",
+    op: IOpportunity,
+    onClose: () => void,
+    onResult: (result: { ok: boolean; message: string }) => void
+}) {
+    // Cambia el estado a useActionState y bindea op a la acción
+    const [state, formAction, isPending] = useActionState(
+        async (prevState, formData: FormData) => {
+            if (type === "ofertar") {
+                return await sendOffer(op, formData);
+            } else {
+                return await sendCoinvestment(op, formData);
+            }
+        },
+        { ok: false, message: "" }
+    );
+
+    // Cuando el resultado cambia y es exitoso o error, llama a onResult
+    React.useEffect(() => {
+        if (state.message) {
+            onResult(state);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state.message]);
+
+    return (
+        <form className="flex flex-col gap-4" action={formAction}>
+            <h2 className="text-xl font-bold mb-2">{type === "ofertar" ? "Ofertar" : "Coinvertir"} en {op.city}</h2>
+            {type === "coinvertir" && (
+                <div>
+                    <p>Al coinvertir, participas en una inversión conjunta con otros inversores. Las participaciones y rendimientos se repartirán en función de las cuantias aportadas (min 5000€).</p>
+                    <p>Al registrarte te enviaremos un correo electrónico para confirmar tu participación y uno de nuestros agentes se pondrá en contacto contigo.</p>
+                </div>
+            )}
+
+            {type === "ofertar" && (
+                <div>
+                    <p>Al ofertar, estás haciendo una propuesta para comprar la propiedad.</p>
+                    <p>Te enviaremos un correo electrónico para confirmar tu oferta y uno de nuestros agentes se pondrá en contacto contigo para completar la documentación.</p>
+                </div>
+            )}
+            <label>
+                Teléfono:
+                <input name="phone" type="tel" className="border rounded px-2 py-1 w-full" required />
+            </label>
+            {type === "coinvertir" && (
+                <label>
+                    Cantidad a invertir (€):
+                    <input name="amount" type="number" min={5000} className="border rounded px-2 py-1 w-full" required />
+                </label>
+            )}
+            <label className="flex items-center gap-2">
+                <input name="terms" type="checkbox" required /> Acepto los <a href="/terminos" className="underline text-primary" target="_blank">términos y condiciones</a>
+            </label>
+            <div className="flex gap-2 mt-2">
+                <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded" disabled={isPending}>
+                    {isPending ? "Enviando..." : (type === "ofertar" ? "Ofertar" : "Coinvertir")}
+                </button>
+                <button type="button" className="text-gray-600 underline" onClick={onClose}>Cancelar</button>
+            </div>
+        </form>
     );
 }

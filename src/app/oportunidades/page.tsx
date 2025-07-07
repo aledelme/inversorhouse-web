@@ -1,7 +1,7 @@
 
-import { getOpportunities } from "@/services/opportunities";
+import { getOpportunities } from "@/lib/opportunities";
 import OpportunitiesView from "./view";
-import { IOpportunity } from "@/services/models/Opportunity";
+import { IOpportunity } from "@/lib/models/Opportunity";
 
 export default async function Page() {
     const opportunities: IOpportunity[] = await getOpportunities();

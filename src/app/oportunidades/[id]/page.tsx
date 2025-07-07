@@ -1,5 +1,5 @@
-import { IOpportunity } from "@/services/models/Opportunity";
-import { getOpportunities } from "@/services/opportunities";
+import { IOpportunity } from "@/lib/models/Opportunity";
+import { getOpportunities } from "@/lib/opportunities";
 import OpportunityDetailView from "./view";
 
 
