@@ -6,7 +6,7 @@ import { capitalizeWords } from "@/utils/functions";
 import { SignedOut, SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useActionState } from "react";
 import React from "react";
 
@@ -31,6 +31,15 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
         setConfirmationMsg(result.message);
     }
 
+    const [pdfExists, setPdfExists] = useState(false);
+
+    useEffect(() => {
+        // Intenta hacer un HEAD request al PDF
+        fetch(`/dossiers/${op._id}.pdf`, { method: "HEAD" })
+            .then(res => setPdfExists(res.ok))
+            .catch(() => setPdfExists(false));
+    }, [op._id]);
+
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
             <div className="mb-6">
@@ -47,15 +56,33 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                     }}
                 />
             </div>
-            <h1 className="text-3xl font-bold mb-2">{capitalizeWords(op.city)} - {op.sub_property_type}</h1>
-            <div className="text-gray-500 mb-2">{op.state}, {op.province}</div>
+            <div className="flex flex-row justify-between items-start flex-wrap">
+                <div>
+                    <h1 className="text-3xl">{capitalizeWords(op.city)} - {op.sub_property_type}</h1>
+                    <div className="text-gray-500 mb-4">{op.state}, {op.province}</div>
+                </div>
+                {pdfExists && (
+                    <Link href={`/dossiers/${op._id}.pdf`} target="_blank" className="text-blue-500 underline text-xl align-text-top mb-4">
+                        📑 Descargar valoración
+                    </Link>
+                )}
+            </div>
             <div className="font-semibold text-primary text-2xl mb-4">
-                {op.ask_price.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                Precio de venta fondo: {op.ask_price.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+            </div>
+            <div className="font-semibold text-primary text-2xl mb-4">
+                Precio de mercado: {op.min_idealista.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })} - {op.max_idealista.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+            </div>
+            <div className="font-semibold text-primary text-2xl mb-4">
+                Referencia catastral: {op.ref_code}
             </div>
             <div className="mb-2">
                 Ocupación: <span className={op.squatted ? "text-red-700 font-medium" : "text-green-700 font-medium"}>
                     {op.squatted ? "Ocupado" : "Libre"}
                 </span>
+            </div>
+            <div className="mb-2">
+                Situación judicial: <span className="font-medium">REO</span>
             </div>
             <div className="mb-4">
                 Rentabilidad estimada: <span className="font-bold text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
@@ -72,6 +99,11 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                     text="Coinvertir"
                     tooltip="Invierte junto a otros inversores"
                 />
+                <InvestButton
+                    onClick={() => handleAction("coinvertir")}
+                    text="Gestionar"
+                    tooltip="Gestiona la operación de coinversión y lleváte un 20-40% de comisión"
+                />
                 <SignedOut>
                     <SignInButton mode="modal">Accede para participar</SignInButton>
                 </SignedOut>
@@ -84,21 +116,23 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                 </div>
             </div>
             {/* Modal */}
-            {modalOpen && (
-                <Modal onClose={() => setModalOpen(false)}>
-                    <InvestmentForm
-                        type={modalType!}
-                        op={op}
-                        onClose={() => setModalOpen(false)}
-                        onResult={handleFormResult}
-                    />
-                </Modal>
-            )}
+            {
+                modalOpen && (
+                    <Modal onClose={() => setModalOpen(false)}>
+                        <InvestmentForm
+                            type={modalType!}
+                            op={op}
+                            onClose={() => setModalOpen(false)}
+                            onResult={handleFormResult}
+                        />
+                    </Modal>
+                )
+            }
             {/* Puedes agregar más detalles aquí según los campos de IOpportunity */}
             <div className="mt-8">
                 <Link href="/oportunidades" className="text-primary underline">← Volver a oportunidades</Link>
             </div>
-        </div>
+        </div >
     );
 }
 
@@ -195,10 +229,15 @@ function InvestmentForm({
                 <input name="phone" type="tel" className="border rounded px-2 py-1 w-full" required />
             </label>
             {type === "coinvertir" && (
-                <label className="w-2/3">
-                    Cantidad a invertir (€):
-                    <input name="amount" type="number" min={5000} className="border rounded px-2 py-1 w-full" required />
-                </label>
+                <div className="flex flex-col gap-3">
+                    <label className="w-2/3">
+                        Cantidad a invertir (€):
+                        <input name="amount" type="number" min={5000} className="border rounded px-2 py-1 w-full" required />
+                    </label>
+                    <label className="flex items-center gap-2">
+                        <input name="terms" type="checkbox" required />Gestionar esta operacion - Los gestores pueden llegar a conseguir entre un 20% y un 40% de comisión por operación.
+                    </label>
+                </div>
             )}
             <label className="flex items-center gap-2">
                 <input name="terms" type="checkbox" required /> Acepto los <a href="/terminos" className="underline text-primary" target="_blank">términos y condiciones</a>

@@ -18,13 +18,13 @@ export async function sendOffer(op: IOpportunity, formData: FormData) {
         return { ok: false, message: "Datos de oferta incompletos" };
 
 
-    const { firstName, primaryEmailAddress } = await currentUser();
+    const { firstName, lastName, primaryEmailAddress } = await currentUser();
     const email = primaryEmailAddress.emailAddress
     await sendEmail({
         to: email,
         subject: `Has ofertado por ${op.property_type} en ${op.city}`,
         html: `
-            <p>Hola ${firstName}</p>
+            <p>Hola ${firstName} ${lastName}</p>
             <p>Gracias por ofertar por ${op.property_type} en ${op.city}.</p>
             <p>La dirección del inmueble es: ${op.address}.</p>
             <p>En breve nos pondremos en contacto contigo a través del teléfono que nos has facilitado <b>${offerData.phone}</b> para discutir los detalles de tu oferta.</p>
@@ -51,13 +51,13 @@ export async function sendCoinvestment(op: IOpportunity, formData: FormData) {
         return { ok: false, message: "Datos de coinversión incompletos" };
     }
 
-    const { firstName, primaryEmailAddress } = await currentUser();
+    const { firstName, lastName, primaryEmailAddress } = await currentUser();
     const email = primaryEmailAddress.emailAddress
     await sendEmail({
         to: email,
         subject: `Te has apuntado a coinvertir en ${op.property_type} en ${op.city}`,
         html: `
-            <p>Hola ${firstName}</p>
+            <p>Hola ${firstName} ${lastName}</p>
             <p>Gracias por apuntarte a coinvertir en ${op.property_type} en ${op.city} con una partición de <b>${investmentData.amount} €</b>.</p>
             <p>La dirección del inmueble es: ${op.address}.</p>
             <p>En breve nos pondremos en contacto contigo a través del teléfono que nos has facilitado <b>${investmentData.phone}</b> para discutir los detalles de tu inversión.</p>

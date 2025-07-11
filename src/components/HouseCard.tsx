@@ -35,12 +35,16 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
             <div className="flex-1 flex flex-col p-4">
                 <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{capitalizeWords(op.city)}</span> - {op.sub_property_type} </div>
                 <div className="text-gray-500 mb-1 text-sm">{op.state}, {op.province}</div>
-                <div className="font-semibold mb-2 text-primary text-lg">
-                    {op.ask_price.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
+                    Precio de venta fondo: {op.ask_price.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                </div>
+                <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
+                    Precio de mercado: {op.min_idealista.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })} - {op.max_idealista.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                 </div>
                 <div className="mb-3">Ocupación: <span className={op.squatted ? "text-red-700 font-medium" : "text-green-700 font-medium"}>
                     {op.squatted ? "Ocupado" : "Libre"}
                 </span> </div>
+                <div className="mb-3">Situación judicial: <span className="font-medium">REO</span></div>
                 <div className="flex items-center gap-2 mb-2">
                     <span className="inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-sm shadow-sm border border-green-200">
                         <span className="text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span> estimada

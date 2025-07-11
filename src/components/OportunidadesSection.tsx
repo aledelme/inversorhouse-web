@@ -1,5 +1,5 @@
 
-import HouseCard from "@/app/oportunidades/components/HouseCard";
+import HouseCard from "@/components/HouseCard";
 import { IOpportunity } from "@/lib/models/Opportunity";
 
 export default async function OportunidadesSection({ oportunidades }: { oportunidades: IOpportunity[] }) {

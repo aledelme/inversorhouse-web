@@ -1,7 +1,7 @@
 'use client';
 import { useMemo, useState } from "react";
 
-import HouseCard from "./components/HouseCard";
+import HouseCard from "../../components/HouseCard";
 import FilterSelect from "./components/FilterSelect";
 import { IOpportunity } from "@/lib/models/Opportunity";
 
