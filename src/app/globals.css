@@ -2,8 +2,8 @@
 
 :root {
   --background: #d9dce1; /* Gris claro para fondos */
-  --foreground: #0e4465; /* Color principal para textos */
-  --primary: #0e4465; /* Color principal */
+  --foreground: #3e5479; /* Color principal para textos */
+  --primary: #3e5479; /* Color principal */
   --secondary: #506b9f; /* Azul acero para botones/detalles activos */
   --surface: #fff; /* Blanco para tarjetas/superficies */
   --surface-border: #cfd4df; /* Borde más suave, derivado del gris claro */
@@ -17,10 +17,12 @@ body {
   color: var(--foreground);
 }
 
-body {
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  min-height: 100vh;
-  transition: background 0.2s, color 0.2s;
+/* Párrafos usan Arimo */
+body,
+p {
+  font-family: var(--font-arimo), Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  color: var(--foreground);
 }
 
 /* Utilidades de color y fondo */
@@ -52,7 +54,6 @@ body {
 .navbar {
   background: var(--surface) !important;
   color: var(--foreground) !important;
-  /* border-radius: 1rem; */
   box-shadow: var(--shadow);
   border: 1px solid var(--surface-border);
 }
@@ -144,7 +145,7 @@ h4,
 h5,
 h6 {
   color: var(--primary);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-poly), serif;
   font-weight: 700;
   margin-bottom: 0.5em;
 }

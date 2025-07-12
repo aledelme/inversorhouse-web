@@ -1,14 +1,17 @@
 
 import Link from "next/link";
 import ClerkButton from "./ClerkButton";
+import Image from "next/image";
 
 export default function Navbar() {
-  return <nav className="mx-auto flex items-center justify-between px-4 py-3 bg-white shadow-md">
+  return <nav className="mx-auto flex items-center justify-between px-4 py-3 bg-[#dfdfda] shadow-md">
     <div className="flex items-center gap-2">
-      <Link href="/" className="flex items-center gap-2">
-        <span className="text-xl font-bold text-primary tracking-tight">
+      <Link href="/" className="flex items-center border-0 bg-[#dfdfda]">
+        {/* <span className="text-xl font-bold text-primary tracking-tight">
           🏠 Inversor House
-        </span>
+        </span> */}
+        <Image src="/icon.png" alt="Inversor House" width={30} height={30} className="scale-150" />
+        <Image src="/logo-title.png" alt="Inversor House" width={150} height={30} />
       </Link>
     </div>
     <ul className="hidden sm:flex items-center gap-6 text-base font-medium">

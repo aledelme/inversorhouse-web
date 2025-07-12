@@ -3,19 +3,20 @@ import {
   ClerkProvider,
 } from '@clerk/nextjs'
 import { esES } from '@clerk/localizations'
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poly, Arimo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poly = Poly({
+  variable: "--font-poly",
   subsets: ["latin"],
+  weight: "400"
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const arimo = Arimo({
+  variable: "--font-arimo",
   subsets: ["latin"],
 });
 
@@ -34,7 +35,7 @@ export default function RootLayout({
     <ClerkProvider localization={esES} >
       <html lang="es">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${poly.variable} ${arimo.variable} antialiased`}
         >
           <header className="w-full bg-white shadow-sm fixed top-0 left-0 z-20">
             <Navbar />

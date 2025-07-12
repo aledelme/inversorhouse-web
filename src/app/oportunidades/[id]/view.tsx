@@ -63,7 +63,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                 </div>
                 {pdfExists && (
                     <Link href={`/dossiers/${op._id}.pdf`} target="_blank" className="text-blue-500 underline text-xl align-text-top mb-4">
-                        📑 Descargar valoración
+                        📑 Descargar dossier de la propiedad
                     </Link>
                 )}
             </div>
