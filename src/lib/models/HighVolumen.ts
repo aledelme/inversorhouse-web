@@ -1,0 +1,17 @@
+export type IHighVolumen = {
+    _id: string,
+    procedure_type: string,
+    property_type: string,
+    typology: string,
+    state: string,
+    province: string,
+    city: string,
+    address: string,
+    zip_code: string,
+    ref_code: string,
+    ask_price: number,
+    numberOfAssets: number,
+    min_idealista: number,
+    max_idealista: number,
+    starred: boolean,
+}

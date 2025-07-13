@@ -5,6 +5,7 @@
   --foreground: #3e5479; /* Color principal para textos */
   --primary: #3e5479; /* Color principal */
   --secondary: #506b9f; /* Azul acero para botones/detalles activos */
+  --terciary: #dfdfda; /* Gris claro para bordes y detalles */
   --surface: #fff; /* Blanco para tarjetas/superficies */
   --surface-border: #cfd4df; /* Borde más suave, derivado del gris claro */
   --shadow: 0 2px 8px 0 rgb(14 68 101 / 0.04); /* Sombra sutil azulada */
@@ -32,6 +33,10 @@ p {
 }
 .bg-secondary {
   background: var(--secondary) !important;
+  color: #fff !important;
+}
+.bg-terciary {
+  background: var(--terciary) !important;
   color: #fff !important;
 }
 .text-primary {

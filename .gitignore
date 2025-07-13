@@ -45,6 +45,7 @@ next-env.d.ts
 
 # Excel files
 Valoraciones.xlsx
+ValoracionesHV.xlsx
 populate-db.js
 
 # clerk configuration (can include secrets)

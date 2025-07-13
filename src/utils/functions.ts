@@ -8,3 +8,13 @@ export function capitalizeWords(text: string): string {
         word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
     );
 }
+
+
+// Función para formatear moneda en EUR
+export const formatEUR = (value: number) =>
+    value.toLocaleString("es-ES", {
+        style: "currency",
+        currency: "EUR",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });

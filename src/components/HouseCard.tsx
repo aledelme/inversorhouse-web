@@ -1,7 +1,7 @@
 'use client'
 
 import { IOpportunity } from "@/lib/models/Opportunity"
-import { capitalizeWords } from "@/utils/functions";
+import { capitalizeWords, formatEUR } from "@/utils/functions";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -36,10 +36,10 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
                 <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{capitalizeWords(op.city)}</span> - {op.sub_property_type} </div>
                 <div className="text-gray-500 mb-1 text-sm">{op.state}, {op.province}</div>
                 <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
-                    Precio de venta fondo: {op.ask_price.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                    Precio de venta fondo: {formatEUR(op.ask_price)}
                 </div>
                 <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
-                    Precio de mercado: {op.min_idealista.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })} - {op.max_idealista.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                    Precio de mercado: {formatEUR(op.min_idealista)} - {formatEUR(op.max_idealista)}
                 </div>
                 <div className="mb-3">Ocupación: <span className={op.squatted ? "text-red-700 font-medium" : "text-green-700 font-medium"}>
                     {op.squatted ? "Ocupado" : "Libre"}
