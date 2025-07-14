@@ -7,8 +7,8 @@ export default function Navbar() {
   return <nav className="mx-auto flex items-center justify-between px-4 py-3 shadow-md bg-terciary">
     <div className="flex items-center gap-2">
       <Link href="/" className="flex items-center border-0">
-        <Image src="/icon.png" alt="Inversor House" width={30} height={30} className="scale-150" />
-        <Image src="/logo-title.png" alt="Inversor House" width={150} height={30} />
+        <Image src="/isotipo.png" alt="Inversor House" width={32} height={32} className="scale-125" />
+        <Image src="/logo-title.png" alt="Inversor House" width={200} height={32} />
       </Link>
     </div>
     <ul className="hidden sm:flex items-center gap-6 text-base font-medium">

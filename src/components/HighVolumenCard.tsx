@@ -1,7 +1,7 @@
 'use client'
 
 
-import { capitalizeWords, formatEUR } from "@/utils/functions";
+import { formatEUR } from "@/utils/functions";
 import Link from "next/link";
 import Image from "next/image";
 import { IHighVolumen } from "@/lib/models/HighVolumen";
@@ -20,7 +20,7 @@ export default function HighVolumenCard({ op }: { op: IHighVolumen }) {
                 <Link href={`/oportunidades/${op._id}`}>
                     <Image
                         alt={`Imagen de la propiedad en ${op.city}`}
-                        src={`/houses/${op._id}.png`}
+                        src={`/houses/${op._id}.jpg`}
                         width={600}
                         height={360}
                         className="w-full aspect-[4/3] bg-gray-200 rounded-t-2xl overflow-hidden"
@@ -34,7 +34,7 @@ export default function HighVolumenCard({ op }: { op: IHighVolumen }) {
                 </Link>
             </div>
             <div className="flex-1 flex flex-col p-4">
-                <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{capitalizeWords(op.city)}</span></div>
+                <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{op.city}</span></div>
                 <div className="text-gray-500 mb-1 text-sm">{op.state}, {op.province}</div>
                 <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
                     Precio de venta fondo: {formatEUR(op.ask_price)}
