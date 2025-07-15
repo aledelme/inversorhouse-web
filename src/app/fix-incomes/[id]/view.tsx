@@ -62,18 +62,39 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
             <div className="mb-6">
-                <Image
-                    alt={`Imagen de la propiedad en ${op.city}`}
-                    src={`/houses/${op._id}.jpg`}
-                    width={800}
-                    height={480}
-                    className="w-full aspect-[4/3] object-cover rounded-2xl bg-gray-200"
-                    style={{
-                        backgroundImage: "url('https://placehold.co/800x480?text=Inversor%20House')",
-                        backgroundPosition: "center",
-                        backgroundSize: "cover"
-                    }}
-                />
+                <div style={{ position: "relative" }}>
+                    {(op.status === "COMPLETED" || op.status === "IN_PROGRESS") && <div
+                        className="w-auto min-w-xl text-center"
+                        style={{
+                            position: "absolute",
+                            top: "40%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%) rotate(-25deg)",
+                            background: "green",
+                            color: "white",
+                            padding: "8px 32px",
+                            fontWeight: "bold",
+                            fontSize: "5rem",
+                            zIndex: 2,
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                            borderRadius: "8px"
+                        }}
+                    >
+                        {op.status === "COMPLETED" ? "Financiada" : "En proceso"}
+                    </div>}
+                    <Image
+                        alt={`Imagen de la propiedad en ${op.city}`}
+                        src={`/houses/${op._id}.jpg`}
+                        width={800}
+                        height={480}
+                        className="w-full aspect-[4/3] object-cover rounded-2xl bg-gray-200"
+                        style={{
+                            backgroundImage: "url('https://placehold.co/800x480?text=Inversor%20House')",
+                            backgroundPosition: "center",
+                            backgroundSize: "cover"
+                        }}
+                    />
+                </div>
             </div>
             <div className="flex flex-row justify-between items-start flex-wrap">
                 <div>
@@ -115,6 +136,7 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
                     onClick={() => handleAction()}
                     text="Contactar con la promoción para más información"
                     tooltip="Nos pondremos en contacto contigo para ofrecerte más detalles sobre esta oportunidad."
+                    op={op}
                 />
                 <SignedOut>
                     <SignInButton mode="modal">Accede para participar</SignInButton>
@@ -151,15 +173,16 @@ type InvestButtonProps = {
     onClick: () => void;
     text: string;
     tooltip: string;
+    op: IFixIncome;
 };
 
-function InvestButton({ onClick, text, tooltip }: InvestButtonProps) {
+function InvestButton({ onClick, text, tooltip, op }: InvestButtonProps) {
     const { isLoaded, isSignedIn } = useAuth();
     if (!isLoaded) return null; // Espera a que la autenticación esté cargada
 
     return (<div className="flex items-center gap-2">
         <button
-            className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn}
+            className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn || op.status !== "OPEN"}
             onClick={onClick}
             type="button"
         >

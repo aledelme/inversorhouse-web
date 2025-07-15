@@ -19,7 +19,7 @@ export default function FixIncomeCard({ op }: { op: IFixIncome }) {
             style={{ boxSizing: "border-box" }}
         >
             <div>
-                <Link href={`/fix-incomes/${op._id}`}>
+                <Link href={`/fix-incomes/${op._id}`} className={`${op.status !== "OPEN" ? "pointer-events-none opacity-50" : ""}`}>
                     <div style={{ position: "relative" }}>
                         {(op.status === "COMPLETED" || op.status === "IN_PROGRESS") && <div
                             className="w-auto min-w-xs text-center"

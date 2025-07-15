@@ -38,6 +38,14 @@ export default function Footer() {
 				<ul className="flex flex-wrap gap-4 text-sm text-foreground/70">
 					<li>
 						<a
+							href="aviso-legal"
+							className="hover:text-primary transition"
+						>
+							Aviso Legal
+						</a>
+					</li>
+					<li>
+						<a
 							href="privacidad"
 							className="hover:text-primary transition"
 						>
@@ -46,10 +54,10 @@ export default function Footer() {
 					</li>
 					<li>
 						<a
-							href="terminos"
+							href="cookies"
 							className="hover:text-primary transition"
 						>
-							Términos y Condiciones
+							Política de Cookies
 						</a>
 					</li>
 					{/* <li>
@@ -60,14 +68,6 @@ export default function Footer() {
 							Contacto
 						</a>
 					</li> */}
-					<li>
-						<a
-							href="aviso-legal"
-							className="hover:text-primary transition"
-						>
-							Aviso Legal
-						</a>
-					</li>
 					<li>
 						<a
 							href="/faqs"
