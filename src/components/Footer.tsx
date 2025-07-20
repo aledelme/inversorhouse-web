@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+
 export default function Footer() {
 	return (
 		<footer className="w-full bg-white border-t border-surface-border py-8 px-4 mt-auto">
@@ -37,28 +39,28 @@ export default function Footer() {
 				</div>
 				<ul className="flex flex-wrap gap-4 text-sm text-foreground/70">
 					<li>
-						<a
-							href="aviso-legal"
+						<Link
+							href="/aviso-legal"
 							className="hover:text-primary transition"
 						>
 							Aviso Legal
-						</a>
+						</Link>
 					</li>
 					<li>
-						<a
-							href="privacidad"
+						<Link
+							href="/privacidad"
 							className="hover:text-primary transition"
 						>
 							Política de Privacidad
-						</a>
+						</Link>
 					</li>
 					<li>
-						<a
-							href="cookies"
+						<Link
+							href="/cookies"
 							className="hover:text-primary transition"
 						>
 							Política de Cookies
-						</a>
+						</Link>
 					</li>
 					{/* <li>
 						<a
@@ -69,12 +71,12 @@ export default function Footer() {
 						</a>
 					</li> */}
 					<li>
-						<a
+						<Link
 							href="/faqs"
 							className="hover:text-primary transition"
 						>
 							Preguntas Frecuentes
-						</a>
+						</Link>
 					</li>
 				</ul>
 			</div>

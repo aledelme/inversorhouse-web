@@ -15,13 +15,8 @@ export default function HeroSection() {
             />
             <div className="relative z-10 flex flex-col items-center text-center px-4 py-16 max-w-3xl mx-auto">
                 <h1 className="text-4xl sm:text-5xl font-bold text-primary mb-4 drop-shadow-lg">
-                    Invierte en oportunidades inmobiliarias{" "}
-                    <span className="text-secondary">analizadas</span>
+                    Invierte en oportunidades inmobiliarias fuera de mercado, analizadas y gestionadas por un experto
                 </h1>
-                <p className="text-lg text-foreground/90 max-w-2xl mb-6 drop-shadow">
-                    Accede a inmuebles seleccionados por expertos, aporta desde pequeños
-                    tickets y participa en operaciones de compra, reforma y venta.
-                </p>
                 {/* <a
                     href="/login"
                     className="mt-2 bg-primary text-white px-8 py-3 rounded-full text-lg font-semibold shadow hover:bg-secondary transition"

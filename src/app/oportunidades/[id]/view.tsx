@@ -10,17 +10,20 @@ import { useEffect, useState } from "react";
 import { useActionState } from "react";
 import React from "react";
 import { Modal } from "@/components/Model";
+import ProfitCalculator from "@/components/ProfitCalculator";
+
+type InvesmentType = "ofertar" | "coinvertir" | "gestionar";
 
 export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
     const { isSignedIn } = useUser();
     const [modalOpen, setModalOpen] = useState(false);
-    const [modalType, setModalType] = useState<"ofertar" | "coinvertir" | null>(null);
+    const [modalType, setModalType] = useState<InvesmentType | null>(null);
     const [confirmationMsg, setConfirmationMsg] = useState<string | null>(null);
 
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
 
-    function handleAction(type: "ofertar" | "coinvertir") {
+    function handleAction(type: InvesmentType) {
         if (isSignedIn) {
             setModalType(type);
             setModalOpen(true);
@@ -36,10 +39,11 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
 
     useEffect(() => {
         // Intenta hacer un HEAD request al PDF
-        fetch(`/dossiers/${op._id}.pdf`, { method: "HEAD" })
+        console.log(op.file_key);
+        fetch(`/dossiers/${op.file_key}`, { method: "HEAD" })
             .then(res => setPdfExists(res.ok))
             .catch(() => setPdfExists(false));
-    }, [op._id]);
+    }, [op.file_key]);
 
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
@@ -63,7 +67,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                     <div className="text-gray-500 mb-4">{op.state}, {op.province}</div>
                 </div>
                 {pdfExists && (
-                    <Link href={`/dossiers/${op._id}.pdf`} target="_blank" className="text-blue-500 underline text-xl align-text-top mb-4">
+                    <Link href={`/dossiers/${op.file_key}`} target="_blank" className="text-blue-500 underline text-xl align-text-top mb-4">
                         📑 Descargar dossier de la propiedad
                     </Link>
                 )}
@@ -88,6 +92,11 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
             <div className="mb-4">
                 Rentabilidad estimada: <span className="font-bold text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
             </div>
+            <ProfitCalculator
+                maxInvestment={op.max_idealista}
+                minProfitPercent={minRentability}
+                maxProfitPercent={maxRentability}
+            />
             {/* Botones de acción */}
             <div className="flex flex-row flex-wrap gap-4 mb-4">
                 <InvestButton
@@ -101,7 +110,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                     tooltip="Invierte junto a otros inversores"
                 />
                 <InvestButton
-                    onClick={() => handleAction("coinvertir")}
+                    onClick={() => handleAction("gestionar")}
                     text="Gestionar"
                     tooltip="Gestiona la operación de coinversión y lleváte un 20-40% de comisión"
                 />
@@ -172,7 +181,7 @@ function InvestmentForm({
     onClose,
     onResult
 }: {
-    type: "ofertar" | "coinvertir",
+    type: InvesmentType,
     op: IOpportunity,
     onClose: () => void,
     onResult: (result: { ok: boolean; message: string }) => void
@@ -199,7 +208,7 @@ function InvestmentForm({
 
     return (
         <form className="flex flex-col gap-4" action={formAction}>
-            <h2 className="font-bold mb-2">{type === "ofertar" ? "Ofertar" : "Coinvertir"} en {op.city}</h2>
+            <h2 className="font-bold mb-2">{capitalizeWords(type)} en {op.city}</h2>
             {type === "coinvertir" && (
                 <div>
                     <p>Al coinvertir, participas en una inversión conjunta con otros inversores. Las participaciones y rendimientos se repartirán en función de las cuantias aportadas (min 5000€).</p>
@@ -213,27 +222,39 @@ function InvestmentForm({
                     <p>Te enviaremos un correo electrónico para confirmar tu oferta y uno de nuestros agentes se pondrá en contacto contigo para completar la documentación.</p>
                 </div>
             )}
+
+            {type === "gestionar" && (
+                <div>
+                    <p>Al gestionar, serás el ejecutor y la parte activa de toda la operación, permitiendo que el resto de los inversores actúe de forma pasiva.
+                        Serás quien deba, en su caso, constituir una sociedad limitada o una comunidad de bienes, formalizar contratos con cada inversor, presentar la oferta, llevar a cabo la reforma, encargarte de los actos jurídicos necesarios, gestionar una posible desocupación, realizar la venta del inmueble, hacer reparto de beneficios  y concluir la operación.
+                    </p>
+                    <p>
+                        En InversorHouse, solo seleccionamos gestores con experiencia previa comprobada.
+                        Por encargarte de la gestión, recibirás una comisión que oscila entre el 20 % y el 50 %, la cual deberá ser acordada con los inversores.</p>
+                    <p>Los gestores tambien deben participar como coinversores de la operación (min 5000€).</p>
+                    <p>Te enviaremos un correo electrónico para confirmar tu participación y uno de nuestros agentes se pondrá en contacto contigo.</p>
+                </div>
+            )}
+
             <label className="w-2/3">
                 Teléfono:
                 <input name="phone" type="tel" className="border rounded px-2 py-1 w-full" required />
             </label>
-            {type === "coinvertir" && (
+            {(type === "coinvertir" || type === "gestionar") && (
                 <div className="flex flex-col gap-3">
                     <label className="w-2/3">
                         Cantidad a invertir (€):
                         <input name="amount" type="number" min={5000} className="border rounded px-2 py-1 w-full" required />
                     </label>
-                    <label className="flex items-center gap-2">
-                        <input name="terms" type="checkbox" required />Gestionar esta operacion - Los gestores pueden llegar a conseguir entre un 20% y un 40% de comisión por operación.
-                    </label>
+                    <input name="isGestor" type="hidden" value={type === "gestionar" ? "true" : "false"} />
                 </div>
             )}
             <label className="flex items-center gap-2">
-                <input name="terms" type="checkbox" required /> Acepto los <a href="/terminos" className="underline text-primary" target="_blank">términos y condiciones</a>
+                <input name="terms" type="checkbox" required /> Acepto los <a href="/aviso-legal" className="underline text-primary" target="_blank">términos y condiciones</a>
             </label>
             <div className="flex gap-2 mt-2">
                 <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded" disabled={isPending}>
-                    {isPending ? "Enviando..." : (type === "ofertar" ? "Ofertar" : "Coinvertir")}
+                    {isPending ? "Enviando..." : capitalizeWords(type)}
                 </button>
                 <button type="button" className="text-gray-600 underline" onClick={onClose}>Cancelar</button>
             </div>

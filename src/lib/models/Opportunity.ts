@@ -17,6 +17,7 @@ const OpportunitySchema = new Schema({
   min_idealista: { type: Number, required: true },
   max_idealista: { type: Number, required: true },
   starred: { type: Boolean, default: false },
+  file_key: { type: String, required: false },
 });
 
 

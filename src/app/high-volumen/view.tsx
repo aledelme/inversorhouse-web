@@ -53,7 +53,7 @@ export default function OpportunitiesView({ opportunities }: { opportunities: IO
             <aside
                 className={`bg-[#fafbfc] border-r border-gray-200 p-6 box-border transition-transform duration-300 z-[1201]
                     w-[85vw] max-w-[400px] fixed top-0 left-0 h-screen
-                    lg:w-[350px] lg:max-w-none lg:sticky lg:top-[65px] lg:h-[calc(100vh-56px)] lg:translate-x-0
+                    lg:w-[350px] lg:max-w-none lg:sticky lg:top-[56px] lg:h-[calc(100vh-56px)] lg:translate-x-0
                     ${filtersOpen ? "translate-x-0" : "-translate-x-full"}
                     lg:block`}
                 onClick={e => e.stopPropagation()}

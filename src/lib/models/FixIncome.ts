@@ -17,4 +17,5 @@ export type IFixIncome = {
     yield: string // Anual yield percentage
     starred: boolean
     status: "OPEN" | "COMPLETED" | "IN_PROGRESS"
+    summary?: string
 }
