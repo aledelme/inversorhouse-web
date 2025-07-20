@@ -93,7 +93,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                 Rentabilidad estimada: <span className="font-bold text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
             </div>
             <ProfitCalculator
-                maxInvestment={op.max_idealista}
+                maxInvestment={op.ask_price}
                 minProfitPercent={minRentability}
                 maxProfitPercent={maxRentability}
             />
