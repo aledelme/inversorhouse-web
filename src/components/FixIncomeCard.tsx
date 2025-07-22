@@ -5,12 +5,9 @@ import { capitalizeWords, formatEUR } from "@/utils/functions";
 import Link from "next/link";
 import Image from "next/image";
 import { IFixIncome } from "@/lib/models/FixIncome";
-import { QuestionCircleIcon } from "./icons/QuestionCircle";
-import { useState } from "react";
+import Explainer from "./Explainer";
 
 export default function FixIncomeCard({ op }: { op: IFixIncome }) {
-    const [showTooltip, setShowTooltip] = useState(false);
-    const [showTooltip2, setShowTooltip2] = useState(false);
 
     return (
         <div
@@ -59,77 +56,22 @@ export default function FixIncomeCard({ op }: { op: IFixIncome }) {
             <div className="flex-1 flex flex-col p-4">
                 <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{capitalizeWords(op.city)}</span> - {op.property_type} </div>
                 <div className="text-gray-500 mb-1 text-sm">{op.state}, {op.province}</div>
-                <div className="font-semibold mb-2 text-primary text-md sm:text-lg flex">
-                    Tipo de operación: {op.procedure_type}
-                    <span
-                        style={{ position: "relative", display: "inline-block", marginLeft: 6 }}
-                        onMouseEnter={() => setShowTooltip(true)}
-                        onMouseLeave={() => setShowTooltip(false)}
-                    >
-                        <QuestionCircleIcon />
-                        {showTooltip && (
-                            <span
-                                style={{
-                                    position: "absolute",
-                                    bottom: "120%",
-                                    left: "50%",
-                                    transform: "translateX(-50%)",
-                                    background: "#222",
-                                    color: "#fff",
-                                    padding: "6px 12px",
-                                    borderRadius: "6px",
-                                    fontSize: "0.95rem",
-                                    whiteSpace: "nowrap",
-                                    zIndex: 10,
-                                    boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
-                                }}
-                            >
-                                {op.procedure_type === "CRV" ? "Compra-Reforma-Venta" : "Compra-Construcción-Venta"}
-                            </span>
-                        )}
-                    </span>
+                <div className="mb-2 flex gap-1">
+                    Tipo de operación: <span className="font-semibold">{op.procedure_type}</span>
+                    <Explainer message={op.procedure_type === "CRV" ? "Compra-Reforma-Venta" : "Compra-Construcción-Venta"} />
                 </div>
-                <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
-                    Capital necesario: {formatEUR(op.required_capital)}
+                <div className="mb-2">
+                    Capital necesario: <span className="font-semibold">{formatEUR(op.required_capital)}</span>
                 </div>
-                <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
-                    Capital recaudado: {formatEUR(op.raised_capital)}
+                <div className="mb-2">
+                    Capital recaudado: <span className="font-semibold">{formatEUR(op.raised_capital)}</span>
                 </div>
-                <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
-                    Ticket flexible: {formatEUR(op.ticket)}
-                    {op.ticket_explanation && <span
-                        style={{ position: "relative", display: "inline-block", marginLeft: 6 }}
-                        onMouseEnter={() => setShowTooltip2(true)}
-                        onMouseLeave={() => setShowTooltip2(false)}
-                    >
-                        <QuestionCircleIcon />
-                        {showTooltip2 && (
-                            <span
-                                style={{
-                                    maxWidth: "320px",
-                                    minWidth: "180px",
-                                    position: "absolute",
-                                    bottom: "120%",
-                                    left: "50%",
-                                    transform: "translateX(-50%)",
-                                    background: "#222",
-                                    color: "#fff",
-                                    padding: "8px 14px",
-                                    borderRadius: "6px",
-                                    fontSize: "0.95rem",
-                                    whiteSpace: "normal",
-                                    zIndex: 10,
-                                    boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                                    wordBreak: "break-word"
-                                }}
-                            >
-                                {op.ticket_explanation}
-                            </span>
-                        )}
-                    </span>}
+                <div className="mb-2 flex gap-1">
+                    Ticket flexible: <span className="font-semibold">{formatEUR(op.ticket)}</span>
+                    {op.ticket_explanation && <Explainer message={op.ticket_explanation} />}
                 </div>
-                <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
-                    Duración estimada: {op.duration} meses
+                <div className="mb-2">
+                    Duración estimada: <span className="font-semibold">{op.duration} meses</span>
                 </div>
                 <div className="flex items-center gap-2 mb-2">
                     <span className="inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-sm shadow-sm border border-green-200">

@@ -1,5 +1,5 @@
 'use client'
-import { QuestionCircleIcon } from "@/components/icons/QuestionCircle";
+
 import { capitalizeWords } from "@/utils/functions";
 import { SignedOut, SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import React from "react";
 import { IFixIncome } from "@/lib/models/FixIncome";
 import { Modal } from "@/components/Model";
 import { sendFixIncome } from "@/lib/actions";
+import { Tooltip } from "flowbite-react";
 
 export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
     const { isSignedIn } = useUser();
@@ -184,19 +185,15 @@ function InvestButton({ onClick, text, tooltip, op }: InvestButtonProps) {
     if (!isLoaded) return null; // Espera a que la autenticación esté cargada
 
     return (<div className="flex items-center gap-2">
-        <button
-            className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn || op.status !== "OPEN"}
-            onClick={onClick}
-            type="button"
-        >
-            {text}
-        </button>
-        <div className="relative group flex items-center">
-            <QuestionCircleIcon className="w-8 h-8 " />
-            <span className="absolute left-1/2 -translate-x-1/2 -top-9 w-max px-2 py-1 rounded bg-gray-800 text-white text-xs opacity-0 group-hover:opacity-100 transition pointer-events-none z-10">
-                {tooltip}
-            </span>
-        </div>
+        <Tooltip content={tooltip} className="max-w-xs">
+            <button
+                className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn || op.status !== "OPEN"}
+                onClick={onClick}
+                type="button"
+            >
+                {text}
+            </button>
+        </Tooltip>
     </div>);
 }
 

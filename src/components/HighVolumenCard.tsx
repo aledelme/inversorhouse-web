@@ -1,10 +1,11 @@
 'use client'
 
-
 import { formatEUR } from "@/utils/functions";
 import Link from "next/link";
 import Image from "next/image";
 import { IHighVolumen } from "@/lib/models/HighVolumen";
+import Explainer from "./Explainer";
+import { REO_EXPLAIN } from "@/constants";
 
 export default function HighVolumenCard({ op }: { op: IHighVolumen }) {
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
@@ -36,14 +37,14 @@ export default function HighVolumenCard({ op }: { op: IHighVolumen }) {
             <div className="flex-1 flex flex-col p-4">
                 <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{op.city}</span></div>
                 <div className="text-gray-500 mb-1 text-sm">{op.province}</div>
-                <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
-                    Precio de venta fondo: {formatEUR(op.ask_price)}
+                <div className="mb-2">
+                    Precio de venta fondo: <span className="font-semibold">{formatEUR(op.ask_price)}</span>
                 </div>
-                <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
-                    Precio de mercado: {formatEUR(op.min_idealista)} - {formatEUR(op.max_idealista)}
+                <div className="mb-2">
+                    Precio de mercado: <span className="font-semibold">{formatEUR(op.min_idealista)} - {formatEUR(op.max_idealista)}</span>
                 </div>
-                <div className="mb-3">Número de activos: {op.numberOfAssets}</div>
-                <div className="mb-3">Situación judicial: <span className="font-medium">REO</span></div>
+                <div className="mb-2">Número de activos: <span className="font-semibold">{op.numberOfAssets}</span></div>
+                <div className="mb-2 flex gap-1">Situación judicial: <span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} /></div>
                 <div className="flex items-center gap-2 mb-2">
                     <span className="inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-sm shadow-sm border border-green-200">
                         Rentabilidad Aprox. <span className="text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
@@ -55,7 +56,6 @@ export default function HighVolumenCard({ op }: { op: IHighVolumen }) {
                         Ver detalle
                     </Link>
                 </div>
-
             </div>
         </div>
     )

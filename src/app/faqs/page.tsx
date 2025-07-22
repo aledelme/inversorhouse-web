@@ -1,4 +1,5 @@
 "use client";
+import { REO_EXPLAIN } from "@/constants";
 import { useState } from "react";
 
 const faqs = [
@@ -29,8 +30,7 @@ const faqs = [
     },
     {
         titulo: "¿Qué es un REO?",
-        contenido:
-            "REO (Real Estate Owned) se refiere a propiedades que han sido embargadas por un banco o entidad financiera tras un proceso de ejecución hipotecaria. Estas propiedades son adquiridas por la entidad financiera y suelen ser vendidas a través de subastas o ventas directas. InversorHouse ofrece oportunidades de inversión en propiedades REO, permitiendo a los inversores acceder a activos que pueden tener un gran potencial de revalorización.",
+        contenido: REO_EXPLAIN,
     },
     {
         titulo: "¿Qué son contratos de cuentas por participación?",
@@ -68,7 +68,7 @@ export default function FaqsPage() {
     };
 
     return (
-        <div className="max-w-2xl mx-auto py-16 px-4">
+        <div className="max-w-2xl mx-auto py-6 px-4">
             <h1 className="text-3xl font-bold text-primary mb-8 text-center">FAQs</h1>
             <div className="space-y-4">
                 {faqs.map((faq, idx) => (
@@ -79,7 +79,7 @@ export default function FaqsPage() {
                             aria-expanded={open === idx}
                             aria-controls={`faq-content-${idx}`}
                         >
-                            <span>{faq.titulo}</span>
+                            <span className="py-2">{faq.titulo}</span>
                             <span className="ml-4 text-white">
                                 {open === idx ? "−" : "+"}
                             </span>

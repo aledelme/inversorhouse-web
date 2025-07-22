@@ -4,11 +4,10 @@ import { IOpportunity } from "@/lib/models/Opportunity"
 import { capitalizeWords, formatEUR } from "@/utils/functions";
 import Link from "next/link";
 import Image from "next/image";
-import { QuestionCircleIcon } from "./icons/QuestionCircle";
-import { useState } from "react";
+import { REO_EXPLAIN } from "@/constants";
+import Explainer from "./Explainer";
 
 export default function HouseCard({ op }: { op: IOpportunity }) {
-    const [showTooltip, setShowTooltip] = useState(false);
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
 
@@ -38,46 +37,16 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
             <div className="flex-1 flex flex-col p-4">
                 <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{capitalizeWords(op.city)}</span> - {op.sub_property_type} </div>
                 <div className="text-gray-500 mb-1 text-sm">{op.state}, {op.province}</div>
-                <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
-                    Precio de venta fondo: {formatEUR(op.ask_price)}
+                <div className="mb-2">
+                    Precio de venta fondo: <span className="font-semibold">{formatEUR(op.ask_price)}</span>
                 </div>
-                <div className="font-semibold mb-2 text-primary text-md sm:text-lg">
-                    Precio de mercado: {formatEUR(op.min_idealista)} - {formatEUR(op.max_idealista)}
+                <div className="mb-2">
+                    Precio de mercado: <span className="font-semibold">{formatEUR(op.min_idealista)} - {formatEUR(op.max_idealista)}</span>
                 </div>
-                <div className="mb-3">Ocupación: <span className={op.squatted ? "text-red-700 font-medium" : "text-green-700 font-medium"}>
+                <div className="mb-2">Ocupación: <span className={op.squatted ? "text-red-700 font-medium" : "text-green-700 font-medium"}>
                     {op.squatted ? "Ocupado" : "Libre"}
                 </span> </div>
-                <div className="mb-3">Situación judicial: <span className="font-medium">REO</span>
-                    <span
-                        style={{ position: "relative", display: "inline-block", marginLeft: 6 }}
-                        onMouseEnter={() => setShowTooltip(true)}
-                        onMouseLeave={() => setShowTooltip(false)}
-                    >
-                        <QuestionCircleIcon />
-                        {showTooltip && (
-                            <span
-                                style={{
-                                    maxWidth: "320px",
-                                    minWidth: "250px",
-                                    position: "absolute",
-                                    bottom: "120%",
-                                    left: "50%",
-                                    transform: "translateX(-50%)",
-                                    background: "#222",
-                                    color: "#fff",
-                                    padding: "8px 14px",
-                                    borderRadius: "6px",
-                                    fontSize: "0.95rem",
-                                    whiteSpace: "normal",
-                                    zIndex: 10,
-                                    boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                                    wordBreak: "break-word"
-                                }}
-                            >
-                                REO (por sus siglas en inglés, Real Estate Owned) es una propiedad que ha sido adjudicada a un banco u otra entidad financiera después de que el propietario anterior no pudiera pagar la hipoteca. Los pisos REO son inmuebles ya adjudicados que están a la espera de que la entidad tome posesión efectiva de ellos o los ponga a la venta en el mercado abierto.
-                            </span>
-                        )}
-                    </span>
+                <div className="mb-2 flex gap-1">Situación judicial: <span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
                     <span className="inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-sm shadow-sm border border-green-200">

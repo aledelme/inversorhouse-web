@@ -1,5 +1,5 @@
 'use client'
-import { QuestionCircleIcon } from "@/components/icons/QuestionCircle";
+
 import { IOpportunity } from "@/lib/models/Opportunity";
 import { sendCoinvestment, sendOffer } from "../../../lib/actions";
 import { capitalizeWords } from "@/utils/functions";
@@ -11,6 +11,9 @@ import { useActionState } from "react";
 import React from "react";
 import { Modal } from "@/components/Model";
 import ProfitCalculator from "@/components/ProfitCalculator";
+import { Tooltip } from "flowbite-react";
+import Explainer from "@/components/Explainer";
+import { REO_EXPLAIN } from "@/constants";
 
 type InvesmentType = "ofertar" | "coinvertir" | "gestionar";
 
@@ -86,8 +89,8 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                     {op.squatted ? "Ocupado" : "Libre"}
                 </span>
             </div>
-            <div className="mb-2">
-                Situación judicial: <span className="font-medium">REO</span>
+            <div className="mb-2 flex gap-1">
+                Situación judicial: <span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} />
             </div>
             <div className="mb-4">
                 Rentabilidad estimada: <span className="font-bold text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
@@ -157,19 +160,15 @@ function InvestButton({ onClick, text, tooltip }: InvestButtonProps) {
     if (!isLoaded) return null; // Espera a que la autenticación esté cargada
 
     return (<div className="flex items-center gap-2">
-        <button
-            className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn}
-            onClick={onClick}
-            type="button"
-        >
-            {text}
-        </button>
-        <div className="relative group flex items-center">
-            <QuestionCircleIcon className="w-8 h-8 " />
-            <span className="absolute left-1/2 -translate-x-1/2 -top-9 w-max px-2 py-1 rounded bg-gray-800 text-white text-xs opacity-0 group-hover:opacity-100 transition pointer-events-none z-10">
-                {tooltip}
-            </span>
-        </div>
+        <Tooltip content={tooltip} className="max-w-xs">
+            <button
+                className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn}
+                onClick={onClick}
+                type="button"
+            >
+                {text}
+            </button>
+        </Tooltip>
     </div>);
 }
 
