@@ -1,6 +1,6 @@
 'use client'
 
-import { capitalizeWords } from "@/utils/functions";
+import { capitalizeWords, formatEUR } from "@/utils/functions";
 import { SignedOut, SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +16,7 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
     const [confirmationMsg, setConfirmationMsg] = useState<string | null>(null);
     const [modalOpen, setModalOpen] = useState(false);
 
+    const progress = op.raised_capital / op.required_capital * 100;
 
     function handleAction() {
         if (isSignedIn) {
@@ -97,6 +98,22 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
                     />
                 </div>
             </div>
+
+            {/* Progress Bar */}
+            <div className="w-full flex justify-between text-lg font-bold">
+                <div><span className="collapse sm:visible">Capital recaudado:</span> {formatEUR(op.raised_capital)}</div>
+                <div><span className="collapse sm:visible">Capital necesario:</span> {formatEUR(op.required_capital)}</div>
+            </div>
+            <div className="w-full bg-gray-400 rounded-lg mb-8 relative">
+                <div
+                    className="bg-primary rounded-lg h-8 font-bold flex items-center justify-center text-white"
+                    style={{
+                        width: `${progress > 100 ? 100 : progress}%`,
+                        transition: "width 1s"
+                    }}
+                >{progress}%</div>
+            </div>
+
             <div className="flex flex-row justify-between items-start flex-wrap">
                 <div>
                     <h1 className="text-3xl">{capitalizeWords(op.city)} - {op.property_type}</h1>
@@ -128,6 +145,7 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
             {/* <div className="mb-4">
                 Referencia catastral: {op.ref_code}
             </div> */}
+
             <div className="font-semibold text-primary text-2xl mb-4">
                 Resumen ejecutivo:
             </div>

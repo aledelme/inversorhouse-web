@@ -8,7 +8,7 @@ import { IFixIncome } from "@/lib/models/FixIncome";
 import Explainer from "./Explainer";
 
 export default function FixIncomeCard({ op }: { op: IFixIncome }) {
-
+    const progress = op.raised_capital / op.required_capital * 100;
     return (
         <div
             key={op._id}
@@ -63,9 +63,29 @@ export default function FixIncomeCard({ op }: { op: IFixIncome }) {
                 <div className="mb-2">
                     Capital necesario: <span className="font-semibold">{formatEUR(op.required_capital)}</span>
                 </div>
-                <div className="mb-2">
-                    Capital recaudado: <span className="font-semibold">{formatEUR(op.raised_capital)}</span>
+
+
+                <div className="w-full bg-gray-400 rounded-full mb-2 relative">
+                    <div
+                        className="bg-primary rounded-full h-6"
+                        style={{
+                            width: `${progress > 100 ? 100 : progress}%`,
+                            transition: "width 0.3s"
+                        }}
+                    />
+                    <span
+                        className="absolute left-1/2 top-1/2 text-sm font-medium text-white"
+                        style={{
+                            transform: "translate(-50%, -50%)",
+                            whiteSpace: "nowrap",
+                            pointerEvents: "none"
+                        }}
+                    >
+                        {op.status === "IN_PROGRESS" ? `En proceso...` : `Capital recaudado: ${formatEUR(op.raised_capital)} (${progress}%)`}
+                    </span>
                 </div>
+
+
                 <div className="mb-2 flex gap-1">
                     Ticket flexible: <span className="font-semibold">{formatEUR(op.ticket)}</span>
                     {op.ticket_explanation && <Explainer message={op.ticket_explanation} />}
