@@ -26,9 +26,9 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
 
-    const baseR2Url = process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL : '';
-    const imageUrl = `${baseR2Url}/opportunities/${op.ref_code}/${op.ref_code}.png`;
-    const dossierUrl = `${baseR2Url}/opportunities/${op.ref_code}/${op.file_key}`;
+    const baseR2Url = process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL + '/opportunities';
+    const imageUrl = `${baseR2Url}/${op.ref_code}/${op.ref_code}.png`;
+    const dossierUrl = `${baseR2Url}/${op.ref_code}/${op.file_key}`;
 
     function handleAction(type: InvesmentType) {
         if (isSignedIn) {
@@ -104,32 +104,92 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                 maxProfitPercent={maxRentability}
             />
             {/* Botones de acción */}
-            <div className="flex flex-row flex-wrap gap-4 mb-4">
-                <InvestButton
-                    onClick={() => handleAction("ofertar")}
-                    text="Ofertar"
-                    tooltip="Haz una oferta para comprar la propiedad"
-                />
-                <InvestButton
-                    onClick={() => handleAction("coinvertir")}
-                    text="Coinvertir"
-                    tooltip="Invierte junto a otros inversores"
-                />
-                <InvestButton
-                    onClick={() => handleAction("gestionar")}
-                    text="Gestionar"
-                    tooltip="Gestiona la operación de coinversión y lleváte un 20-40% de comisión"
-                />
-                <SignedOut>
-                    <SignInButton mode="modal">Accede para participar</SignInButton>
-                </SignedOut>
-                <div>
-                    {confirmationMsg && (
-                        <span className={`text-sm ${confirmationMsg.startsWith("¡Gracias") ? "text-green-700" : "text-red-700"}`}>
-                            {confirmationMsg}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-4 mt-12">
+                {/* Ofertar */}
+                <div className="bg-white rounded-xl shadow p-5 flex flex-col h-full relative">
+                    <div className="absolute -top-5 left-5">
+                        <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                            Más rentable
                         </span>
-                    )}
+                    </div>
+                    <div className="flex-1">
+                        <h3 className="font-bold text-lg mb-2">Ofertar</h3>
+                        <ul className="text-sm mb-4 list-disc px-3">
+                            <li>Ideal para los que quieren quedarse con todos los beneficios ellos solos.</li>
+                            <li>¡Haz tu oferta y llévate la propiedad y toda la operación para ti solo!</li>
+                            <li>Eres la parte activa y única de la operación, sin intermediarios.</li>
+                            <li>Perfecto si tienes experiencia o cuentas con un equipo propio para ejecutar la operación.</li>
+                            <li>Máxima ganancia y agilidad de gestión.</li>
+                            <li>Nos pondremos en contacto para darte más información y guiarte en los siguientes pasos.</li>
+                        </ul>
+                    </div>
+                    <InvestButton
+                        onClick={() => handleAction("ofertar")}
+                        text="Ofertar"
+                        tooltip="Haz una oferta para comprar la propiedad"
+                    />
                 </div>
+                {/* Coinvertir */}
+                <div className="bg-white rounded-xl shadow p-5 flex flex-col h-full relative scale-105">
+                    <div className="absolute -top-5 left-5">
+                        <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                            Más popular
+                        </span>
+                    </div>
+                    <div className="flex-1">
+                        <h3 className="font-bold text-lg mb-2">Coinvertir</h3>
+                        <ul className="text-sm mb-4 list-disc px-3">
+                            <li>Ideal si estás empezando, quieres recibir ganancias y olvidarte de la gestión.</li>
+                            <li>Gestión 100% pasiva: un gestor profesional, con experiencia acreditada, se encargará de todo el proceso.</li>
+                            <li>Varios inversores unen fuerzas para participar en una misma operación, compartiendo capital y beneficios.</li>
+                            <li>Perfecta para diversificar riesgo e invertir con importes accesibles (desde 5.000€).</li>
+                            <li>Acceso a oportunidades sólidas y rentables, normalmente reservadas a grandes capitales.</li>
+                            <li>Menor riesgo individual gracias a la coinversión.</li>
+                            <li>Rendimientos repartidos en proporción a la cantidad invertida.</li>
+                            <li>Te enviaremos un correo de confirmación y el gestor de la operación se pondrá en conctacto contigo para guiarte en los siguientes pasos.</li>
+                        </ul>
+                    </div>
+                    <InvestButton
+                        onClick={() => handleAction("coinvertir")}
+                        text="Coinvertir"
+                        tooltip="Invierte junto a otros inversores"
+                    />
+                </div>
+                {/* Gestionar */}
+                <div className="bg-white rounded-xl shadow p-5 flex flex-col h-full relative">
+                    <div className="absolute -top-5 left-5">
+                        <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                            Para expertos
+                        </span>
+                    </div>
+                    <div className="flex-1">
+                        <h3 className="font-bold text-lg mb-2">Gestionar</h3>
+                        <ul className="text-sm mb-4 list-disc px-3">
+                            <li>Ideal para los que mas experiencia tienen, les apasiona el mundo inmobiliarios y quieren llevar la iniciativa en los proyectos.</li>
+                            <li>Gestiona la operación y gana una comisión del 20% al 50% de los beneficios.</li>
+                            <li>Solo seleccionamos gestores con experiencia comprobada en operaciones inmobiliarias de compra de deuda.</li>
+                            <li>Participa como coinversor (mínimo 10.000€) para alinear intereses y maximizar la rentabilidad.</li>
+                            <li>Perfil altamente demandado y bien remunerado.</li>
+                            <li>Elige tu propia comisión en función del riesgo, la dificultad y tus aspiraciones.</li>
+                            <li>Nos pondremos en contacto contigo para evaluar tu perfil y próximos pasos.</li>
+                        </ul>
+                    </div>
+                    <InvestButton
+                        onClick={() => handleAction("gestionar")}
+                        text="Gestionar"
+                        tooltip="Gestiona la operación de coinversión y lleváte un 20-40% de comisión"
+                    />
+                </div>
+            </div>
+            <SignedOut>
+                <SignInButton mode="modal">Accede para participar</SignInButton>
+            </SignedOut>
+            <div>
+                {confirmationMsg && (
+                    <span className={`text-sm ${confirmationMsg.startsWith("¡Gracias") ? "text-green-700" : "text-red-700"}`}>
+                        {confirmationMsg}
+                    </span>
+                )}
             </div>
             {/* Modal */}
             {

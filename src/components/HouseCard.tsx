@@ -11,7 +11,7 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
 
-    const imageUrl = `${process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL : ''}/opportunities/${op.ref_code}/${op.ref_code}.png`;
+    const imageUrl = `${process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL}/opportunities/${op.ref_code}/${op.ref_code}.png`;
 
     return (
         <div

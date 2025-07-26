@@ -29,12 +29,12 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
         setConfirmationMsg(result.message);
     }
 
-    const baseR2Url = process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL : '';
-    const imageUrl = `${baseR2Url}/fix-income/${op._id}/${op._id}.jpg`;
-    const contractUrl = `${baseR2Url}/fix-income/${op._id}/${op.city}-Contrato.pdf`;
-    const dossierUrl = `${baseR2Url}/fix-income/${op._id}/${op.city}-Dossier.pdf`;
-    const planesUrl = `${baseR2Url}/fix-income/${op._id}/${op.city}-Planos.pdf`;
-    const analysisUrl = `${baseR2Url}/fix-income/${op._id}/${op.city}-Analisis.xlsx`;
+    const baseR2Url = process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL + '/fix-income';
+    const imageUrl = `${baseR2Url}/${op._id}/${op._id}.jpg`;
+    const contractUrl = `${baseR2Url}/${op._id}/${op.city}-Contrato.pdf`;
+    const dossierUrl = `${baseR2Url}/${op._id}/${op.city}-Dossier.pdf`;
+    const planesUrl = `${baseR2Url}/${op._id}/${op.city}-Planos.pdf`;
+    const analysisUrl = `${baseR2Url}/${op._id}/${op.city}-Analisis.xlsx`;
 
     const [pdfExists, setPdfExists] = useState(false);
     const [excelExists, setExcelExists] = useState(false);

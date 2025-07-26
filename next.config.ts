@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL_CONFIG || 'empty',
+        hostname: process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL.replace('https://', ''),
         pathname: '/**',
       },
     ]

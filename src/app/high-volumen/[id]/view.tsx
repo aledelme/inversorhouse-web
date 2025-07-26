@@ -19,9 +19,9 @@ export default function HighVolumenDetailView({ op }: { op: IHighVolumen }) {
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
 
-    const baseR2Url = process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL : '';
-    const imageUrl = `${baseR2Url}/high-volumen/${op._id}/${op._id}.jpg`;
-    const analysisUrl = `${baseR2Url}/high-volumen/${op._id}/${op._id}.xlsx`;
+    const baseR2Url = process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL + '/high-volumen';
+    const imageUrl = `${baseR2Url}/${op._id}/${op._id}.jpg`;
+    const analysisUrl = `${baseR2Url}/${op._id}/${op._id}.xlsx`;
 
     function handleAction() {
         if (isSignedIn) {

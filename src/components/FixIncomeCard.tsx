@@ -10,8 +10,8 @@ import Explainer from "./Explainer";
 export default function FixIncomeCard({ op }: { op: IFixIncome }) {
     const progress = op.raised_capital / op.required_capital * 100;
 
-    const baseR2Url = process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL : '';
-    const imageUrl = `${baseR2Url}/fix-income/${op._id}/${op._id}.jpg`;
+    const baseR2Url = process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL + '/fix-income';
+    const imageUrl = `${baseR2Url}/${op._id}/${op._id}.jpg`;
 
     return (
         <div
