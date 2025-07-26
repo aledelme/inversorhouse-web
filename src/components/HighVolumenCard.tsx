@@ -11,6 +11,9 @@ export default function HighVolumenCard({ op }: { op: IHighVolumen }) {
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
 
+    const baseR2Url = process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL : '';
+    const imageUrl = `${baseR2Url}/high-volumen/${op._id}/${op._id}.jpg`;
+
     return (
         <div
             key={op._id}
@@ -21,7 +24,7 @@ export default function HighVolumenCard({ op }: { op: IHighVolumen }) {
                 {/* <Link href={`/oportunidades/${op._id}`}> */}
                 <Image
                     alt={`Imagen de la propiedad en ${op.city}`}
-                    src={`/houses/${op._id}.jpg`}
+                    src={imageUrl}
                     width={600}
                     height={360}
                     className="w-full aspect-[4/3] bg-gray-200 rounded-t-2xl overflow-hidden"

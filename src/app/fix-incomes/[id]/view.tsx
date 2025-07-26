@@ -29,6 +29,13 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
         setConfirmationMsg(result.message);
     }
 
+    const baseR2Url = process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL : '';
+    const imageUrl = `${baseR2Url}/fix-income/${op._id}/${op._id}.jpg`;
+    const contractUrl = `${baseR2Url}/fix-income/${op._id}/${op.city}-Contrato.pdf`;
+    const dossierUrl = `${baseR2Url}/fix-income/${op._id}/${op.city}-Dossier.pdf`;
+    const planesUrl = `${baseR2Url}/fix-income/${op._id}/${op.city}-Planos.pdf`;
+    const analysisUrl = `${baseR2Url}/fix-income/${op._id}/${op.city}-Analisis.xlsx`;
+
     const [pdfExists, setPdfExists] = useState(false);
     const [excelExists, setExcelExists] = useState(false);
     const [planoExists, setPlanoExists] = useState(false);
@@ -36,30 +43,31 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
 
     useEffect(() => {
         // Intenta hacer un HEAD request al PDF
-        fetch(`/dossiers/${op._id}.pdf`, { method: "HEAD" })
+        console.log(`Checking PDF at: ${dossierUrl}`);
+        fetch(dossierUrl, { method: "HEAD" })
             .then(res => setPdfExists(res.ok))
             .catch(() => setPdfExists(false));
-    }, [op._id]);
+    }, [dossierUrl]);
 
     useEffect(() => {
         // Intenta hacer un HEAD request al Excel
-        fetch(`/excel/${op._id}.xlsx`, { method: "HEAD" })
+        fetch(analysisUrl, { method: "HEAD" })
             .then(res => setExcelExists(res.ok))
             .catch(() => setExcelExists(false));
-    }, [op._id]);
+    }, [analysisUrl]);
 
     useEffect(() => {
         // Intenta hacer un HEAD request al plano
-        fetch(`/planos/${op._id}.pdf`, { method: "HEAD" })
+        fetch(planesUrl, { method: "HEAD" })
             .then(res => setPlanoExists(res.ok))
             .catch(() => setPlanoExists(false));
-    }, [op._id]);
+    }, [planesUrl]);
     useEffect(() => {
         // Intenta hacer un HEAD request al contrato
-        fetch(`/contracts/${op._id}.pdf`, { method: "HEAD" })
+        fetch(contractUrl, { method: "HEAD" })
             .then(res => setContractExists(res.ok))
             .catch(() => setContractExists(false));
-    }, [op._id]);
+    }, [contractUrl]);
 
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
@@ -86,7 +94,7 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
                     </div>}
                     <Image
                         alt={`Imagen de la propiedad en ${op.city}`}
-                        src={`/houses/${op._id}.jpg`}
+                        src={imageUrl}
                         width={800}
                         height={480}
                         className="w-full aspect-[4/3] object-cover rounded-2xl bg-gray-200"
@@ -121,22 +129,22 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
                 </div>
                 <div className="flex flex-col">
                     {pdfExists && (
-                        <Link href={`/dossiers/${op._id}.pdf`} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
+                        <Link href={dossierUrl} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
                             📑 Descargar dossier de la propiedad
                         </Link>
                     )}
                     {excelExists && (
-                        <Link href={`/excel/${op._id}.xlsx`} className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
+                        <Link href={analysisUrl} className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
                             📊 Descargar Excel de la operación
                         </Link>
                     )}
                     {planoExists && (
-                        <Link href={`/planos/${op._id}.pdf`} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
+                        <Link href={planesUrl} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
                             🗺️ Descargar plano de la propiedad
                         </Link>
                     )}
                     {contractExists && (
-                        <Link href={`/contracts/${op._id}.pdf`} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
+                        <Link href={contractUrl} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
                             📝 Descargar contrato de la propiedad
                         </Link>
                     )}

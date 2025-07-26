@@ -26,6 +26,10 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
 
+    const baseR2Url = process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL : '';
+    const imageUrl = `${baseR2Url}/opportunities/${op.ref_code}/${op.ref_code}.png`;
+    const dossierUrl = `${baseR2Url}/opportunities/${op.ref_code}/${op.file_key}`;
+
     function handleAction(type: InvesmentType) {
         if (isSignedIn) {
             setModalType(type);
@@ -42,18 +46,17 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
 
     useEffect(() => {
         // Intenta hacer un HEAD request al PDF
-        console.log(op.file_key);
-        fetch(`/dossiers/${op.file_key}`, { method: "HEAD" })
+        fetch(dossierUrl, { method: "HEAD" })
             .then(res => setPdfExists(res.ok))
             .catch(() => setPdfExists(false));
-    }, [op.file_key]);
+    }, [dossierUrl]);
 
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
             <div className="mb-6">
                 <Image
                     alt={`Imagen de la propiedad en ${op.city}`}
-                    src={`/houses/${op._id}.png`}
+                    src={imageUrl}
                     width={800}
                     height={480}
                     className="w-full aspect-[4/3] object-cover rounded-2xl bg-gray-200"
@@ -70,7 +73,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                     <div className="text-gray-500 mb-4">{op.state}, {op.province}</div>
                 </div>
                 {pdfExists && (
-                    <Link href={`/dossiers/${op.file_key}`} target="_blank" className="text-blue-500 underline text-xl align-text-top mb-4">
+                    <Link href={dossierUrl} target="_blank" className="text-blue-500 underline text-xl align-text-top mb-4">
                         📑 Descargar dossier de la propiedad
                     </Link>
                 )}

@@ -11,6 +11,8 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
 
+    const imageUrl = `${process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL : ''}/opportunities/${op.ref_code}/${op.ref_code}.png`;
+
     return (
         <div
             key={op._id}
@@ -21,7 +23,7 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
                 <Link href={`/oportunidades/${op._id}`}>
                     <Image
                         alt={`Imagen de la propiedad en ${op.city}`}
-                        src={`/houses/${op._id}.png`}
+                        src={imageUrl}
                         width={600}
                         height={360}
                         className="w-full aspect-[4/3] bg-gray-200 rounded-t-2xl overflow-hidden"

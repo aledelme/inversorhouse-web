@@ -16,9 +16,12 @@ export default function HighVolumenDetailView({ op }: { op: IHighVolumen }) {
     const [confirmationMsg, setConfirmationMsg] = useState<string | null>(null);
     const [modalOpen, setModalOpen] = useState(false);
 
-
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
+
+    const baseR2Url = process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_R2_CLOUDFLARE_DEV_URL : '';
+    const imageUrl = `${baseR2Url}/high-volumen/${op._id}/${op._id}.jpg`;
+    const analysisUrl = `${baseR2Url}/high-volumen/${op._id}/${op._id}.xlsx`;
 
     function handleAction() {
         if (isSignedIn) {
@@ -35,10 +38,10 @@ export default function HighVolumenDetailView({ op }: { op: IHighVolumen }) {
 
     useEffect(() => {
         // Intenta hacer un HEAD request al PDF
-        fetch(`/excel/${op._id}.xlsx`, { method: "HEAD" })
+        fetch(analysisUrl, { method: "HEAD" })
             .then(res => setExcelExists(res.ok))
             .catch(() => setExcelExists(false));
-    }, [op._id]);
+    }, [analysisUrl]);
 
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
@@ -46,7 +49,7 @@ export default function HighVolumenDetailView({ op }: { op: IHighVolumen }) {
                 <div style={{ position: "relative" }}>
                     <Image
                         alt={`Imagen de la propiedad en ${op.city}`}
-                        src={`/houses/${op._id}.jpg`}
+                        src={imageUrl}
                         width={800}
                         height={480}
                         className="w-full aspect-[4/3] object-cover rounded-2xl bg-gray-200"
@@ -65,7 +68,7 @@ export default function HighVolumenDetailView({ op }: { op: IHighVolumen }) {
                 </div>
                 <div className="flex flex-col">
                     {excelExists && (
-                        <Link href={`/excel/${op._id}.xlsx`} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
+                        <Link href={analysisUrl} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
                             📑 Descargar propiedades de la cartera
                         </Link>
                     )}

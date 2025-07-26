@@ -45,7 +45,11 @@ next-env.d.ts
 
 # Excel files
 Valoraciones.xlsx
+Plantilla-Operacion.xlsx
 populate-db.js
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+# Cloudflare R2 files
+public/r2
