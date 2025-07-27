@@ -54,7 +54,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
 
 
     const downloadExcel = async () => {
-        const res = await fetch("/api/opportunities/" + op._id + "/download", {
+        const res = await fetch("/api/opportunities/" + op.ref_code + "/download", {
             method: "GET",
         });
 

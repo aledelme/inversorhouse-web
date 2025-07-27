@@ -1,5 +1,5 @@
 import { IOpportunity } from "@/lib/models/Opportunity";
-import { getOpportunityById } from "@/lib/opportunities";
+import { getOpportunityByRefCode } from "@/lib/opportunities";
 import { capitalizeWords } from "@/utils/functions";
 import { Workbook } from "exceljs";
 import { NextResponse } from "next/server";
@@ -7,7 +7,7 @@ import path from "path";
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const op: IOpportunity = await getOpportunityById(id);
+    const op: IOpportunity = await getOpportunityByRefCode(id);
     if (!op) {
         return NextResponse.json({ error: "Opportunity not found" }, { status: 404 });
     }

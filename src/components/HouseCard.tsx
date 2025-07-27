@@ -20,7 +20,7 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
             style={{ boxSizing: "border-box" }}
         >
             <div>
-                <Link href={`/oportunidades/${op._id}`}>
+                <Link href={`/oportunidades/${op.ref_code}`}>
                     <Image
                         alt={`Imagen de la propiedad en ${op.city}`}
                         src={imageUrl}
@@ -55,7 +55,7 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
                         Rentabilidad Aprox. <span className="text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
                     </span>
                     <Link
-                        href={`/oportunidades/${op._id}`}
+                        href={`/oportunidades/${op.ref_code}`}
                         className="ml-auto bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-primary/90 transition text-center text-sm"
                     >
                         Ver detalle
