@@ -1,7 +1,6 @@
 'use server'
-import dbConnect from "./dbConnect";
-import Opportunity from "./models/Opportunity";
-
+import dbConnect from './dbConnect';
+import Opportunity from "@/lib/models/Opportunity";
 
 // Convierte _id y otros campos especiales a string
 function serialize(doc) {
@@ -19,9 +18,8 @@ export async function getOpportunities() {
     return serialize(opportunities);
 }
 
-export async function getOpportunityById(id: number) {
+export async function getOpportunityById(id: string) {
     await dbConnect()
     const opportunity = await Opportunity.findById(id).lean();
     return serialize(opportunity);
 }
-

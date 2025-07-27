@@ -52,6 +52,23 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
             .catch(() => setPdfExists(false));
     }, [dossierUrl]);
 
+
+    const downloadExcel = async () => {
+        const res = await fetch("/api/opportunities/" + op._id + "/download", {
+            method: "GET",
+        });
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${op.city}.xlsx`;
+        a.click();
+
+        window.URL.revokeObjectURL(url);
+    };
+
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
             <div className="mb-6">
@@ -73,11 +90,19 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                     <h1 className="text-3xl">{capitalizeWords(op.city)} - {op.sub_property_type}</h1>
                     <div className="text-gray-500 mb-4">{op.state}, {op.province}</div>
                 </div>
-                {pdfExists && (
-                    <Link href={dossierUrl} target="_blank" className="text-blue-500 underline text-xl align-text-top mb-4">
-                        📑 Descargar dossier de la propiedad
-                    </Link>
-                )}
+                <div className="flex flex-col">
+                    {pdfExists && (
+                        <Link href={dossierUrl} target="_blank" className="text-blue-500 underline text-xl align-text-top mb-4">
+                            📑 Descargar dossier de la propiedad
+                        </Link>
+                    )}
+                    <a
+                        onClick={downloadExcel}
+                        className="text-blue-500 underline text-xl align-text-top mb-4 cursor-pointer"
+                    >
+                        📊 Descargar Excel de la operación
+                    </a>
+                </div>
             </div>
             <div className="font-semibold text-primary text-2xl mb-4">
                 Precio de venta fondo: {op.ask_price.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
