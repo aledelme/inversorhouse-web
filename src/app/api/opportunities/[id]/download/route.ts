@@ -5,7 +5,7 @@ import { Workbook } from "exceljs";
 import { NextResponse } from "next/server";
 import path from "path";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const op: IOpportunity = await getOpportunityById(id);
     if (!op) {
