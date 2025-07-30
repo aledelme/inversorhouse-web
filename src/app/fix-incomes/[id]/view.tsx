@@ -71,40 +71,38 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
 
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
-            <div className="mb-6">
-                <div style={{ position: "relative" }}>
-                    {(op.status === "COMPLETED" || op.status === "IN_PROGRESS") && <div
-                        className="w-auto min-w-xl text-center"
-                        style={{
-                            position: "absolute",
-                            top: "40%",
-                            left: "50%",
-                            transform: "translate(-50%, -50%) rotate(-25deg)",
-                            background: "green",
-                            color: "white",
-                            padding: "8px 32px",
-                            fontWeight: "bold",
-                            fontSize: "5rem",
-                            zIndex: 2,
-                            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                            borderRadius: "8px"
-                        }}
-                    >
-                        {op.status === "COMPLETED" ? "Financiada" : "En proceso"}
-                    </div>}
-                    <Image
-                        alt={`Imagen de la propiedad en ${op.city}`}
-                        src={imageUrl}
-                        width={800}
-                        height={480}
-                        className="w-full aspect-[4/3] object-cover rounded-2xl bg-gray-200"
-                        style={{
-                            backgroundImage: "url('https://placehold.co/800x480?text=Inversor%20House')",
-                            backgroundPosition: "center",
-                            backgroundSize: "cover"
-                        }}
-                    />
-                </div>
+            <div className={"mb-6 relative" + (op.status !== "OPEN" ? " opacity-50 pointer-events-none" : "")}>
+                {(op.status === "COMPLETED" || op.status === "IN_PROGRESS") && <div
+                    className="w-auto min-w-xl text-center"
+                    style={{
+                        position: "absolute",
+                        top: "40%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%) rotate(-25deg)",
+                        background: "green",
+                        color: "white",
+                        padding: "8px 32px",
+                        fontWeight: "bold",
+                        fontSize: "5rem",
+                        zIndex: 2,
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                        borderRadius: "8px"
+                    }}
+                >
+                    {op.status === "COMPLETED" ? "Financiada" : "En proceso"}
+                </div>}
+                <Image
+                    alt={`Imagen de la propiedad en ${op.city}`}
+                    src={imageUrl}
+                    width={800}
+                    height={480}
+                    className="w-full aspect-[4/3] object-cover rounded-2xl bg-gray-200"
+                    style={{
+                        backgroundImage: "url('https://placehold.co/800x480?text=Inversor%20House')",
+                        backgroundPosition: "center",
+                        backgroundSize: "cover"
+                    }}
+                />
             </div>
 
             {/* Progress Bar */}

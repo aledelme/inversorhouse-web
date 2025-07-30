@@ -20,7 +20,26 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
             style={{ boxSizing: "border-box" }}
         >
             <div>
-                <Link href={`/oportunidades/${op.ref_code}`}>
+                <Link href={`/oportunidades/${op.ref_code}`} className={`relative ${op.status === "COMPLETED" ? "opacity-50" : ""}`}>
+                    {(op.status === "COMPLETED") && <div
+                        className="w-auto min-w-xs text-center"
+                        style={{
+                            position: "absolute",
+                            top: "40%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%) rotate(-25deg)",
+                            background: "green",
+                            color: "white",
+                            padding: "8px 32px",
+                            fontWeight: "bold",
+                            fontSize: "2rem",
+                            zIndex: 2,
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                            borderRadius: "8px"
+                        }}
+                    >
+                        Completada
+                    </div>}
                     <Image
                         alt={`Imagen de la propiedad en ${op.city}`}
                         src={imageUrl}

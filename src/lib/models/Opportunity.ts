@@ -1,5 +1,9 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
+export enum OpportunityStatus {
+  COMPLETED
+}
+
 const OpportunitySchema = new Schema({
   _id: { type: String, required: true },
   procedure_type: { type: String, required: true },
@@ -18,6 +22,7 @@ const OpportunitySchema = new Schema({
   max_idealista: { type: Number, required: true },
   starred: { type: Boolean, default: false },
   file_key: { type: String, required: false },
+  status: { type: String, required: false, enum: Object.values(OpportunityStatus) },
 });
 
 

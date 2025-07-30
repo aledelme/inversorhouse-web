@@ -20,41 +20,39 @@ export default function FixIncomeCard({ op }: { op: IFixIncome }) {
             style={{ boxSizing: "border-box" }}
         >
             <div>
-                <Link href={`/fix-incomes/${op._id}`} className={`${op.status !== "OPEN" ? "pointer-events-none opacity-50" : ""}`}>
-                    <div style={{ position: "relative" }}>
-                        {(op.status === "COMPLETED" || op.status === "IN_PROGRESS") && <div
-                            className="w-auto min-w-xs text-center"
-                            style={{
-                                position: "absolute",
-                                top: "40%",
-                                left: "50%",
-                                transform: "translate(-50%, -50%) rotate(-25deg)",
-                                background: "green",
-                                color: "white",
-                                padding: "8px 32px",
-                                fontWeight: "bold",
-                                fontSize: "2rem",
-                                zIndex: 2,
-                                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                                borderRadius: "8px"
-                            }}
-                        >
-                            {op.status === "COMPLETED" ? "Financiada" : "En proceso"}
-                        </div>}
-                        <Image
-                            alt={`Imagen de la propiedad en ${op.city}`}
-                            src={imageUrl}
-                            width={600}
-                            height={360}
-                            className="w-full aspect-[4/3] bg-gray-200 rounded-t-2xl overflow-hidden"
-                            style={{
-                                backgroundImage: "url('https://placehold.co/600x360?text=Inversor%20House')",
-                                backgroundPosition: "center",
-                                backgroundSize: "cover",
-                                boxSizing: "border-box"
-                            }}
-                        />
-                    </div>
+                <Link href={`/fix-incomes/${op._id}`} className={`relative ${op.status !== "OPEN" ? "pointer-events-none opacity-50" : ""}`}>
+                    {(op.status === "COMPLETED" || op.status === "IN_PROGRESS") && <div
+                        className="w-auto min-w-xs text-center"
+                        style={{
+                            position: "absolute",
+                            top: "40%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%) rotate(-25deg)",
+                            background: "green",
+                            color: "white",
+                            padding: "8px 32px",
+                            fontWeight: "bold",
+                            fontSize: "2rem",
+                            zIndex: 2,
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                            borderRadius: "8px"
+                        }}
+                    >
+                        {op.status === "COMPLETED" ? "Financiada" : "En proceso"}
+                    </div>}
+                    <Image
+                        alt={`Imagen de la propiedad en ${op.city}`}
+                        src={imageUrl}
+                        width={600}
+                        height={360}
+                        className="w-full aspect-[4/3] bg-gray-200 rounded-t-2xl overflow-hidden"
+                        style={{
+                            backgroundImage: "url('https://placehold.co/600x360?text=Inversor%20House')",
+                            backgroundPosition: "center",
+                            backgroundSize: "cover",
+                            boxSizing: "border-box"
+                        }}
+                    />
                 </Link>
             </div >
             <div className="flex-1 flex flex-col p-4">

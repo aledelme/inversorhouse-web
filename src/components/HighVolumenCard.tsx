@@ -46,7 +46,7 @@ export default function HighVolumenCard({ op }: { op: IHighVolumen }) {
                 <div className="mb-2">
                     Precio de mercado: <span className="font-semibold">{formatEUR(op.min_idealista)} - {formatEUR(op.max_idealista)}</span>
                 </div>
-                <div className="mb-2">Número de activos: <span className="font-semibold">{op.numberOfAssets}</span></div>
+                <div className="mb-2">Número de activos: <span className="font-semibold">{(op.numberOfAssets - op.numberOfAssetsSelled) + " / " + op.numberOfAssets}</span></div>
                 <div className="mb-2 flex gap-1">Situación judicial: <span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} /></div>
                 <div className="flex items-center gap-2 mb-2">
                     <span className="inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-sm shadow-sm border border-green-200">

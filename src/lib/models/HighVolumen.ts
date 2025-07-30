@@ -6,6 +6,7 @@ export type IHighVolumen = {
     city: string,
     ask_price: number,
     numberOfAssets: number,
+    numberOfAssetsSelled: number,
     min_idealista: number,
     max_idealista: number,
     starred: boolean,
