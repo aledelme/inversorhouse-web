@@ -11,7 +11,7 @@ const oportunidades: IHighVolumen[] = [
         city: "Cartera REO 1",
         ask_price: 2128500,
         numberOfAssets: 26,
-        numberOfAssetsSelled: 3,
+        numberOfAssetsSelled: 7,
         min_idealista: 4086000,
         max_idealista: 4970003,
         starred: true,
