@@ -29,7 +29,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
 
     const baseR2Url = process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL + '/opportunities';
-    const imageUrl = `${baseR2Url}/${op.ref_code}/${op.ref_code}.png`;
+    const imageUrl = `${baseR2Url}/${op.ref_code}/${op.ref_code}.jpg`;
     const dossierUrl = `${baseR2Url}/${op.ref_code}/${op.file_key}`;
 
     function handleAction(type: InvesmentType) {

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import HouseCard from "../../components/HouseCard";
 import FilterSelect from "./components/FilterSelect";
 import { IOpportunity } from "@/lib/models/Opportunity";
+import { capitalizeWords } from "@/utils/functions";
 
 function getUnique<T>(arr: T[], key: keyof T): string[] {
     return Array.from(new Set(arr.map(item => String(item[key]))));
@@ -81,7 +82,7 @@ export default function OpportunitiesView({ opportunities }: { opportunities: IO
                     label="Ciudad"
                     value={city}
                     onChange={setCity}
-                    options={cities}
+                    options={cities.map(c => capitalizeWords(c)).sort()}
                 />
                 <FilterSelect
                     label="Ocupación"

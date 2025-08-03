@@ -24,10 +24,10 @@ export async function sendOffer(op: IOpportunity, formData: FormData) {
     const email = primaryEmailAddress.emailAddress
     await sendEmail({
         to: email,
-        subject: `Has ofertado por ${op.property_type} en ${op.city}`,
+        subject: `Has ofertado por ${op.sub_property_type} en ${op.city}`,
         html: `
             <p>Hola ${firstName} ${lastName}</p>
-            <p>Gracias por ofertar por ${op.property_type} en ${op.city}.</p>
+            <p>Gracias por ofertar por ${op.sub_property_type} en ${op.city}.</p>
             <p>La dirección del inmueble es: ${op.address}.</p>
             <p>En breve nos pondremos en contacto contigo a través del teléfono que nos has facilitado <b>${offerData.phone}</b> para discutir los detalles de tu oferta.</p>
             <br />
@@ -58,10 +58,10 @@ export async function sendCoinvestment(op: IOpportunity, formData: FormData) {
     const email = primaryEmailAddress.emailAddress
     await sendEmail({
         to: email,
-        subject: `Te has apuntado a ${investmentData.isGestor ? "gestionar" : "coinvertir"} en ${op.property_type} en ${op.city}`,
+        subject: `Te has apuntado a ${investmentData.isGestor ? "gestionar" : "coinvertir"} en ${op.sub_property_type} en ${op.city}`,
         html: `
             <p>Hola ${firstName} ${lastName}</p>
-            <p>Gracias por apuntarte a ${investmentData.isGestor ? "gestionar" : "coinvertir"} en ${op.property_type} en ${op.city} con una partición de <b>${investmentData.amount} €</b>.</p>
+            <p>Gracias por apuntarte a ${investmentData.isGestor ? "gestionar" : "coinvertir"} en ${op.sub_property_type} en ${op.city} con una partición de <b>${investmentData.amount} €</b>.</p>
             <p>La dirección del inmueble es: ${op.address}.</p>
             <p>En breve nos pondremos en contacto contigo a través del teléfono que nos has facilitado <b>${investmentData.phone}</b> para discutir los detalles de tu inversión.</p>
             <br />

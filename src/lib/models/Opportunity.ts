@@ -1,15 +1,16 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 export enum OpportunityStatus {
-  COMPLETED
+  COMPLETED = "COMPLETED",
+  CLOSED = "CLOSED",
 }
 
 const OpportunitySchema = new Schema({
   _id: { type: String, required: true },
-  procedure_type: { type: String, required: true },
-  property_type: { type: String, required: true },
+  // procedure_type: { type: String, required: true },
+  // property_type: { type: String, required: true },
   sub_property_type: { type: String, required: true },
-  typology: { type: String, required: true },
+  // typology: { type: String, required: true },
   state: { type: String, required: true },
   province: { type: String, required: true },
   city: { type: String, required: true },
