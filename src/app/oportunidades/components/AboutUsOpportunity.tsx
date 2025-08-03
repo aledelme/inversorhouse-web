@@ -1,7 +1,7 @@
 import Image from "next/image";
 export default function AboutUsOpportunity() {
     return (
-        <section id="conocenos" className="w-full max-w-4xl mt-20 px-4 mb-16">
+        <section id="conocenos" className="w-full max-w-7xl mt-20 px-4 mb-16">
             <div className="bg-white rounded-xl shadow p-6 flex flex-col sm:flex-row gap-6 items-center border border-surface-border">
                 <Image
                     src="/logo.png"

@@ -1,7 +1,7 @@
 import { ClockIcon } from "@/components/icons/Clock";
 
 export default function WhyUsOpportunity() {
-    return (<section className="w-full max-w-5xl mt-20 px-4">
+    return (<section className="w-full max-w-7xl mt-20 px-4">
         <h2 className="text-2xl font-bold text-primary mb-8 text-center">
             ¿Por qué invertir en esta operación?
         </h2>

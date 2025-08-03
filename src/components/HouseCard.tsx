@@ -70,12 +70,12 @@ export default function HouseCard({ op }: { op: IOpportunity }) {
                 <div className="mb-2 flex gap-1">Situación judicial: <span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-sm shadow-sm border border-green-200">
+                    <span className="inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-xs lg:text-sm shadow-sm border border-green-200">
                         Rentabilidad Aprox. <span className="text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
                     </span>
                     <Link
                         href={`/oportunidades/${op.ref_code}`}
-                        className="ml-auto bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-primary/90 transition text-center text-sm"
+                        className="ml-auto bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-primary/90 transition text-center text-xs lg:text-sm"
                     >
                         Ver detalle
                     </Link>

@@ -71,7 +71,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-6 py-8">
+        <div className="max-w-6xl mx-auto px-6 py-8">
             <div className={`mb-6 relative ${op.status === "COMPLETED" ? "opacity-50" : ""}`}>
                 {(op.status === "COMPLETED") && <div
                     className="w-auto min-w-xl text-center"
@@ -144,11 +144,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
             <div className="mb-4">
                 Rentabilidad estimada: <span className="font-bold text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
             </div>
-            <ProfitCalculator
-                maxInvestment={op.ask_price}
-                minProfitPercent={minRentability}
-                maxProfitPercent={maxRentability}
-            />
+
             {/* Botones de acción */}
             <div className={"grid grid-cols-1 md:grid-cols-3 gap-5 mb-4 mt-12 gap-y-12 justify-between justify-items-center" + (op.status === "COMPLETED" ? " hidden" : "")}>
                 {/* Ofertar */}
@@ -169,6 +165,11 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                             <li>Nos pondremos en contacto para darte más información y guiarte en los siguientes pasos.</li>
                         </ul>
                     </div>
+                    <Link className="mb-3 underline!"
+                        href='/docs/Guia_para_ofertar_InversorHouse.pdf'
+                        target="_blank">
+                        Descarga guía para ofertar
+                    </Link>
                     <InvestButton
                         onClick={() => handleAction("ofertar")}
                         text="Ofertar"
@@ -195,6 +196,11 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                             <li>Te enviaremos un correo de confirmación y el gestor de la operación se pondrá en conctacto contigo para guiarte en los siguientes pasos.</li>
                         </ul>
                     </div>
+                    <Link className="mb-3 underline!"
+                        href='/docs/Guia_para_coinvertir_InversorHouse.pdf'
+                        target="_blank">
+                        Descarga guía para coinvertir
+                    </Link>
                     <InvestButton
                         onClick={() => handleAction("coinvertir")}
                         text="Coinvertir"
@@ -220,18 +226,46 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                             <li>Nos pondremos en contacto contigo para evaluar tu perfil y próximos pasos.</li>
                         </ul>
                     </div>
+                    <Link className="mb-3 underline!"
+                        href='/docs/Guia_para_gestionar_InversorHouse.pdf'
+                        target="_blank">
+                        Descarga guía para gestionar
+                    </Link>
                     <InvestButton
                         onClick={() => handleAction("gestionar")}
                         text="Gestionar"
                         tooltip="Gestiona la operación de coinversión y lleváte un 20-40% de comisión"
                     />
                 </div>
+
                 <div className="md:col-span-3">
+                    <p>
+                        <span className="font-semibold text-lg">No es vinculante.</span> Al hacer clic en <span className="font-semibold">Ofertar, Coinvertir o Gestionar</span>, no estás obligado a realizar ninguna acción ni de participar en ninguna de las operaciones. Solo te enviaremos un correo electrónico para confirmar tu interés y uno de nuestros agentes se pondrá en contacto contigo para guiarte en los siguientes pasos.
+                    </p>
+                </div>
+                <div className="md:col-span-3 mb-8">
                     <SignedOut>
                         <SignInButton mode="modal">Accede para participar</SignInButton>
                     </SignedOut>
                 </div>
             </div>
+
+            <ProfitCalculator
+                maxInvestment={op.ask_price}
+                minProfitPercent={minRentability}
+                maxProfitPercent={maxRentability}
+            />
+
+            <section className="mt-14 bg-white p-6 rounded-lg shadow">
+                <h2 className="text-center">Pasos que debes seguir...</h2>
+                <ol className="list-decimal pl-6 text-lg">
+                    <li>Haz tus propios analisis e investigaciones. Revisa detenidamente el <b>dossier de la propiedad</b> y el <b>Excel de la operación</b>.</li>
+                    <li>Determina cuanto quieres invertir con la calculadora <b>de rentabilidad personalizada</b> de cada operación.</li>
+                    <li>Determina como quieres participar: <b>Ofertar, Coinvertir o Gestionar.</b> Y descarga <b>la guía correspondiente</b> para entender el proceso.</li>
+                    <li><b>Haz click</b> y recibirás más información de la operación que deseas realizar.</li>
+                    <li>Uno de nuestros agentes se pondrá en contacto contigo y te guiaremos en los siguientes pasos.</li>
+                </ol>
+            </section>
 
             <div>
                 {confirmationMsg && (
