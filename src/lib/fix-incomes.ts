@@ -54,6 +54,24 @@ Se trata de una operación altamente rentable para el promotor, como se detalla 
 El equipo responsable del proyecto cuenta con amplia experiencia en reformas y construcción, habiendo gestionado con éxito proyectos propios en el pasado.`
     },
     {
+        _id: "lanzarote",
+        address: "Calle Calma Chicha 8",
+        province: "Las Palmas de Gran Canaria",
+        city: "Lanzarote",
+        ref_code: "9302307FT2290S0001KM",
+        procedure_type: "CRV",
+        property_type: "Chalet",
+        state: "Canarias",
+        starred: true,
+        zip_code: "35560",
+        required_capital: 395200,
+        raised_capital: 185000,
+        ticket: 25000,
+        duration: 9,
+        status: "OPEN",
+        yield: "15% sobre capital"
+    },
+    {
         _id: "levante",
         address: "Calle Falsa 789, Madrid",
         province: "Murcia",
@@ -62,7 +80,7 @@ El equipo responsable del proyecto cuenta con amplia experiencia en reformas y c
         procedure_type: "CRV",
         property_type: "Residencial",
         state: "Valencia, Alicante",
-        starred: true,
+        starred: false,
         zip_code: "28001",
         required_capital: 500000,
         raised_capital: 0,

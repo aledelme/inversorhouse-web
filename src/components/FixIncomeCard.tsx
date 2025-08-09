@@ -83,7 +83,7 @@ export default function FixIncomeCard({ op }: { op: IFixIncome }) {
                             pointerEvents: "none"
                         }}
                     >
-                        {op.status === "IN_PROGRESS" ? `En proceso...` : `Capital recaudado: ${formatEUR(op.raised_capital)} (${progress}%)`}
+                        {op.status === "IN_PROGRESS" ? `En proceso...` : `Capital recaudado: ${formatEUR(op.raised_capital)} (${progress.toFixed()}%)`}
                     </span>
                 </div>
 

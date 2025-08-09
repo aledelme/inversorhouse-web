@@ -35,11 +35,13 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
     const dossierUrl = `${baseR2Url}/${op._id}/${op.city}-Dossier.pdf`;
     const planesUrl = `${baseR2Url}/${op._id}/${op.city}-Planos.pdf`;
     const analysisUrl = `${baseR2Url}/${op._id}/${op.city}-Analisis.xlsx`;
+    const registryUrl = `${baseR2Url}/${op._id}/${op.city}-Nota-Simple.pdf`;
 
     const [pdfExists, setPdfExists] = useState(false);
     const [excelExists, setExcelExists] = useState(false);
     const [planoExists, setPlanoExists] = useState(false);
     const [contractExists, setContractExists] = useState(false);
+    const [registryExists, setRegistryExists] = useState(false);
 
     useEffect(() => {
         // Intenta hacer un HEAD request al PDF
@@ -62,12 +64,20 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
             .then(res => setPlanoExists(res.ok))
             .catch(() => setPlanoExists(false));
     }, [planesUrl]);
+
     useEffect(() => {
         // Intenta hacer un HEAD request al contrato
         fetch(contractUrl, { method: "HEAD" })
             .then(res => setContractExists(res.ok))
             .catch(() => setContractExists(false));
     }, [contractUrl]);
+
+    useEffect(() => {
+        // Intenta hacer un HEAD request al registro
+        fetch(registryUrl, { method: "HEAD" })
+            .then(res => setRegistryExists(res.ok))
+            .catch(() => setRegistryExists(false));
+    }, [registryUrl]);
 
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
@@ -117,7 +127,7 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
                         width: `${progress > 100 ? 100 : progress}%`,
                         transition: "width 1s"
                     }}
-                >{progress}%</div>
+                >{progress.toFixed()}%</div>
             </div>
 
             <div className="flex flex-row justify-between items-start flex-wrap">
@@ -144,6 +154,11 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
                     {contractExists && (
                         <Link href={contractUrl} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
                             📝 Descargar contrato de la propiedad
+                        </Link>
+                    )}
+                    {registryExists && (
+                        <Link href={registryUrl} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
+                            🗒️ Descargar nota simple de la propiedad
                         </Link>
                     )}
                 </div>
