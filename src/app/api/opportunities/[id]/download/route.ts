@@ -43,9 +43,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     worksheet.getCell('D25').value = { formula: `D24*$B$20`, result: D24 * B20 };
     worksheet.getCell('E25').value = { formula: `E24*$B$20`, result: E24 * B20 };
 
-    const H12 = GASTO_TOTAL_COMPRA
-    const H16 = 0
-    const C26 = (C24 * B20) + H12 + H16
+    const H12 = GASTO_TOTAL_COMPRA;
+    const H16 = 12000; // Gastos de Operación
+    const C26 = (C24 * B20) + H12 + H16;
     const D26 = (D24 * B20) + H12 + H16;
     const E26 = (E24 * B20) + H12 + H16;
     worksheet.getCell('C26').value = { formula: `C25+$H$12+$H$16`, result: C26 };
