@@ -69,7 +69,12 @@ El equipo responsable del proyecto cuenta con amplia experiencia en reformas y c
         ticket: 25000,
         duration: 9,
         status: "OPEN",
-        yield: "15% sobre capital"
+        yield: "15% sobre capital",
+        summary: `El activo consiste en un chalet unifamiliar de 208 m² construidos sobre una parcela de 248 m², con cuatro habitaciones, tres baños, terraza y piscina. Actualmente se encuentra ocupado, pero ya se ha alcanzado un acuerdo económico con el ocupante y existe una fecha confirmada para su desocupación. Una vez liberada la vivienda, se llevará a cabo una reforma integral con el objetivo de convertirla en un chalet de lujo con vistas privilegiadas al mar y a los volcanes, entregándose totalmente amueblado y listo para entrar a vivir. La obra cuenta con un presupuesto cerrado y firmado con una empresa local, con inicio previsto para el mes de agosto.
+
+En el último año, el mercado inmobiliario de Lanzarote ha experimentado un incremento notable en el valor de las viviendas unifamiliares, con una subida media del 23% entre enero de 2024 y enero de 2025. La Santa, ubicación del inmueble, es una de las zonas más codiciadas de la isla debido a sus vistas únicas, su cercanía al Parque Nacional de Timanfaya y a la playa de Famara. La oferta de vivienda unifamiliar en esta zona es prácticamente inexistente, lo que incrementa el atractivo del producto.
+
+El perfil de comprador habitual en este segmento está compuesto por extranjeros, principalmente ingleses, franceses, alemanes y noruegos, que buscan segundas residencias o propiedades destinadas al alquiler vacacional. Este público valora especialmente que las viviendas estén totalmente terminadas y listas para habitar, dado que no residen en la isla y no pueden gestionar reformas por su cuenta. La combinación de ubicación, escasez de oferta, demanda internacional y un plan de mejora ya definido posiciona esta operación como una oportunidad con alto potencial de revalorización y rentabilidad. `
     },
     {
         _id: "levante",
