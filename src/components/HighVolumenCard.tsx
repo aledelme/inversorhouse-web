@@ -41,15 +41,15 @@ export default function HighVolumenCard({ op }: { op: IHighVolumen }) {
                 <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{op.city}</span></div>
                 <div className="text-gray-500 mb-1 text-sm">{op.province}</div>
                 <div className="mb-2">
-                    Precio de venta fondo: <span className="font-semibold">{formatEUR(op.ask_price)}</span>
-                </div>
-                <div className="mb-2">
-                    Precio de mercado: <span className="font-semibold">{formatEUR(op.min_idealista)} - {formatEUR(op.max_idealista)}</span>
+                    Precio de venta: <span className="font-semibold">{formatEUR(op.ask_price)}</span>
                 </div>
                 <div className="mb-2">Número de activos: <span className="font-semibold">{(op.numberOfAssets - op.numberOfAssetsSelled) + " / " + op.numberOfAssets}</span></div>
-                <div className="mb-2 flex gap-1">Situación judicial: <span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} /></div>
+                <div className={"mb-2" + (op.min_idealista && op.max_idealista ? "" : " invisible")}>
+                    Precio de mercado: <span className="font-semibold">{formatEUR(op.min_idealista || 0)} - {formatEUR(op.max_idealista || 0)}</span>
+                </div>
+                <div className={"mb-2 flex gap-1" + (op.type === "REO" ? "" : " invisible")}>Situación judicial: <span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} /></div>
                 <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-sm shadow-sm border border-green-200">
+                    <span className={"inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-sm shadow-sm border border-green-200" + (op.type === "REO" ? "" : " invisible")}>
                         Rentabilidad Aprox. <span className="text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
                     </span>
                     <Link

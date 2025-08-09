@@ -1,6 +1,6 @@
 'use client'
 
-import { capitalizeWords } from "@/utils/functions";
+import { capitalizeWords, formatEUR } from "@/utils/functions";
 import { SignedOut, SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +22,7 @@ export default function HighVolumenDetailView({ op }: { op: IHighVolumen }) {
     const baseR2Url = process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL + '/high-volumen';
     const imageUrl = `${baseR2Url}/${op._id}/${op._id}.jpg`;
     const analysisUrl = `${baseR2Url}/${op._id}/${op._id}.xlsx`;
+    const dossierUrl = `${baseR2Url}/${op._id}/${op._id}.pdf`;
 
     function handleAction() {
         if (isSignedIn) {
@@ -35,6 +36,7 @@ export default function HighVolumenDetailView({ op }: { op: IHighVolumen }) {
     }
 
     const [excelExists, setExcelExists] = useState(false);
+    const [dossierExists, setDossierExists] = useState(false);
 
     useEffect(() => {
         // Intenta hacer un HEAD request al PDF
@@ -42,6 +44,12 @@ export default function HighVolumenDetailView({ op }: { op: IHighVolumen }) {
             .then(res => setExcelExists(res.ok))
             .catch(() => setExcelExists(false));
     }, [analysisUrl]);
+    useEffect(() => {
+        // Intenta hacer un HEAD request al PDF
+        fetch(dossierUrl, { method: "HEAD" })
+            .then(res => setDossierExists(res.ok))
+            .catch(() => setDossierExists(false));
+    }, [dossierUrl]);
 
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
@@ -72,17 +80,27 @@ export default function HighVolumenDetailView({ op }: { op: IHighVolumen }) {
                             📑 Descargar propiedades de la cartera
                         </Link>
                     )}
+                    {dossierExists && (
+                        <Link href={dossierUrl} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
+                            📑 Descargar dossier de la cartera
+                        </Link>
+                    )}
                 </div>
             </div>
             <div className="font-semibold text-primary text-2xl mb-4">
-                Precio de venta fondo: {op.ask_price.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                Precio de venta: {formatEUR(op.ask_price)}
             </div>
-            <div className="font-semibold text-primary text-2xl mb-4">
-                Precio de mercado: {op.min_idealista.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })} - {op.max_idealista.toLocaleString("es-ES", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-            </div>
-            <div className="mb-4">
-                Rentabilidad estimada: <span className="font-bold text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
-            </div>
+            {op.type === "REO" && <>
+
+                <div className="font-semibold text-primary text-2xl mb-4">
+                    Precio de mercado: {formatEUR(op.min_idealista || 0)} - {formatEUR(op.max_idealista || 0)}
+                </div>
+                <div className="mb-4">
+                    Rentabilidad estimada: <span className="font-bold text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
+                </div>
+            </>
+            }
+
             {/* Botones de acción */}
             <div className="flex flex-row flex-wrap gap-4 mb-4">
                 <InvestButton

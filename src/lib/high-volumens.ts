@@ -5,7 +5,6 @@ import { IHighVolumen } from "./models/HighVolumen";
 const oportunidades: IHighVolumen[] = [
     {
         _id: "cartera-reo-1",
-        procedure_type: "venta",
         property_type: "Viviendas",
         province: "Madrid, Malaga, Alicante, Valencia y Barcelona",
         city: "Cartera REO 1",
@@ -15,10 +14,10 @@ const oportunidades: IHighVolumen[] = [
         min_idealista: 4086000,
         max_idealista: 4970003,
         starred: true,
+        type: "REO"
     },
     {
         _id: "cartera-reo-2",
-        procedure_type: "venta",
         property_type: "Viviendas",
         province: "Madrid, Malaga, Alicante, Valencia y Barcelona",
         city: "Cartera REO 2",
@@ -28,19 +27,19 @@ const oportunidades: IHighVolumen[] = [
         min_idealista: 5852000,
         max_idealista: 7052000,
         starred: true,
+        type: "REO"
     },
-    // {
-    //     _id: "cartera-reo-3",
-    //     procedure_type: "venta",
-    //     property_type: "Hotel",
-    //     province: "Madrid",
-    //     city: "Cartera REO 3",
-    //     ask_price: 11000000,
-    //     numberOfAssets: 66,
-    //     min_idealista: 4086000,
-    //     max_idealista: 4970003,
-    //     starred: true,
-    // }
+    {
+        _id: "cartera-hotel-1",
+        property_type: "Hotel",
+        province: "Las Palmas de Gran Canaria",
+        city: "Cartera Hotel Máspalomas",
+        ask_price: 11000000,
+        numberOfAssets: 65,
+        numberOfAssetsSelled: 0,
+        starred: true,
+        type: "OWNED"
+    },
 ]
 
 export async function getHighVolumens() {

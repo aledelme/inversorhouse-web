@@ -1,4 +1,4 @@
-import FixIncomeDetailView from "./view";
+import HighVolumenDetailView from "./view";
 import { getHighVolumens } from "@/lib/high-volumens";
 import { IHighVolumen } from "@/lib/models/HighVolumen";
 
@@ -12,5 +12,5 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         return <div>Opportunity not found</div>;
     }
 
-    return <FixIncomeDetailView op={op} />;
+    return <HighVolumenDetailView op={op} />;
 }
