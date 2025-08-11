@@ -7,6 +7,7 @@ import { Poly, Arimo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FacebookPixel from "@/components/FacebookPixel";
 
 
 const poly = Poly({
@@ -42,6 +43,7 @@ export default function RootLayout({
           </header>
           <main className="pt-13">{children}</main>
           <Footer />
+          <FacebookPixel />
         </body>
       </html>
     </ClerkProvider>
