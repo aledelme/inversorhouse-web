@@ -25,7 +25,7 @@ export default function OpportunitiesView({ opportunities }: { opportunities: IO
     const filtered = useMemo(() => {
         return opportunities.filter(o =>
             (!province || o.province === province) &&
-            (!city || o.city === city) &&
+            (!city || capitalizeWords(o.city) === city) &&
             (!squatted || String(o.squatted) === squatted)
         );
     }, [opportunities, province, city, squatted]);
@@ -80,7 +80,7 @@ export default function OpportunitiesView({ opportunities }: { opportunities: IO
                 />
                 <FilterSelect
                     label="Ciudad"
-                    value={city}
+                    value={capitalizeWords(city)}
                     onChange={setCity}
                     options={cities.map(c => capitalizeWords(c)).sort()}
                 />

@@ -52,3 +52,6 @@ populate-db.js
 
 # Cloudflare R2 files
 public/r2
+
+# Functional documentation of the business
+/documentation
