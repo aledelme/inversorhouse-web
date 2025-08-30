@@ -7,81 +7,101 @@ import Image from "next/image";
 import { REO_EXPLAIN } from "@/constants";
 import Explainer from "./Explainer";
 
-export default function HouseCard({ op }: { op: IOpportunity }) {
+interface HouseCardProps {
+    op: IOpportunity;
+}
+
+export default function HouseCard({ op }: HouseCardProps) {
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
 
     const imageUrl = `${process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL}/opportunities/${op.ref_code}/${op.ref_code}.jpg`;
 
     return (
-        <div
-            key={op._id}
-            className="flex flex-col w-full max-w-full border border-gray-200 rounded-2xl p-0 bg-white text-inherit no-underline shadow-md overflow-hidden transition-shadow hover:shadow-lg"
-            style={{ boxSizing: "border-box" }}
-        >
-            <div>
-                <Link href={`/oportunidades/${op.ref_code}`} className={`relative ${op.status === "COMPLETED" ? "opacity-50" : ""}`}>
-                    {(op.status === "COMPLETED") && <div
-                        className="w-auto min-w-xs text-center"
-                        style={{
-                            position: "absolute",
-                            top: "40%",
-                            left: "50%",
-                            transform: "translate(-50%, -50%) rotate(-25deg)",
-                            background: "green",
-                            color: "white",
-                            padding: "8px 32px",
-                            fontWeight: "bold",
-                            fontSize: "2rem",
-                            zIndex: 2,
-                            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                            borderRadius: "8px"
-                        }}
-                    >
-                        Completada
-                    </div>}
+        <article className="group card overflow-hidden transition-all duration-300 hover:shadow-professional-xl">
+            {/* Image Container */}
+            <div className="relative aspect-[4/3] overflow-hidden">
+                <Link href={`/oportunidades/${op.ref_code}`}>
+                    {/* Status Overlay */}
+                    {op.status === "COMPLETED" && (
+                        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/50">
+                            <div className="bg-success text-white px-6 py-3 rounded-lg font-bold text-lg transform -rotate-[25deg] shadow-lg">
+                                Completada
+                            </div>
+                        </div>
+                    )}
+
                     <Image
-                        alt={`Imagen de la propiedad en ${op.city}`}
+                        alt={`Propiedad en ${capitalizeWords(op.city)} - ${op.sub_property_type}`}
                         src={imageUrl}
-                        width={600}
-                        height={360}
-                        className="w-full aspect-[4/3] bg-gray-200 rounded-t-2xl overflow-hidden"
-                        style={{
-                            backgroundImage: "url('https://placehold.co/600x360?text=Inversor%20House')",
-                            backgroundPosition: "center",
-                            backgroundSize: "cover",
-                            boxSizing: "border-box"
-                        }}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
+
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Link>
             </div>
-            <div className="flex-1 flex flex-col p-4">
-                <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{capitalizeWords(op.city)}</span> - {op.sub_property_type} </div>
-                <div className="text-gray-500 mb-1 text-sm">{op.state}, {op.province}</div>
-                <div className="mb-2">
-                    Precio de venta fondo: <span className="font-semibold">{formatEUR(op.ask_price)}</span>
-                </div>
-                <div className="mb-2">
-                    Precio de mercado: <span className="font-semibold">{formatEUR(op.min_idealista)} - {formatEUR(op.max_idealista)}</span>
-                </div>
-                <div className="mb-2">Ocupación: <span className={op.squatted ? "text-red-700 font-medium" : "text-green-700 font-medium"}>
-                    {op.squatted ? "Ocupado" : "Libre"}
-                </span> </div>
-                <div className="mb-2 flex gap-1">Situación judicial: <span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} />
-                </div>
-                <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-xs lg:text-sm shadow-sm border border-green-200">
-                        Rentabilidad Aprox. <span className="text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
-                    </span>
-                    <Link
-                        href={`/oportunidades/${op.ref_code}`}
-                        className="ml-auto bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-primary/90 transition text-center text-xs lg:text-sm"
-                    >
-                        Ver detalle
-                    </Link>
+
+            {/* Content */}
+            <div className="p-6">
+                {/* Header */}
+                <div className="mb-4">
+                    <h3 className="text-xl font-bold text-primary mb-1">
+                        {capitalizeWords(op.city)} - {op.sub_property_type}
+                    </h3>
+                    <p className="text-muted text-sm">
+                        {op.state}, {op.province}
+                    </p>
                 </div>
 
+                {/* Property Details */}
+                <div className="space-y-3 mb-6">
+                    <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-foreground">Precio fondo:</span>
+                        <span className="font-semibold text-primary">{formatEUR(op.ask_price)}</span>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-foreground">Valor mercado:</span>
+                        <span className="font-semibold text-secondary">
+                            {formatEUR(op.min_idealista)} - {formatEUR(op.max_idealista)}
+                        </span>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-foreground">Ocupación:</span>
+                        <span className={`font-semibold ${op.squatted ? "text-warning" : "text-success"}`}>
+                            {op.squatted ? "Ocupado" : "Libre"}
+                        </span>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-foreground flex items-center gap-1">
+                            Situación:
+                            <Explainer message={REO_EXPLAIN} />
+                        </span>
+                        <span className="font-semibold text-primary">REO</span>
+                    </div>
+                </div>
+
+                {/* ROI Badge */}
+                <div className="flex items-center justify-between mb-4">
+                    <div className="bg-success/10 text-success px-4 py-2 rounded-full">
+                        <span className="text-sm font-bold">
+                            Rentabilidad Aprox {minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%
+                        </span>
+                    </div>
+                </div>
+                {/* CTA Button */}
+                <Link
+                    href={`/oportunidades/${op.ref_code}`}
+                    className="w-full btn btn-primary text-center block hover:no-underline"
+                >
+                    Ver Detalles
+                </Link>
             </div>
-        </div>
-    )
+        </article>
+    );
 }

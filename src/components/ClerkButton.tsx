@@ -11,7 +11,11 @@ export default function ClerkButton() {
     return (
         <div>
             <SignedOut>
-                <SignInButton mode="modal">{isMobile ? <UserIcon width={"1.8rem"} height={"1.8rem"} /> : "Acceso"}</SignInButton>
+                <SignInButton mode="modal">
+                    <div className={isMobile ? "" : "btn btn-primary h-12"}>
+                        {isMobile ? <UserIcon width={"1.8rem"} height={"1.8rem"} /> : "Acceso"}
+                    </div>
+                </SignInButton>
             </SignedOut>
 
             <SignedIn>

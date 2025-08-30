@@ -69,18 +69,18 @@ export default function FaqsPage() {
 
     return (
         <div className="max-w-2xl mx-auto py-6 px-4">
-            <h1 className="text-3xl font-bold text-primary mb-8 text-center">FAQs</h1>
+            <h1 className="text-3xl font-bold mb-8 text-center">FAQs</h1>
             <div className="space-y-4">
                 {faqs.map((faq, idx) => (
-                    <div key={idx} className="bg-white rounded-xl shadow border">
+                    <div key={idx} className="bg-white rounded-xl shadow-md border">
                         <button
-                            className="w-full flex justify-between items-center px-6 py-4 text-lg font-semibold text-left focus:outline-none"
+                            className="w-full flex justify-between items-center px-6 py-4 text-lg font-semibold text-left cursor-pointer hover:bg-gray-100 rounded-xl"
                             onClick={() => toggle(idx)}
                             aria-expanded={open === idx}
                             aria-controls={`faq-content-${idx}`}
                         >
                             <span className="py-2">{faq.titulo}</span>
-                            <span className="ml-4 text-white">
+                            <span className="ml-4">
                                 {open === idx ? "−" : "+"}
                             </span>
                         </button>

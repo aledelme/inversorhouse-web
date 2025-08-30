@@ -109,7 +109,9 @@ export default function HighVolumenDetailView({ op }: { op: IHighVolumen }) {
                     tooltip="Nos pondremos en contacto contigo para ofrecerte más detalles sobre esta oportunidad."
                 />
                 <SignedOut>
-                    <SignInButton mode="modal">Accede para solicitar</SignInButton>
+                    <SignInButton mode="modal">
+                        <div className="btn btn-primary h-12">Accede para solicitar</div>
+                    </SignInButton>
                 </SignedOut>
                 <div>
                     {confirmationMsg && (
@@ -152,7 +154,7 @@ function InvestButton({ onClick, text, tooltip }: InvestButtonProps) {
     return (<div className="flex items-center gap-2">
         <Tooltip content={tooltip} className="max-w-xs">
             <button
-                className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn}
+                className="h-12 bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn}
                 onClick={onClick}
                 type="button"
             >
@@ -204,7 +206,7 @@ function InvestmentForm({
             </label>
 
             <label className="flex items-center gap-2">
-                <input name="terms" type="checkbox" required /> Acepto los <a href="/aviso-legal" className="underline text-primary" target="_blank">términos y condiciones</a>
+                <input className="w-auto!" name="terms" type="checkbox" required /> Acepto los <a href="/aviso-legal" className="underline text-primary" target="_blank">términos y condiciones</a>
             </label>
 
             <div className="flex gap-2 mt-2">

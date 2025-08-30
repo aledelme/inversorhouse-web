@@ -7,59 +7,95 @@ import { IHighVolumen } from "@/lib/models/HighVolumen";
 import Explainer from "./Explainer";
 import { REO_EXPLAIN } from "@/constants";
 
-export default function HighVolumenCard({ op }: { op: IHighVolumen }) {
+interface HighVolumenCardProps {
+    op: IHighVolumen;
+}
+
+export default function HighVolumenCard({ op }: HighVolumenCardProps) {
     const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
     const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
-
-    const baseR2Url = process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL + '/high-volumen';
-    const imageUrl = `${baseR2Url}/${op._id}/${op._id}.jpg`;
+    const imageUrl = `${process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL}/high-volumen/${op._id}/${op._id}.jpg`;
 
     return (
-        <div
-            key={op._id}
-            className="flex flex-col w-full max-w-full border border-gray-200 rounded-2xl p-0 bg-white text-inherit no-underline shadow-md overflow-hidden transition-shadow hover:shadow-lg"
-            style={{ boxSizing: "border-box" }}
-        >
-            <div>
-                {/* <Link href={`/oportunidades/${op._id}`}> */}
-                <Image
-                    alt={`Imagen de la propiedad en ${op.city}`}
-                    src={imageUrl}
-                    width={600}
-                    height={360}
-                    className="w-full aspect-[4/3] bg-gray-200 rounded-t-2xl overflow-hidden"
-                    style={{
-                        backgroundImage: "url('https://placehold.co/600x360?text=Inversor%20House')",
-                        backgroundPosition: "center",
-                        backgroundSize: "cover",
-                        boxSizing: "border-box"
-                    }}
-                />
-                {/* </Link> */}
+        <article className="group card overflow-hidden transition-all duration-300 hover:shadow-professional-xl">
+            {/* Image Container */}
+            <div className="relative aspect-[4/3] overflow-hidden">
+                <Link href={`/high-volumen/${op._id}`}>
+                    <Image
+                        alt={`Cartera de propiedades en ${op.city}`}
+                        src={imageUrl}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </Link>
             </div>
-            <div className="flex-1 flex flex-col p-4">
-                <div className="mb-2"><span className="font-bold text-2xl text-gray-900">{op.city}</span></div>
-                <div className="text-gray-500 mb-1 text-sm">{op.province}</div>
-                <div className="mb-2">
-                    Precio de venta: <span className="font-semibold">{formatEUR(op.ask_price)}</span>
+
+            {/* Content */}
+            <div className="p-6">
+                {/* Header */}
+                <div className="mb-4">
+                    <h3 className="text-xl font-bold text-primary mb-1">
+                        {op.city}
+                    </h3>
+                    <p className="text-muted text-sm">
+                        {op.province}
+                    </p>
                 </div>
-                <div className="mb-2">Número de activos: <span className="font-semibold">{(op.numberOfAssets - op.numberOfAssetsSelled) + " / " + op.numberOfAssets}</span></div>
-                <div className={"mb-2" + (op.min_idealista && op.max_idealista ? "" : " invisible")}>
-                    Precio de mercado: <span className="font-semibold">{formatEUR(op.min_idealista || 0)} - {formatEUR(op.max_idealista || 0)}</span>
+
+                {/* Asset Details */}
+                <div className="space-y-3 mb-6">
+                    <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-foreground">Precio de venta:</span>
+                        <span className="font-semibold text-primary">{formatEUR(op.ask_price)}</span>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-foreground">Activos disponibles:</span>
+                        <span className="font-semibold text-secondary">
+                            {(op.numberOfAssets - op.numberOfAssetsSelled)} / {op.numberOfAssets}
+                        </span>
+                    </div>
+
+                    {(op.min_idealista && op.max_idealista) && (
+                        <div className="flex justify-between items-center">
+                            <span className="text-sm font-medium text-foreground">Precio mercado:</span>
+                            <span className="text-xs md:text-lg font-semibold text-secondary">
+                                {formatEUR(op.min_idealista)} - {formatEUR(op.max_idealista)}
+                            </span>
+                        </div>
+                    )}
+
+                    {op.type === "REO" && (
+                        <div className="flex justify-between items-center">
+                            <span className="text-sm font-medium text-foreground flex items-center gap-1">
+                                Situación judicial:
+                                <Explainer message={REO_EXPLAIN} />
+                            </span>
+                            <span className="font-semibold text-primary">REO</span>
+                        </div>
+                    )}
                 </div>
-                <div className={"mb-2 flex gap-1" + (op.type === "REO" ? "" : " invisible")}>Situación judicial: <span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} /></div>
-                <div className="flex items-center gap-2 mb-2">
-                    <span className={"inline-block bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full text-sm shadow-sm border border-green-200" + (op.type === "REO" ? "" : " invisible")}>
-                        Rentabilidad Aprox. <span className="text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>
-                    </span>
-                    <Link
+
+                {/* ROI and CTA */}
+                <div className="flex items-center justify-between">
+                    {op.type === "REO" && (
+                        <div className="bg-success/10 text-success px-4 py-2 rounded-full">
+                            <span className="text-sm font-bold">
+                                ROI: {minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%
+                            </span>
+                        </div>
+                    )}                    <Link
                         href={`/high-volumen/${op._id}`}
-                        className="ml-auto bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-primary/90 transition text-center text-sm"
+                        className={`btn btn-primary text-sm hover:no-underline ${op.type !== "REO" ? "w-full text-center" : ""}`}
                     >
-                        Ver detalle
+                        Ver Detalles
                     </Link>
                 </div>
             </div>
-        </div>
-    )
+        </article>
+    );
 }

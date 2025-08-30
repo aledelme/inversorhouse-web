@@ -74,7 +74,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
         <div className="max-w-6xl mx-auto px-6 py-8">
             <div className={`mb-6 relative ${op.status === "COMPLETED" ? "opacity-50" : ""}`}>
                 {(op.status === "COMPLETED") && <div
-                    className="w-auto min-w-xl text-center"
+                    className="px-16 py-4 text-3xl md:text-5xl lg:text-6xl text-center"
                     style={{
                         position: "absolute",
                         top: "40%",
@@ -82,9 +82,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                         transform: "translate(-50%, -50%) rotate(-25deg)",
                         background: "green",
                         color: "white",
-                        padding: "8px 32px",
                         fontWeight: "bold",
-                        fontSize: "5rem",
                         zIndex: 2,
                         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
                         borderRadius: "8px"
@@ -243,11 +241,11 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                         <span className="font-semibold text-lg">No es vinculante.</span> Al hacer clic en <span className="font-semibold">Ofertar, Coinvertir o Gestionar</span>, no estás obligado a realizar ninguna acción ni de participar en ninguna de las operaciones. Solo te enviaremos un correo electrónico para confirmar tu interés y uno de nuestros agentes se pondrá en contacto contigo para guiarte en los siguientes pasos.
                     </p>
                 </div>
-                <div className="md:col-span-3 mb-8">
-                    <SignedOut>
-                        <SignInButton mode="modal">Accede para participar</SignInButton>
-                    </SignedOut>
-                </div>
+                <SignedOut>
+                    <SignInButton mode="modal">
+                        <div className="md:col-span-3 mb-8 btn btn-primary">Accede para participar</div>
+                    </SignInButton>
+                </SignedOut>
             </div>
 
             <ProfitCalculator
@@ -397,7 +395,7 @@ function InvestmentForm({
                 </div>
             )}
             <label className="flex items-center gap-2">
-                <input name="terms" type="checkbox" required /> Acepto los <a href="/aviso-legal" className="underline text-primary" target="_blank">términos y condiciones</a>
+                <input className="w-auto!" name="terms" type="checkbox" required /> Acepto los <a href="/aviso-legal" className="underline text-primary" target="_blank">términos y condiciones</a>
             </label>
             <div className="flex gap-2 mt-2">
                 <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded" disabled={isPending}>

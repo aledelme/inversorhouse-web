@@ -6,10 +6,10 @@ export default function PoliticaPrivacidadPage() {
             <section className="mb-6">
                 <h2 className="text-xl font-semibold mb-2 text-blue-800">1. Responsable del Tratamiento de sus Datos</h2>
                 <ul className="list-disc pl-6 space-y-1 text-gray-700">
-                    <li><strong>Denominación Social:</strong> [Razón social completa de la empresa]</li>
-                    <li><strong>NIF:</strong> [Número de Identificación Fiscal]</li>
-                    <li><strong>Domicilio Social:</strong> [Dirección fiscal completa]</li>
-                    <li><strong>Correo Electrónico de Contacto:</strong> info@inversorhouse.com</li>
+                    <li><strong>Denominación Social:</strong> HermesGod S.L.</li>
+                    <li><strong>NIF:</strong> B22684815</li>
+                    {/* <li><strong>Domicilio Social:</strong> [Dirección fiscal completa]</li> */}
+                    <li><strong>Correo Electrónico de Contacto:</strong> atencion@inversorhouse.com</li>
                 </ul>
             </section>
 
@@ -67,7 +67,7 @@ export default function PoliticaPrivacidadPage() {
                     <li><strong>Derecho a la Portabilidad de los Datos:</strong> Recibir tus datos en un formato estructurado, de uso común y lectura mecánica.</li>
                 </ul>
                 <p className="mt-2 text-gray-700">
-                    Puedes ejercer estos derechos enviando una solicitud por correo electrónico a <strong>info@inversorhouse.com</strong>, indicando el derecho que deseas ejercer y adjuntando una copia de tu DNI o documento identificativo equivalente.
+                    Puedes ejercer estos derechos enviando una solicitud por correo electrónico a <strong>atencion@inversorhouse.com</strong>, indicando el derecho que deseas ejercer y adjuntando una copia de tu DNI o documento identificativo equivalente.
                 </p>
                 <p className="mt-2 text-gray-700">
                     Si consideras que tus derechos no han sido debidamente atendidos, tienes derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD).

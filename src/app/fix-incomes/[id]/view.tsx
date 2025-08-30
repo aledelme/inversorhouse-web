@@ -83,7 +83,7 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
         <div className="max-w-4xl mx-auto px-6 py-8">
             <div className={"mb-6 relative" + (op.status !== "OPEN" ? " opacity-50 pointer-events-none" : "")}>
                 {(op.status === "COMPLETED" || op.status === "IN_PROGRESS") && <div
-                    className="w-auto min-w-xl text-center"
+                    className="px-16 py-4 text-3xl md:text-5xl lg:text-6xl text-center"
                     style={{
                         position: "absolute",
                         top: "40%",
@@ -91,9 +91,7 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
                         transform: "translate(-50%, -50%) rotate(-25deg)",
                         background: "green",
                         color: "white",
-                        padding: "8px 32px",
                         fontWeight: "bold",
-                        fontSize: "5rem",
                         zIndex: 2,
                         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
                         borderRadius: "8px"
@@ -177,13 +175,17 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
             <div className="flex flex-row flex-wrap gap-4 mb-4">
                 <InvestButton
                     onClick={() => handleAction()}
-                    text="Contactar con la promoción para más información"
+                    text="Contactar para más información"
                     tooltip="Nos pondremos en contacto contigo para ofrecerte más detalles sobre esta oportunidad."
                     op={op}
                 />
+
                 <SignedOut>
-                    <SignInButton mode="modal">Accede para participar</SignInButton>
+                    <SignInButton mode="modal">
+                        <div className="btn btn-primary h-12">Accede para participar</div>
+                    </SignInButton>
                 </SignedOut>
+
                 <div>
                     {confirmationMsg && (
                         <span className={`text-sm ${confirmationMsg.startsWith("¡Gracias") ? "text-green-700" : "text-red-700"}`}>
@@ -226,7 +228,7 @@ function InvestButton({ onClick, text, tooltip, op }: InvestButtonProps) {
     return (<div className="flex items-center gap-2">
         <Tooltip content={tooltip} className="max-w-xs">
             <button
-                className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn || op.status !== "OPEN"}
+                className="h-12 bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled={!isSignedIn || op.status !== "OPEN"}
                 onClick={onClick}
                 type="button"
             >
@@ -278,7 +280,7 @@ function InvestmentForm({
             </label>
 
             <label className="flex items-center gap-2">
-                <input name="terms" type="checkbox" required /> Acepto los <a href="/aviso-legal" className="underline text-primary" target="_blank">términos y condiciones</a>
+                <input className="w-auto!" name="terms" type="checkbox" required /> Acepto los <a href="/aviso-legal" className="underline text-primary" target="_blank">términos y condiciones</a>
             </label>
 
             <div className="flex gap-2 mt-2">

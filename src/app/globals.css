@@ -3,148 +3,57 @@
 @source "../../.flowbite-react/class-list.json";
 
 :root {
-  --background: #d9dce1; /* Gris claro para fondos */
-  --foreground: #3e5479; /* Color principal para textos */
-  --primary: #3e5479; /* Color principal */
-  --secondary: #506b9f; /* Azul acero para botones/detalles activos */
-  --terciary: #dfdfda; /* Gris claro para bordes y detalles */
-  --surface: #fff; /* Blanco para tarjetas/superficies */
-  --surface-border: #cfd4df; /* Borde más suave, derivado del gris claro */
-  --shadow: 0 2px 8px 0 rgb(14 68 101 / 0.04); /* Sombra sutil azulada */
+  /* Professional Real Estate Color Palette */
+  --background: #fafbfc; /* Clean off-white background */
+  --foreground: #1a2332; /* Deep navy for primary text */
+
+  /* Primary Blues - Trust and Professionalism */
+  --primary: #0f3460; /* Deep navy blue - primary brand color */
+  --primary-hover: #1e4a73; /* Slightly lighter for hover states */
+  --primary-light: #e8f0f8; /* Very light blue for backgrounds */
+
+  /* Secondary Colors - Warmth and Success */
+  --secondary: #2563eb; /* Modern blue for accents */
+  --accent: #d4a574; /* Warm gold for highlights */
+  --success: #059669; /* Professional green for positive indicators */
+  --warning: #dc2626; /* Alert red for cautions */
+
+  /* Neutrals - Clean and Modern */
+  --surface: #ffffff; /* Pure white for cards/surfaces */
+  --surface-secondary: #f3f4f6; /* Light gray for secondary surfaces */
+  --border: #e2e8f0; /* Light border color */
+  --muted: #64748b; /* Muted text color */
+  --muted-light: #94a3b8; /* Very muted text */
+
+  /* Shadows - Professional and Subtle */
+  --shadow-sm: 0 1px 2px 0 rgb(15 52 96 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(15 52 96 / 0.1),
+    0 2px 4px -2px rgb(15 52 96 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(15 52 96 / 0.1),
+    0 4px 6px -4px rgb(15 52 96 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(15 52 96 / 0.1),
+    0 8px 10px -6px rgb(15 52 96 / 0.1);
 }
 
-/* Forzar tema claro en todo momento */
+/* Global Base Styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   background: var(--background);
   color: var(--foreground);
+  line-height: 1.6;
+  font-family: var(--font-arimo), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Párrafos usan Arimo */
-body,
-p {
-  font-family: var(--font-arimo), Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  color: var(--foreground);
-}
-
-/* Utilidades de color y fondo */
-.bg-primary {
-  background: var(--primary) !important;
-  color: #fff !important;
-}
-.bg-secondary {
-  background: var(--secondary) !important;
-  color: #fff !important;
-}
-.bg-terciary {
-  background: var(--terciary) !important;
-  color: #fff !important;
-}
-.text-primary {
-  color: var(--primary) !important;
-}
-.text-secondary {
-  color: var(--secondary) !important;
-}
-.text-foreground {
-  color: var(--foreground) !important;
-}
-.bg-background {
-  background: var(--background) !important;
-  color: var(--foreground) !important;
-}
-
-/* Superficies (tarjetas, navbar, etc) */
-.bg-white,
-.card,
-.navbar {
-  background: var(--surface) !important;
-  color: var(--foreground) !important;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--surface-border);
-}
-
-/* Elimina border y shadow de navbar si no se desea */
-.navbar {
-  border-radius: 0;
-  box-shadow: 0 1px 0 0 var(--surface-border);
-  border: none;
-}
-
-/* Links */
-a {
-  color: var(--secondary);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-a:hover,
-a:focus {
-  color: var(--primary);
-  text-decoration: underline;
-}
-
-/* Inputs y botones */
-input,
-textarea,
-select,
-button {
-  color: var(--foreground);
-  background: var(--surface);
-  border: 1px solid var(--surface-border);
-  border-radius: 0.5rem;
-  padding: 0.5em 1em;
-  font-size: 1rem;
-  transition: background 0.2s, color 0.2s, border 0.2s;
-}
-input:focus,
-textarea:focus,
-select:focus {
-  outline: 2px solid var(--secondary);
-  border-color: var(--secondary);
-}
-button {
-  cursor: pointer;
-  font-weight: 500;
-  background: var(--secondary);
-  color: #fff;
-  border: none;
-  transition: background 0.2s, color 0.2s;
-}
-button.bg-primary,
-.bg-primary button {
-  background: var(--primary) !important;
-  color: #fff !important;
-}
-button.bg-secondary,
-.bg-secondary button {
-  background: var(--secondary) !important;
-  color: #fff !important;
-}
-button:hover,
-.bg-primary button:hover,
-.bg-secondary button:hover {
-  background: var(--primary) !important;
-  color: #fff !important;
-}
-
-/* Listas */
-ol,
-ul {
-  color: var(--foreground);
-}
-
-/* Sombras y bordes */
-.shadow,
-.card,
-.bg-white {
-  box-shadow: var(--shadow);
-}
-.border {
-  border: 1px solid var(--surface-border);
-}
-
-/* Responsive headings */
+/* Typography Hierarchy */
 h1,
 h2,
 h3,
@@ -152,39 +61,324 @@ h4,
 h5,
 h6 {
   color: var(--primary);
-  font-family: var(--font-poly), serif;
+  font-family: var(--font-poly), Georgia, "Times New Roman", serif;
   font-weight: 700;
-  margin-bottom: 0.5em;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.025em;
 }
-h1 {
-  font-size: 2.5rem;
+
+/* h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
 }
+
 h2 {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 700;
 }
+
 h3 {
-  font-size: 1.5rem;
-}
-@media (max-width: 640px) {
-  h1 {
-    font-size: 2rem;
-  }
-  h2 {
-    font-size: 1.25rem;
-  }
-  h3 {
-    font-size: 1.1rem;
-  }
+  font-size: clamp(1.25rem, 3vw, 1.875rem);
+  font-weight: 600;
 }
 
-/* Utilidad para overlays */
-.overlay {
-  background: rgba(14, 68, 101, 0.15);
+h4 {
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+} */
+
+p {
+  color: var(--foreground);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
-/* Otros ajustes */
-hr {
+.text-muted {
+  color: var(--muted);
+}
+
+.text-muted-light {
+  color: var(--muted-light);
+}
+
+/* Component Classes */
+.bg-primary {
+  background-color: var(--primary) !important;
+  color: white !important;
+}
+
+.bg-secondary {
+  background-color: var(--secondary) !important;
+  color: white !important;
+}
+
+.bg-accent {
+  background-color: var(--accent) !important;
+  color: white !important;
+}
+
+.bg-success {
+  background-color: var(--success) !important;
+  color: white !important;
+}
+
+.bg-surface {
+  background-color: var(--surface) !important;
+  color: var(--foreground) !important;
+}
+
+.bg-surface-secondary {
+  background-color: var(--surface-secondary) !important;
+  color: var(--foreground) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-secondary {
+  color: var(--secondary) !important;
+}
+
+.text-accent {
+  color: var(--accent) !important;
+}
+
+.text-success {
+  color: var(--success) !important;
+}
+
+.text-warning {
+  color: var(--warning) !important;
+}
+
+/* Border utilities */
+.border-color {
+  border-color: var(--border) !important;
+}
+
+/* Shadow utilities */
+.shadow-professional-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-professional-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-professional-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-professional-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+/* Interactive Elements */
+/* Buttons - Professional Design */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
   border: none;
-  border-top: 1px solid var(--surface-border);
-  margin: 2em 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-accent {
+  background-color: var(--accent);
+  color: white;
+}
+
+.btn-accent:hover {
+  background-color: #b8925e;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* Form Elements */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: var(--surface);
+  color: var(--foreground);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Cards - Modern and Clean */
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  background-color: var(--surface-secondary);
+}
+
+/* Utility Classes */
+.container-base {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-base {
+    padding: 0 2rem;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/* Typography Utilities */
+.heading-1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  color: var(--primary);
+}
+
+.heading-2 {
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--primary);
+}
+
+.heading-3 {
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--primary);
+}
+
+/* Surface Utilities */
+.surface-border {
+  border-color: var(--border);
+}
+
+.surface-light {
+  background-color: var(--surface-secondary);
+}
+
+/* Shadow Utilities - Professional */
+.shadow-professional {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-professional-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-professional-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-professional-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-professional-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+.section-spacing {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+  }
 }

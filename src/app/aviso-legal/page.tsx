@@ -6,12 +6,12 @@ export default function AvisoLegalPage() {
             <section className="mb-6">
                 <h2 className="text-xl font-semibold mb-2 text-blue-800">1. Datos identificativos del titular</h2>
                 <ul className="list-disc pl-6 space-y-1 text-gray-700">
-                    <li><strong>Denominación Social:</strong> [Razón social completa de la empresa, ej: Inversiones Inmobiliarias House S.L.]</li>
+                    <li><strong>Denominación Social:</strong> HermesGod S.L.</li>
                     <li><strong>Nombre Comercial:</strong> InversorHouse</li>
-                    <li><strong>NIF:</strong> [Número de Identificación Fiscal]</li>
-                    <li><strong>Domicilio Social:</strong> [Dirección fiscal completa, calle, número, código postal, ciudad, provincia]</li>
-                    <li><strong>Correo Electrónico de Contacto:</strong> info@inversorhouse.com</li>
-                    <li><strong>Datos de Inscripción Registral:</strong> [Inscrita en el Registro Mercantil de [Ciudad], Tomo XXX, Folio XXX, Hoja XX-XXXXX, Inscripción Xª] (Si aplica)</li>
+                    <li><strong>NIF:</strong> B22684815</li>
+                    {/* <li><strong>Domicilio Social:</strong> [Dirección fiscal completa, calle, número, código postal, ciudad, provincia]</li> */}
+                    <li><strong>Correo Electrónico de Contacto:</strong> atencion@inversorhouse.com</li>
+                    {/* <li><strong>Datos de Inscripción Registral:</strong> [Inscrita en el Registro Mercantil de [Ciudad], Tomo XXX, Folio XXX, Hoja XX-XXXXX, Inscripción Xª] (Si aplica)</li> */}
                 </ul>
             </section>
 
@@ -76,7 +76,7 @@ export default function AvisoLegalPage() {
             <section>
                 <h2 className="text-xl font-semibold mb-2 text-blue-800">6. Legislación aplicable y jurisdicción</h2>
                 <p className="text-gray-700">
-                    La relación entre InversorHouse y el Usuario se regirá por la normativa española vigente. Para la resolución de cualquier controversia, ambas partes se someten a los Juzgados y Tribunales de la ciudad de [Ciudad del domicilio social de la empresa o la que elijan].
+                    La relación entre InversorHouse y el Usuario se regirá por la normativa española vigente. Para la resolución de cualquier controversia, ambas partes se someten a los Juzgados y Tribunales de la ciudad de Madrid.
                 </p>
             </section>
         </section>
