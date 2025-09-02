@@ -3,6 +3,8 @@ import withFlowbiteReact from "flowbite-react/plugin/nextjs";
 
 const nextConfig: NextConfig = {
   images: {
+    minimumCacheTTL: 2678400,// 31 days
+    formats: ['image/webp'],
     remotePatterns: [
       {
         protocol: 'https',

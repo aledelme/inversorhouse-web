@@ -31,7 +31,7 @@ export default function HouseCard({ op }: HouseCardProps) {
                         </div>
                     )}
 
-                    <Image
+                    <Image unoptimized
                         alt={`Propiedad en ${capitalizeWords(op.city)} - ${op.sub_property_type}`}
                         src={imageUrl}
                         fill
