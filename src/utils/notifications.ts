@@ -5,9 +5,12 @@ type EmailData = {
     to: string;
     subject: string;
     html: string;
+    cc?: string;
+    bcc?: string;
+    attachments?: nodemailer.SendMailOptions['attachments'];
 };
 
-export async function sendEmail({ to, subject, html }: EmailData) {
+export async function sendEmail({ to, subject, html, cc, bcc, attachments }: EmailData) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         host: 'smtp.gmail.com',
@@ -24,7 +27,9 @@ export async function sendEmail({ to, subject, html }: EmailData) {
         to,
         subject,
         html,
-        bcc: 'alejandrodelmedico@gmail.com, inversorhouse@gmail.com, andresdelmedicobravo@gmail.com'
+        cc,
+        bcc,
+        attachments
     };
 
     try {

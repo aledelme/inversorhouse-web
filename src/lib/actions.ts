@@ -24,6 +24,7 @@ export async function sendOffer(op: IOpportunity, formData: FormData) {
     const email = primaryEmailAddress.emailAddress
     await sendEmail({
         to: email,
+        bcc: 'inversorhouse@gmail.com',
         subject: `Has ofertado por ${op.sub_property_type} en ${op.city}`,
         html: `
             <p>Hola ${firstName} ${lastName}</p>
@@ -58,6 +59,7 @@ export async function sendCoinvestment(op: IOpportunity, formData: FormData) {
     const email = primaryEmailAddress.emailAddress
     await sendEmail({
         to: email,
+        bcc: 'inversorhouse@gmail.com',
         subject: `Te has apuntado a ${investmentData.isGestor ? "gestionar" : "coinvertir"} en ${op.sub_property_type} en ${op.city}`,
         html: `
             <p>Hola ${firstName} ${lastName}</p>
@@ -91,6 +93,7 @@ export async function sendFixIncome(op: IFixIncome, formData: FormData) {
     const email = primaryEmailAddress.emailAddress
     await sendEmail({
         to: email,
+        bcc: 'inversorhouse@gmail.com',
         subject: `Te has apuntado a coinvertir en ${op.property_type} en ${op.city}`,
         html: `
             <p>Hola ${firstName} ${lastName}</p>
@@ -123,6 +126,7 @@ export async function sendHighVolumen(op: IHighVolumen, formData: FormData) {
     const email = primaryEmailAddress.emailAddress
     await sendEmail({
         to: email,
+        bcc: 'inversorhouse@gmail.com',
         subject: `Te has apuntado a interesado por ${op.city}`,
         html: `
             <p>Hola ${firstName} ${lastName}</p>
