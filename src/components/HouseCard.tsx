@@ -6,14 +6,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { REO_EXPLAIN } from "@/constants";
 import Explainer from "./Explainer";
+import { profitCalculator } from "@/lib/profit-calculator";
 
 interface HouseCardProps {
     op: IOpportunity;
 }
 
 export default function HouseCard({ op }: HouseCardProps) {
-    const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
-    const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
+    const { minRentability, maxRentability } = profitCalculator(op);
 
     const imageUrl = `${process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL}/opportunities/${op.ref_code}/${op.ref_code}.jpg`;
 

@@ -20,6 +20,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     worksheet.getCell('B6').value = op.ref_code;
     worksheet.getCell('G6').value = capitalizeWords(`${op.state}, ${op.province}, ${op.city}, ${op.address}, ${op.zip_code}`);
     worksheet.getCell('B8').value = op.squatted ? 'Sí' : 'No';
+    worksheet.getCell('F12').value = { formula: `IF(B8="Sí",10000,0)`, result: op.squatted ? 10000 : 0 };
     worksheet.getCell('B12').value = op.ask_price;
     worksheet.getCell('C24').value = op.min_idealista;
     worksheet.getCell('D24').value = (op.max_idealista + op.min_idealista) / 2;
@@ -29,9 +30,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     // DATOS DE COMPRA
     const ITP = op.ask_price * Number(worksheet.getCell('C12').value)
     worksheet.getCell('D12').value = { formula: `B12*C12`, result: ITP }
-    const GASTOS_GESTION = op.ask_price * 0.08
-    worksheet.getCell('E12').value = { formula: `B12*0.08`, result: GASTOS_GESTION }
-    const GASTO_TOTAL_COMPRA = op.ask_price + ITP + GASTOS_GESTION + Number(worksheet.getCell('F12').value) + Number(worksheet.getCell('G12').value)
+    const GASTOS_GESTION = op.ask_price * 0.06 * 1.21
+    worksheet.getCell('E12').value = { formula: `B12*0.06*1.21`, result: GASTOS_GESTION }
+    const GASTO_TOTAL_COMPRA = op.ask_price + ITP + GASTOS_GESTION + (op.squatted ? 10000 : 0) + Number(worksheet.getCell('G12').value)
     worksheet.getCell('H12').value = { formula: `B12+D12+E12+F12+G12`, result: GASTO_TOTAL_COMPRA }
 
     // DATOS DE VENTA
@@ -39,9 +40,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     const C24 = Number(worksheet.getCell('C24').value);
     const D24 = Number(worksheet.getCell('D24').value);
     const E24 = Number(worksheet.getCell('E24').value);
-    worksheet.getCell('C25').value = { formula: `C24*$B$20`, result: C24 * B20 };
-    worksheet.getCell('D25').value = { formula: `D24*$B$20`, result: D24 * B20 };
-    worksheet.getCell('E25').value = { formula: `E24*$B$20`, result: E24 * B20 };
+    worksheet.getCell('C25').value = { formula: `C24*$B$20*1.21`, result: C24 * B20 * 1.21 };
+    worksheet.getCell('D25').value = { formula: `D24*$B$20*1.21`, result: D24 * B20 * 1.21 };
+    worksheet.getCell('E25').value = { formula: `E24*$B$20*1.21`, result: E24 * B20 * 1.21 };
 
     const H12 = GASTO_TOTAL_COMPRA;
     const H16 = 12000; // Gastos de Operación
@@ -60,8 +61,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     const D27 = D24 - D26;
     const E27 = E24 - E26;
     worksheet.getCell('C28').value = { formula: `C27/C26`, result: C27 / C26 };
-    worksheet.getCell('D28').value = { formula: `D27/C26`, result: D27 / C26 };
-    worksheet.getCell('E28').value = { formula: `E27/C26`, result: E27 / C26 };
+    worksheet.getCell('D28').value = { formula: `D27/D26`, result: D27 / D26 };
+    worksheet.getCell('E28').value = { formula: `E27/E26`, result: E27 / E26 };
 
     const C20 = Number(worksheet.getCell('C20').value);
     worksheet.getCell('C29').value = { formula: `(C24-C26)*$C$20`, result: (C24 - C26) * C20 };

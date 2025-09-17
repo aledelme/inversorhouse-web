@@ -16,6 +16,7 @@ import Explainer from "@/components/Explainer";
 import { REO_EXPLAIN } from "@/constants";
 import WhyUsOpportunity from "../components/WhyUsOpportunity";
 import AboutUsOpportunity from "../components/AboutUsOpportunity";
+import { profitCalculator } from "@/lib/profit-calculator";
 
 type InvesmentType = "ofertar" | "coinvertir" | "gestionar";
 
@@ -25,8 +26,7 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
     const [modalType, setModalType] = useState<InvesmentType | null>(null);
     const [confirmationMsg, setConfirmationMsg] = useState<string | null>(null);
 
-    const minRentability = (op.min_idealista - op.ask_price) / op.ask_price * 100;
-    const maxRentability = (op.max_idealista - op.ask_price) / op.ask_price * 100;
+    const { minRentability, maxRentability } = profitCalculator(op);
 
     const baseR2Url = process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL + '/opportunities';
     const imageUrl = `${baseR2Url}/${op.ref_code}/${op.ref_code}.jpg`;

@@ -45,7 +45,6 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
 
     useEffect(() => {
         // Intenta hacer un HEAD request al PDF
-        console.log(`Checking PDF at: ${dossierUrl}`);
         fetch(dossierUrl, { method: "HEAD" })
             .then(res => setPdfExists(res.ok))
             .catch(() => setPdfExists(false));

@@ -33,11 +33,11 @@ const oportunidades: IFixIncome[] = [
         starred: true,
         zip_code: "28001",
         required_capital: 500000,
-        raised_capital: 50000,
+        raised_capital: 500000,
         ticket: 50000,
         ticket_explanation: "Se aceptan tickets menores que podrán participar mediante una comunidad de bienes",
         duration: 12,
-        status: "OPEN",
+        status: "COMPLETED",
         yield: "20% anual",
         summary: `La operación consiste en la edificación de un solar de 269 m² del que la empresa promotora ya posee la titularidad. El proyecto contempla la construcción y venta  de seis viviendas de lujo y  distribuidas de la siguiente manera:
 
@@ -65,10 +65,10 @@ El equipo responsable del proyecto cuenta con amplia experiencia en reformas y c
         starred: true,
         zip_code: "35560",
         required_capital: 395200,
-        raised_capital: 185000,
+        raised_capital: 395200,
         ticket: 25000,
         duration: 9,
-        status: "OPEN",
+        status: "COMPLETED",
         yield: "15% sobre capital",
         summary: `El activo consiste en un chalet unifamiliar de 208 m² construidos sobre una parcela de 248 m², con cuatro habitaciones, tres baños, terraza y piscina. Actualmente se encuentra ocupado, pero ya se ha alcanzado un acuerdo económico con el ocupante y existe una fecha confirmada para su desocupación. Una vez liberada la vivienda, se llevará a cabo una reforma integral con el objetivo de convertirla en un chalet de lujo con vistas privilegiadas al mar y a los volcanes, entregándose totalmente amueblado y listo para entrar a vivir. La obra cuenta con un presupuesto cerrado y firmado con una empresa local, con inicio previsto para el mes de agosto.
 
