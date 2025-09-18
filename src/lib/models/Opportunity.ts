@@ -1,12 +1,9 @@
+import { LegalStatus } from "@/constants";
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 export enum OpportunityStatus {
   COMPLETED = "COMPLETED",
   CLOSED = "CLOSED",
-}
-
-export enum LegalStatus {
-  REO = "REO", // Real Estate Owned
 }
 
 const OpportunitySchema = new Schema({

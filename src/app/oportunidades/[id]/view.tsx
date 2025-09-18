@@ -13,7 +13,7 @@ import { Modal } from "@/components/Model";
 import ProfitCalculator from "@/components/ProfitCalculator";
 import { Tooltip } from "flowbite-react";
 import Explainer from "@/components/Explainer";
-import { REO_EXPLAIN } from "@/constants";
+import { LegalStatus, REO_EXPLAIN } from "@/constants";
 import WhyUsOpportunity from "../components/WhyUsOpportunity";
 import AboutUsOpportunity from "../components/AboutUsOpportunity";
 import { profitCalculator } from "@/lib/profit-calculator";
@@ -136,7 +136,14 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                 </span>
             </div>
             <div className="mb-2 flex gap-1">
-                Situación judicial: <span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} />
+                Situación judicial:
+                {op.legal_status === LegalStatus.REO ?
+                    <><span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} /></> :
+                    op.legal_status === LegalStatus.POSESION ?
+                        <span className="font-medium">Con posesión</span> :
+                        <span className="font-medium">N/A</span>
+                }
+
             </div>
             <div className="mb-4">
                 Rentabilidad estimada: <span className="font-bold text-green-700">{minRentability.toFixed(0)}% - {maxRentability.toFixed(0)}%</span>

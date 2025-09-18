@@ -4,7 +4,7 @@ import { IOpportunity } from "@/lib/models/Opportunity"
 import { capitalizeWords, formatEUR } from "@/utils/functions";
 import Link from "next/link";
 import Image from "next/image";
-import { REO_EXPLAIN } from "@/constants";
+import { LegalStatus, REO_EXPLAIN } from "@/constants";
 import Explainer from "./Explainer";
 import { profitCalculator } from "@/lib/profit-calculator";
 
@@ -18,7 +18,7 @@ export default function HouseCard({ op }: HouseCardProps) {
     const imageUrl = `${process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL}/opportunities/${op.ref_code}/${op.ref_code}.jpg`;
 
     return (
-        <article className="group card overflow-hidden transition-all duration-300 hover:shadow-professional-xl">
+        <article className={`group card overflow-hidden transition-all duration-300 hover:shadow-professional-xl`}>
             {/* Image Container */}
             <div className="relative aspect-[4/3] overflow-hidden">
                 <Link href={`/oportunidades/${op.ref_code}`}>
@@ -81,9 +81,18 @@ export default function HouseCard({ op }: HouseCardProps) {
                         <span className="text-sm font-medium text-foreground flex items-center gap-1">
                             Situación:
                         </span>
-                        <span className="font-semibold text-primary flex">
-                            REO&nbsp;<Explainer message={REO_EXPLAIN} />
-                        </span>
+                        {op.legal_status === LegalStatus.REO ? (
+                            <span className="font-semibold text-primary flex">
+                                REO&nbsp;<Explainer message={REO_EXPLAIN} />
+                            </span>) :
+                            op.legal_status === LegalStatus.POSESION ? (
+                                <span className="font-semibold text-primary flex">
+                                    Con posesión
+                                </span>) : (
+                                <span className="font-semibold text-primary flex">
+                                    N/A
+                                </span>)
+                        }
                     </div>
                 </div>
 
@@ -103,6 +112,6 @@ export default function HouseCard({ op }: HouseCardProps) {
                     Ver Detalles
                 </Link>
             </div>
-        </article>
+        </article >
     );
 }

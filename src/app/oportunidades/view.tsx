@@ -5,6 +5,7 @@ import HouseCard from "../../components/HouseCard";
 import FilterSelect from "./components/FilterSelect";
 import { IOpportunity } from "@/lib/models/Opportunity";
 import { capitalizeWords } from "@/utils/functions";
+import { profitCalculator } from "@/lib/profit-calculator";
 
 function getUnique<T>(arr: T[], key: keyof T): string[] {
     return Array.from(new Set(arr.map(item => String(item[key]))));
@@ -27,7 +28,10 @@ export default function OpportunitiesView({ opportunities }: { opportunities: IO
             (!province || o.province === province) &&
             (!city || capitalizeWords(o.city) === city) &&
             (!squatted || String(o.squatted) === squatted)
-        );
+        ).filter(op => {
+            const { minRentability } = profitCalculator(op);
+            return minRentability >= 15;
+        });
     }, [opportunities, province, city, squatted]);
 
     // Cierra el panel si se toca fuera (solo mobile)
@@ -117,9 +121,7 @@ export default function OpportunitiesView({ opportunities }: { opportunities: IO
                     "
                 >
                     {filtered.map(op => (
-                        <div className="w-full max-w-full overflow-x-hidden" key={op._id}>
-                            <HouseCard op={op} />
-                        </div>
+                        <HouseCard key={op._id} op={op} />
                     ))}
                     {filtered.length === 0 && (
                         <div className="col-span-full text-center text-gray-400">
