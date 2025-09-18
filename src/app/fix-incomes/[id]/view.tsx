@@ -4,12 +4,13 @@ import { capitalizeWords, formatEUR } from "@/utils/functions";
 import { SignedOut, SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useState } from "react";
 import React from "react";
 import { IFixIncome } from "@/lib/models/FixIncome";
 import { Modal } from "@/components/Model";
 import { sendFixIncome } from "@/lib/actions";
 import { Tooltip } from "flowbite-react";
+import { useFileExists } from "@/hooks/useFileExists";
 
 export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
     const { isSignedIn } = useUser();
@@ -31,52 +32,17 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
 
     const baseR2Url = process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL + '/fix-income';
     const imageUrl = `${baseR2Url}/${op._id}/${op._id}.jpg`;
+
     const contractUrl = `${baseR2Url}/${op._id}/${op.city}-Contrato.pdf`;
+    const contractExists = useFileExists(contractUrl);
     const dossierUrl = `${baseR2Url}/${op._id}/${op.city}-Dossier.pdf`;
+    const dossierExists = useFileExists(dossierUrl);
     const planesUrl = `${baseR2Url}/${op._id}/${op.city}-Planos.pdf`;
+    const planesExists = useFileExists(planesUrl);
     const analysisUrl = `${baseR2Url}/${op._id}/${op.city}-Analisis.xlsx`;
+    const analysisExists = useFileExists(analysisUrl);
     const registryUrl = `${baseR2Url}/${op._id}/${op.city}-Nota-Simple.pdf`;
-
-    const [pdfExists, setPdfExists] = useState(false);
-    const [excelExists, setExcelExists] = useState(false);
-    const [planoExists, setPlanoExists] = useState(false);
-    const [contractExists, setContractExists] = useState(false);
-    const [registryExists, setRegistryExists] = useState(false);
-
-    useEffect(() => {
-        // Intenta hacer un HEAD request al PDF
-        fetch(dossierUrl, { method: "HEAD" })
-            .then(res => setPdfExists(res.ok))
-            .catch(() => setPdfExists(false));
-    }, [dossierUrl]);
-
-    useEffect(() => {
-        // Intenta hacer un HEAD request al Excel
-        fetch(analysisUrl, { method: "HEAD" })
-            .then(res => setExcelExists(res.ok))
-            .catch(() => setExcelExists(false));
-    }, [analysisUrl]);
-
-    useEffect(() => {
-        // Intenta hacer un HEAD request al plano
-        fetch(planesUrl, { method: "HEAD" })
-            .then(res => setPlanoExists(res.ok))
-            .catch(() => setPlanoExists(false));
-    }, [planesUrl]);
-
-    useEffect(() => {
-        // Intenta hacer un HEAD request al contrato
-        fetch(contractUrl, { method: "HEAD" })
-            .then(res => setContractExists(res.ok))
-            .catch(() => setContractExists(false));
-    }, [contractUrl]);
-
-    useEffect(() => {
-        // Intenta hacer un HEAD request al registro
-        fetch(registryUrl, { method: "HEAD" })
-            .then(res => setRegistryExists(res.ok))
-            .catch(() => setRegistryExists(false));
-    }, [registryUrl]);
+    const registryExists = useFileExists(registryUrl);
 
     return (
         <div className="max-w-4xl mx-auto px-6 py-8">
@@ -133,17 +99,17 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
                     <div className="text-gray-500 mb-4">{op.state}, {op.province}</div>
                 </div>
                 <div className="flex flex-col">
-                    {pdfExists && (
+                    {dossierExists && (
                         <Link href={dossierUrl} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
                             📑 Descargar dossier de la propiedad
                         </Link>
                     )}
-                    {excelExists && (
+                    {analysisExists && (
                         <Link href={analysisUrl} className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
                             📊 Descargar Excel de la operación
                         </Link>
                     )}
-                    {planoExists && (
+                    {planesExists && (
                         <Link href={planesUrl} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
                             🗺️ Descargar plano de la propiedad
                         </Link>

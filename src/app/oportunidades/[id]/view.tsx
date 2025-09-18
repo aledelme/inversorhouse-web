@@ -6,7 +6,7 @@ import { capitalizeWords } from "@/utils/functions";
 import { SignedOut, SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useActionState } from "react";
 import React from "react";
 import { Modal } from "@/components/Model";
@@ -17,6 +17,7 @@ import { REO_EXPLAIN } from "@/constants";
 import WhyUsOpportunity from "../components/WhyUsOpportunity";
 import AboutUsOpportunity from "../components/AboutUsOpportunity";
 import { profitCalculator } from "@/lib/profit-calculator";
+import { useFileExists } from "@/hooks/useFileExists";
 
 type InvesmentType = "ofertar" | "coinvertir" | "gestionar";
 
@@ -31,6 +32,9 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
     const baseR2Url = process.env.NEXT_PUBLIC_R2_CLOUDFLARE_URL + '/opportunities';
     const imageUrl = `${baseR2Url}/${op.ref_code}/${op.ref_code}.jpg`;
     const dossierUrl = `${baseR2Url}/${op.ref_code}/${op.file_key}`;
+    const dossierExists = useFileExists(dossierUrl);
+    const nsUrl = `${baseR2Url}/${op.ref_code}/${op.ns_key}`;
+    const nsExists = useFileExists(nsUrl);
 
     function handleAction(type: InvesmentType) {
         if (isSignedIn) {
@@ -43,16 +47,6 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
         setModalOpen(false);
         setConfirmationMsg(result.message);
     }
-
-    const [pdfExists, setPdfExists] = useState(false);
-
-    useEffect(() => {
-        // Intenta hacer un HEAD request al PDF
-        fetch(dossierUrl, { method: "HEAD" })
-            .then(res => setPdfExists(res.ok))
-            .catch(() => setPdfExists(false));
-    }, [dossierUrl]);
-
 
     const downloadExcel = async () => {
         const res = await fetch("/api/opportunities/" + op.ref_code + "/download", {
@@ -109,9 +103,14 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                     <div className="text-gray-500 mb-4">{op.state}, {op.province}</div>
                 </div>
                 <div className="flex flex-col">
-                    {pdfExists && (
+                    {dossierExists && (
                         <Link href={dossierUrl} target="_blank" className="text-blue-500 underline text-xl align-text-top mb-4">
                             📑 Descargar dossier de la propiedad
+                        </Link>
+                    )}
+                    {nsExists && (
+                        <Link href={nsUrl} target="_blank" className="text-blue-500 underline text-xl align-text-top mb-4">
+                            📑 Descargar nota simple de la propiedad
                         </Link>
                     )}
                     <a

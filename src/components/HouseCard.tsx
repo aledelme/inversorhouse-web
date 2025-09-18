@@ -80,9 +80,10 @@ export default function HouseCard({ op }: HouseCardProps) {
                     <div className="flex justify-between items-center">
                         <span className="text-sm font-medium text-foreground flex items-center gap-1">
                             Situación:
-                            <Explainer message={REO_EXPLAIN} />
                         </span>
-                        <span className="font-semibold text-primary">REO</span>
+                        <span className="font-semibold text-primary flex">
+                            REO&nbsp;<Explainer message={REO_EXPLAIN} />
+                        </span>
                     </div>
                 </div>
 
