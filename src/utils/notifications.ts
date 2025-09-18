@@ -1,7 +1,7 @@
 'use server';
 import nodemailer from 'nodemailer';
 
-type EmailData = {
+export type EmailData = {
     to: string;
     subject: string;
     html: string;

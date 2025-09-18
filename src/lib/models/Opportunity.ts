@@ -24,6 +24,7 @@ const OpportunitySchema = new Schema({
   starred: { type: Boolean, default: false },
   file_key: { type: String, required: false },
   status: { type: String, required: false, enum: Object.values(OpportunityStatus) },
+  ns_key: { type: String, required: false }, // Nota simple
 });
 
 

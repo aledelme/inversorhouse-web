@@ -16,7 +16,7 @@ function TextField({ label, name, placeholder, type = "text", inputMode, require
     return (
         <div>
             <label className="block text-sm font-medium text-gray-700">{label} {required && <span className="text-red-500">*</span>}</label>
-            <input name={name} placeholder={placeholder} type={type} inputMode={inputMode} required
+            <input name={name} placeholder={placeholder} type={type} inputMode={inputMode} required={required}
                 className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-3" />
         </div>
     );
@@ -33,14 +33,15 @@ function ErrorBox({ errors }: { errors: string[] }) {
     );
 }
 
-function FilePicker({ fileInputRef, photoPreview, onChange }: {
+function FilePicker({ fileInputRef, photoPreview, required = false, onChange }: {
     fileInputRef: React.RefObject<HTMLInputElement>;
     photoPreview: string | null;
+    required?: boolean;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
     return (
         <div>
-            <label className="block text-sm font-medium text-gray-700">Foto Principal <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-gray-700">Foto Principal {required && <span className="text-red-500">*</span>}</label>
             <div className="mt-2 flex items-center gap-4">
                 <div className="flex-shrink-0">
                     <div className="h-28 w-40 rounded-md border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center overflow-hidden">
@@ -54,7 +55,7 @@ function FilePicker({ fileInputRef, photoPreview, onChange }: {
                 </div>
 
                 <div className="flex flex-1 flex-col">
-                    <input ref={fileInputRef} name="photo" type="file" accept="image/*" onChange={onChange} className="text-sm text-gray-600" required />
+                    <input ref={fileInputRef} name="photo" type="file" accept="image/*" onChange={onChange} className="text-sm text-gray-600" required={required} />
                     <p className="mt-2 text-xs text-gray-500">Sube la imagen más atractiva (fachada, salón con render, etc.). Máx. 2 MB. Formatos: jpg, png, webp.</p>
                 </div>
             </div>
@@ -111,31 +112,30 @@ export default function SubmitOpportunityPage() {
                 <form action={submitOpportunityAdvertisement}
                     className="mt-6 grid grid-cols-1 gap-6"
                     onSubmit={() => setIsSubmitting(true)}>
-                    <TextField label="Título de la Oportunidad" name="title" placeholder="Flip & Profit en el Barrio de Salamanca" required />
+                    <TextField label="Título de la Oportunidad" name="title" placeholder="Flip & Profit en el Barrio de Salamanca" />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <TextField label="Ciudad" name="city" placeholder="Madrid" required />
-                        <TextField label="Barrio / Zona" name="zone" placeholder="Barrio Salamanca" required />
+                        <TextField label="Ciudad" name="city" placeholder="Madrid" />
+                        <TextField label="Barrio / Zona" name="zone" placeholder="Barrio Salamanca" />
                     </div>
 
                     <FilePicker fileInputRef={fileInputRef} photoPreview={photoPreview} onChange={handleFileChange} />
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <TextField label="Inversión Total Estimada (€)" type="number" name="investment" placeholder="120000" inputMode="numeric" required />
-                        <TextField label="Rentabilidad Estimada (ROI %)" type="number" name="roi" placeholder="18" inputMode="numeric" required />
-                        <TextField label="Plazo Estimado (meses)" type="number" name="months" placeholder="18" inputMode="numeric" required />
+                        <TextField label="Inversión Total Estimada (€)" type="number" name="investment" placeholder="120000" inputMode="numeric" />
+                        <TextField label="Rentabilidad Estimada (ROI %)" type="number" name="roi" placeholder="18" inputMode="numeric" />
+                        <TextField label="Plazo Estimado (meses)" type="number" name="months" placeholder="18" inputMode="numeric" />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Enlace para más información y de contacto <span className="text-red-500">*</span></label>
-                        <input name="link" type="url" inputMode="url" placeholder="https://drive.google.com/drive/...." className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-3" />
+                        <TextField label="Enlace para más información y de contacto" type="url" name="link" placeholder="https://drive.google.com/drive/...." />
                         <p className="mt-1 text-xs text-gray-500">Puede ser carpeta de Google Drive, PDF, ficha, etc.</p>
                     </div>
 
                     <h2 className="mb-0! text-2xl">Información del Anunciante</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <TextField label="Nombre del Anunciante" name="advertiserName" placeholder="Nombre y apellidos / empresa" required />
-                        <TextField label="Email del Anunciante" name="advertiserEmail" type="email" placeholder="contacto@empresa.com" required />
+                        <TextField label="Nombre del Anunciante" name="advertiserName" placeholder="Nombre y apellidos / empresa" />
+                        <TextField label="Email del Anunciante" name="advertiserEmail" type="email" placeholder="contacto@empresa.com" />
                     </div>
 
                     {/* hidden input for reCAPTCHA token filled by client before native submit */}
