@@ -88,7 +88,10 @@ export default function HouseCard({ op }: HouseCardProps) {
                             op.legal_status === LegalStatus.POSESION ? (
                                 <span className="font-semibold text-primary flex">
                                     Con posesión
-                                </span>) : (
+                                </span>) : op.legal_status === LegalStatus.INDIVISO ? (
+                                    <span className="font-semibold text-primary flex">
+                                        Indiviso
+                                    </span>) : (
                                 <span className="font-semibold text-primary flex">
                                     N/A
                                 </span>)

@@ -46,6 +46,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
     const H12 = GASTO_TOTAL_COMPRA;
     const H16 = 12000; // Gastos de Operación
+    worksheet.getCell('H20').value = { formula: `H12+H16`, result: H12 + H16 };
+
     const C26 = (C24 * B20) + H12 + H16;
     const D26 = (D24 * B20) + H12 + H16;
     const E26 = (E24 * B20) + H12 + H16;
@@ -77,7 +79,6 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     worksheet.getCell('C31').value = { formula: `(C27-C29)*C30`, result: (C27 - ((C24 - C26) * C20)) * (D20 / C26) };
     worksheet.getCell('D31').value = { formula: `(D27-D29)*D30`, result: (D27 - ((D24 - C26) * C20)) * (D20 / D26) };
     worksheet.getCell('E31').value = { formula: `(E27-E29)*E30`, result: (E27 - ((E24 - C26) * C20)) * (D20 / E26) };
-
 
     const buffer = await workbook.xlsx.writeBuffer();
     return new NextResponse(buffer, {

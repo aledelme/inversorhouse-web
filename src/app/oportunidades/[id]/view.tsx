@@ -141,7 +141,9 @@ export default function OpportunityDetailView({ op }: { op: IOpportunity }) {
                     <><span className="font-medium">REO</span><Explainer message={REO_EXPLAIN} /></> :
                     op.legal_status === LegalStatus.POSESION ?
                         <span className="font-medium">Con posesión</span> :
-                        <span className="font-medium">N/A</span>
+                        op.legal_status === LegalStatus.INDIVISO ?
+                            <span className="font-medium">Indiviso</span> :
+                            <span className="font-medium">N/A</span>
                 }
 
             </div>

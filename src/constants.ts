@@ -4,4 +4,5 @@ export const REO_EXPLAIN = "REO (Real Estate Owned) se refiere a propiedades que
 export enum LegalStatus {
     REO = "REO", // Real Estate Owned
     POSESION = "POSESION",
+    INDIVISO = "INDIVISO",
 }
