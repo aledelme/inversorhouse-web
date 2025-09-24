@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { EmailData, sendEmail } from "@/utils/notifications";
+import { formatEUR } from "@/utils/functions";
 
 export async function submitOpportunityAdvertisement(formData: FormData) {
 
@@ -19,7 +20,7 @@ export async function submitOpportunityAdvertisement(formData: FormData) {
     advertiserEmail: formData.get('advertiserEmail') ? String(formData.get('advertiserEmail')) : null,
   }
   // Build dynamic content
-  const contentLines = ['🔥 ¡OPORTUNIDAD DE INVERSIÓN! 🔥', ''];
+  const contentLines = ['🔥 ¡OPORTUNIDAD DE INVERSIÓN!', ''];
 
   if (opportunityData.title) {
     contentLines.push(`✅ ${opportunityData.title}`);
@@ -34,7 +35,7 @@ export async function submitOpportunityAdvertisement(formData: FormData) {
   }
 
   if (opportunityData.investment) {
-    contentLines.push(`💰 Inversión Total: ${opportunityData.investment}€`);
+    contentLines.push(`💰 Inversión Total: ${formatEUR(opportunityData.investment)}`);
   }
 
   if (opportunityData.roi) {
@@ -60,7 +61,7 @@ export async function submitOpportunityAdvertisement(formData: FormData) {
   }
 
   const emailOptions: EmailData = {
-    to: 'alejandrodelmedico@gmail.com',
+    to: 'alejandrodelmedico@gmail.com, andresdelmedicobravo@gmail.com',
     subject: `NUEVO ANUNCIO DE OPORTUNIDAD`,
     html: `
 <div style="font-family: Arial, sans-serif; background: #f9fafb; padding: 32px;">
