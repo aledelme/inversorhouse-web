@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 import withFlowbiteReact from "flowbite-react/plugin/nextjs";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: { bodySizeLimit: '3mb' }
+  },
   images: {
     minimumCacheTTL: 2678400,// 31 days
     formats: ['image/webp'],
