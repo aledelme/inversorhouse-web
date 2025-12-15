@@ -15,7 +15,7 @@
     "exceljs": "^4.4.0",
     "flowbite-react": "^0.12.2",
     "mongoose": "^8.16.1",
-    "next": "15.3.6",
+    "next": "15.3.8",
     "nodemailer": "^7.0.4",
     "react": "19.0.1",
     "react-dom": "19.0.1"
