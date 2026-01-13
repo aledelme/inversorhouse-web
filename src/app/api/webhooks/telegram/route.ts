@@ -25,12 +25,11 @@ export interface User {
     first_name: string;
     username?: string;
     last_name?: string;
-    language_code?: string;
 }
 
 export interface ChatMemberStatus {
     user: User;
-    status: string; // Ej: 'left', 'member', 'administrator', 'creator', etc.
+    status: string; // Ej: 'left', 'member', 'kicked'
 }
 
 export interface InviteLink {
@@ -55,22 +54,27 @@ export async function POST(request: Request) {
     }
 
     if (body.chat_member.chat.id !== Number(process.env.TELEGRAM_CHAT_ID)) {
-        // return new Response("Forbidden. Not the correct chat", { status: 403 });
-        console.log("Forbidden. Not the correct chat");
+        return new Response("Forbidden. Not the correct chat", { status: 403 });
+        // console.log("Forbidden. Not the correct chat");
     }
 
-    const telegramUserId = body.chat_member.from.id;
+    const user = body.chat_member.new_chat_member.user;
+    // const telegramUserId = user.id;
+    // const firstName = user.first_name;
+    // const lastName = user.last_name;
+    // const username = user.username;
+    if (user.is_bot) {
+        // Kick out bot and perma ban TODO
+        return new Response("Ignored bot event", { status: 200 });
+    }
+
+    if (!body.chat_member.invite_link) {
+        // It's a user removal. Save to the database TODO
+        return new Response("Event saved", { status: 200 });
+    }
+
     // const inviteLink = body.chat_member.invite_link.invite_link;
-    // const email = body.chat_member.invite_link.name;
-
-    // Process the webhook event
-    console.log("Body")
-    console.log(JSON.stringify(body, null, 2));
-
-    console.log("Processed Telegram webhook event:");
-    console.log("User ID:", telegramUserId);
-    // console.log("Invite Link:", inviteLink);
-    // console.log("Email:", email);
+    // const email = body.chat_member.invite_link.name; // The link's name contains the email
 
     return new Response("Webhook received");
 }

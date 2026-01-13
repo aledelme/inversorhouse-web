@@ -1,0 +1,9 @@
+export { default as HeroSection } from "./HeroSection";
+export { default as VideoSection } from "./VideoSection";
+export { default as BenefitsSection } from "./BenefitsSection";
+export { default as HowItWorksSection } from "./HowItWorksSection";
+export { default as InvestmentHighlights } from "./InvestmentHighlights";
+export { default as FAQSection } from "./FAQSection";
+export { default as CalendarSection } from "./CalendarSection";
+export { default as TrustSection } from "./TrustSection";
+export { default as FinalCTA } from "./FinalCTA";

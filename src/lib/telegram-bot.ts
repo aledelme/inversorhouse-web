@@ -21,12 +21,6 @@ async function telegramBot(method: string, params: unknown) {
     return response.json();
 }
 
-export async function getUpdates() {
-    return telegramBot("getUpdates", {
-        allowed_updates: ["chat_member"]
-    });
-}
-
 export async function createChatInviteLink(email?: string) {
     return telegramBot("createChatInviteLink", {
         chat_id: CHANNEL_ID,
@@ -36,6 +30,30 @@ export async function createChatInviteLink(email?: string) {
     });
 }
 
+/**
+ * Kicks a user from the chat (channel). By defaults, "unbanChatMember" also bans the user and allows them to rejoin.
+ * @param telegramUserId 
+ * @returns 
+ */
+export async function removeChatMember(telegramUserId: number) {
+    return telegramBot("unbanChatMember", {
+        chat_id: CHANNEL_ID,
+        user_id: telegramUserId
+    });
+
+}
+
+/**
+ * Bans a user from the channel permanently.
+ * @param telegramUserId 
+ * @returns 
+ */
+export async function banChatMember(telegramUserId: number) {
+    return telegramBot("banChatMember", {
+        chat_id: CHANNEL_ID,
+        user_id: telegramUserId
+    });
+}
 
 /// base de datos
 

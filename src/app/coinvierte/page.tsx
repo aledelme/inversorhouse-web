@@ -1,0 +1,67 @@
+"use client";
+
+import { useRef, useCallback } from "react";
+import {
+    HeroSection,
+    VideoSection,
+    BenefitsSection,
+    HowItWorksSection,
+    InvestmentHighlights,
+    FAQSection,
+    CalendarSection,
+    TrustSection,
+    FinalCTA,
+} from "./components";
+
+// Configuración - Actualiza estos valores según necesites
+const CONFIG = {
+    // ID del video de YouTube (la parte después de v= en la URL)
+    youtubeVideoId: "dQw4w9WgXcQ", // Reemplazar con el ID real del video
+    // URL del calendario de Google (obtener desde Google Calendar > Configuración > Integrar calendario)
+    googleCalendarUrl: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1xj-D30lhnWBpSWBrxczIVp8LOUGk8RRQASqn_K_qrUfjHaDyaX-YU8tQbZbsINeltrs-6BlBl", // Reemplazar con la URL real
+};
+
+export default function CoinviertePage() {
+    const calendarRef = useRef<HTMLDivElement>(null);
+
+    const scrollToCalendar = useCallback(() => {
+        calendarRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    }, []);
+
+    return (
+        <main className="min-h-screen">
+            {/* Hero Section con CTA principal */}
+            <HeroSection onCtaClick={scrollToCalendar} />
+
+            {/* Sección de confianza - Stats rápidos */}
+            <TrustSection />
+
+            {/* Video explicativo */}
+            <VideoSection videoId={CONFIG.youtubeVideoId} />
+
+            {/* Beneficios de coinvertir */}
+            <BenefitsSection onCtaClick={scrollToCalendar} />
+
+            {/* Cómo funciona - Proceso paso a paso */}
+            <HowItWorksSection />
+
+            {/* Highlights de inversión */}
+            <InvestmentHighlights onCtaClick={scrollToCalendar} />
+
+            {/* Preguntas frecuentes */}
+            <FAQSection />
+
+            {/* Calendario de citas - Objetivo principal del embudo */}
+            <CalendarSection
+                ref={calendarRef}
+                calendarUrl={CONFIG.googleCalendarUrl}
+            />
+
+            {/* CTA Final */}
+            <FinalCTA onCtaClick={scrollToCalendar} />
+        </main>
+    );
+}
