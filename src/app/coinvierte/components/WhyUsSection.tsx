@@ -67,11 +67,11 @@ const benefits: Benefit[] = [
     },
 ];
 
-interface BenefitsSectionProps {
+interface WhyUsSectionProps {
     onCtaClick: () => void;
 }
 
-export default function WhyUsSection({ onCtaClick }: BenefitsSectionProps) {
+export default function WhyUsSection({ onCtaClick }: WhyUsSectionProps) {
     return (
         <section className="py-20 lg:py-28 bg-white">
             <div className="container mx-auto px-4">

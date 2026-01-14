@@ -4,12 +4,14 @@ interface OpportunityVideoSectionProps {
     videoId: string;
     title?: string;
     description?: string;
+    onCtaClick: () => void;
 }
 
 export default function OpportunityVideoSection({
     videoId,
     title = "Oportunidad Activa",
     description = "Conoce en detalle la operación de coinversión que tenemos abierta actualmente. En este vídeo te presentamos el proyecto, las condiciones y las rentabilidades esperadas.",
+    onCtaClick,
 }: OpportunityVideoSectionProps) {
     return (
         <section className="py-20 lg:py-28 bg-white relative overflow-hidden">
@@ -71,6 +73,19 @@ export default function OpportunityVideoSection({
                             <div className="text-2xl font-bold text-[#059669]">Abierta</div>
                             <div className="text-sm text-[#64748b]">Captación activa</div>
                         </div>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="text-center mt-12 text-2xl">
+                        <button
+                            onClick={onCtaClick}
+                            className="inline-flex items-center gap-2 px-12 py-6 bg-[#0f3460] hover:bg-[#1e4a73] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-[#0f3460]/30"
+                        >
+                            Quiero Saber Más
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>

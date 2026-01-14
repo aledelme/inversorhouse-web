@@ -51,7 +51,7 @@ const CalendarSection = forwardRef<HTMLDivElement, CalendarSectionProps>(
                             Da el Primer Paso
                         </span>
                         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0f3460] mb-4">
-                            Agenda tu <span className="text-[#d4a574]">Cita Gratuita</span>
+                            Agenda tu <span className="text-[#d4a574]">Cita Gratuita</span><br /> Infórmate Sin Compromiso
                         </h2>
                         <p className="text-lg text-[#64748b] max-w-2xl mx-auto">
                             Reserva una videollamada de 30 minutos con nuestro equipo.
@@ -95,25 +95,23 @@ const CalendarSection = forwardRef<HTMLDivElement, CalendarSectionProps>(
                                         </span>
                                     </li>
                                 </ul>
-                            </div>
-
-                            {/* Meeting Details */}
+                            </div>                            {/* Meeting Details */}
                             <div className="bg-gradient-to-br from-[#0f3460] to-[#1e4a73] rounded-2xl p-6 text-white">
                                 <h3 className="font-bold mb-4">Detalles de la reunión</h3>
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-3">
                                         <ClockIcon />
-                                        <span className="text-white/80">30 minutos</span>
+                                        <span className="text-white">30 minutos</span>
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <PhoneIcon />
-                                        <span className="text-white/80">Llamada telefónica</span>
+                                        <span className="text-white">Llamada telefónica</span>
                                     </div>
                                 </div>
-                                <div className="mt-6 pt-6 border-t border-white/20">
-                                    <p className="text-sm text-white/60">
+                                <div className="mt-6 pt-6 border-t border-white/30">
+                                    <p className="text-sm text-white/80!">
                                         Sin compromiso. Solo queremos conocerte y ayudarte a
-                                        tomar la mejor decisión para tu inversión.
+                                        tomar la mejor decisión para tu inversión. Nosotros te llamamos.
                                     </p>
                                 </div>
                             </div>

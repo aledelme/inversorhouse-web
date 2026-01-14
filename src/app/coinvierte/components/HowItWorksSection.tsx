@@ -15,20 +15,25 @@ const steps: Step[] = [
     {
         number: "02",
         title: "Analiza la Operación",
-        description: "Recibe toda la documentación del proyecto: memorándum, proyecciones financieras, garantías y condiciones. Tómate tu tiempo para analizarlo.",
+        description: "Recibe toda la documentación del proyecto: memorándum, proyecciones financieras, garantías y condiciones. Tómate tu tiempo para analizarlo con tu asesor.",
     },
     {
         number: "03",
+        title: "Conoce a otros Inversores",
+        description: "Entra al grupo de WhatsApp exclusivo de la operación. Comparte impresiones y resuelve dudas con otros inversores interesados en el mismo proyecto.",
+    },
+    {
+        number: "04",
         title: "Firma y Transfiere",
         description: "Firma el contrato directamente con el promotor. El proceso es 100% digital y seguro. Realiza tu aportación desde 5.000€.",
     },
     {
-        number: "04",
+        number: "05",
         title: "Sigue el Progreso",
-        description: "Únete al grupo de WhatsApp del proyecto y recibe actualizaciones periódicas sobre el avance de la obra y los hitos alcanzados.",
+        description: "Recibe actualizaciones periódicas sobre el avance de la obra y los hitos alcanzados. Por WhatsApp o por correo.",
     },
     {
-        number: "05",
+        number: "06",
         title: "Recibe tu Rentabilidad",
         description: "Al finalizar la operación, recibe tu capital inicial más la rentabilidad acordada. Sin sorpresas, todo según lo pactado.",
     },

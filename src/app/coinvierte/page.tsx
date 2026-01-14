@@ -44,7 +44,7 @@ export default function CoinviertePage() {
             <VideoSection videoId={CONFIG.youtubeVideoId} />
 
             {/* Video de la oportunidad activa */}
-            <OpportunityVideoSection videoId={CONFIG.opportunityVideoId} />
+            <OpportunityVideoSection videoId={CONFIG.opportunityVideoId} onCtaClick={scrollToCalendar} />
 
             {/* Beneficios de coinvertir */}
             <WhyUsSection onCtaClick={scrollToCalendar} />

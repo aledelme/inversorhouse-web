@@ -44,15 +44,13 @@ export default function HeroSection({ onCtaClick }: HeroSectionProps) {
                 </div>
 
                 {/* Main Headline */}
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white! mb-6 leading-tight">
                     Coinvierte en{" "}
                     <span className="text-[#d4a574] italic">Grandes Proyectos</span>
                     <br className="hidden md:block" />
                     Inmobiliarios
-                </h1>
-
-                {/* Subheadline */}
-                <p className="text-lg md:text-xl lg:text-2xl text-white/80 max-w-3xl mx-auto mb-8 leading-relaxed">
+                </h1>                {/* Subheadline */}
+                <p className="text-lg md:text-xl lg:text-2xl text-white/90! max-w-3xl mx-auto mb-8 leading-relaxed">
                     Accede a operaciones de{" "}
                     <strong className="text-white">alto rendimiento</strong> junto a otros inversores.
                     Rentabilidades del{" "}
@@ -66,21 +64,21 @@ export default function HeroSection({ onCtaClick }: HeroSectionProps) {
                         <div className="text-3xl md:text-4xl font-bold text-[#d4a574]">
                             Desde 5.000€
                         </div>
-                        <div className="text-white/60 text-sm">Ticket mínimo</div>
+                        <div className="text-white/80 text-sm">Ticket mínimo</div>
                     </div>
-                    <div className="hidden sm:block w-px h-16 bg-white/20" />
+                    <div className="hidden sm:block w-px h-16 bg-white/30" />
                     <div className="text-center">
                         <div className="text-3xl md:text-4xl font-bold text-[#d4a574]">
                             10-25%
                         </div>
-                        <div className="text-white/60 text-sm">Rentabilidad anual</div>
+                        <div className="text-white/80 text-sm">Rentabilidad anual</div>
                     </div>
-                    <div className="hidden sm:block w-px h-16 bg-white/20" />
+                    <div className="hidden sm:block w-px h-16 bg-white/30" />
                     <div className="text-center">
                         <div className="text-3xl md:text-4xl font-bold text-[#d4a574]">
                             6-36 meses
                         </div>
-                        <div className="text-white/60 text-sm">Plazo de operación</div>
+                        <div className="text-white/80 text-sm">Plazo de operación</div>
                     </div>
                 </div>
 
@@ -103,10 +101,8 @@ export default function HeroSection({ onCtaClick }: HeroSectionProps) {
                             d="M13 7l5 5m0 0l-5 5m5-5H6"
                         />
                     </svg>
-                </button>
-
-                {/* Scroll Indicator */}
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50">
+                </button>                {/* Scroll Indicator */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70">
                     <ChevronDownIcon />
                 </div>
             </div>

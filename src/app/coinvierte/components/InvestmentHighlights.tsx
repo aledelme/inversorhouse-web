@@ -42,13 +42,13 @@ export default function InvestmentHighlights({ onCtaClick }: InvestmentHighlight
                         <span className="inline-block px-4 py-1.5 bg-[#d4a574]/20 text-[#d4a574] text-sm font-semibold rounded-full mb-6">
                             Condiciones de Inversión
                         </span>
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white! mb-6">
                             Inversiones{" "}
                             <span className="text-[#d4a574]">Transparentes</span>
                             <br />
                             y Rentables
                         </h2>
-                        <p className="text-lg text-white/70 mb-8 leading-relaxed">
+                        <p className="text-lg text-white/70! mb-8 leading-relaxed">
                             Nuestras coinversiones están diseñadas para ofrecer
                             la máxima seguridad y rentabilidad. Cada proyecto es
                             analizado exhaustivamente antes de presentarlo a
