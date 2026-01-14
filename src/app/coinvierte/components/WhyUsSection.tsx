@@ -71,15 +71,15 @@ interface BenefitsSectionProps {
     onCtaClick: () => void;
 }
 
-export default function BenefitsSection({ onCtaClick }: BenefitsSectionProps) {
+export default function WhyUsSection({ onCtaClick }: BenefitsSectionProps) {
     return (
         <section className="py-20 lg:py-28 bg-white">
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <div className="text-center mb-16">
-                    <span className="inline-block px-4 py-1.5 bg-[#d4a574]/10 text-[#d4a574] text-sm font-semibold rounded-full mb-4">
+                    {/* <span className="inline-block px-4 py-1.5 bg-[#d4a574]/10 text-[#d4a574] text-sm font-semibold rounded-full mb-4">
                         Ventajas Exclusivas
-                    </span>
+                    </span> */}
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0f3460] mb-4">
                         ¿Por qué <span className="text-[#d4a574]">coinvertir</span> con nosotros?
                     </h2>

@@ -4,7 +4,8 @@ import { useRef, useCallback } from "react";
 import {
     HeroSection,
     VideoSection,
-    BenefitsSection,
+    OpportunityVideoSection,
+    WhyUsSection,
     HowItWorksSection,
     InvestmentHighlights,
     FAQSection,
@@ -16,7 +17,9 @@ import {
 // Configuración - Actualiza estos valores según necesites
 const CONFIG = {
     // ID del video de YouTube (la parte después de v= en la URL)
-    youtubeVideoId: "dQw4w9WgXcQ", // Reemplazar con el ID real del video
+    youtubeVideoId: "SuNFSAblD3w", // Reemplazar con el ID real del video
+    // ID del video de la oportunidad activa
+    opportunityVideoId: "HiXiOYa2rX0", // Reemplazar con el ID real del video de la oportunidad
     // URL del calendario de Google (obtener desde Google Calendar > Configuración > Integrar calendario)
     googleCalendarUrl: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1xj-D30lhnWBpSWBrxczIVp8LOUGk8RRQASqn_K_qrUfjHaDyaX-YU8tQbZbsINeltrs-6BlBl", // Reemplazar con la URL real
 };
@@ -37,13 +40,14 @@ export default function CoinviertePage() {
             <HeroSection onCtaClick={scrollToCalendar} />
 
             {/* Sección de confianza - Stats rápidos */}
-            <TrustSection />
-
-            {/* Video explicativo */}
+            <TrustSection />            {/* Video explicativo */}
             <VideoSection videoId={CONFIG.youtubeVideoId} />
 
+            {/* Video de la oportunidad activa */}
+            <OpportunityVideoSection videoId={CONFIG.opportunityVideoId} />
+
             {/* Beneficios de coinvertir */}
-            <BenefitsSection onCtaClick={scrollToCalendar} />
+            <WhyUsSection onCtaClick={scrollToCalendar} />
 
             {/* Cómo funciona - Proceso paso a paso */}
             <HowItWorksSection />
