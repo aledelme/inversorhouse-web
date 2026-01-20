@@ -4,6 +4,29 @@ import { IFixIncome } from "./models/FixIncome";
 
 const oportunidades: IFixIncome[] = [
     {
+        _id: "tablero",
+        address: "Calle Alajueda",
+        state: "Canarias",
+        province: "Las Palmas de Gran Canaria",
+        city: "El Tablero",
+        ref_code: "INV-001",
+        required_capital: 1000000,
+        raised_capital: 670000,
+        ticket: 5000,
+        duration: 24,
+        procedure_type: "CCV",
+        property_type: "Residencial",
+        starred: true,
+        zip_code: "35109",
+        status: "OPEN",
+        yield: "15% anual",
+        urlDocs: "https://drive.google.com/drive/u/1/folders/1yDD-lyJn9F_y13cldS1UsSRccDZOjOhx",
+        summary: `La operación consiste en la construcción de 25 viviendas dúplex de lujo de 97.5 m² cada una, distribuidas en 3 parcelas.
+        
+La operación se va a realizar en distintas fases, donde la primera fase consiste en la construcción y venta de las primeras 4 viviendas.
+        `
+    },
+    {
         _id: "lugo",
         address: "Calle Falsa 123, Madrid",
         state: "Galicia",
@@ -62,7 +85,7 @@ El equipo responsable del proyecto cuenta con amplia experiencia en reformas y c
         procedure_type: "CRV",
         property_type: "Chalet",
         state: "Canarias",
-        starred: true,
+        starred: false,
         zip_code: "35560",
         required_capital: 395200,
         raised_capital: 395200,

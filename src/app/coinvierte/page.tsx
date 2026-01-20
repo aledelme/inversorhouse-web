@@ -20,6 +20,7 @@ const CONFIG = {
     youtubeVideoId: "SuNFSAblD3w", // Reemplazar con el ID real del video
     // ID del video de la oportunidad activa
     opportunityVideoId: "HiXiOYa2rX0", // Reemplazar con el ID real del video de la oportunidad
+    opportunityUrlDocs: "https://drive.google.com/drive/u/1/folders/1yDD-lyJn9F_y13cldS1UsSRccDZOjOhx",
     // URL del calendario de Google (obtener desde Google Calendar > Configuración > Integrar calendario)
     googleCalendarUrl: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1xj-D30lhnWBpSWBrxczIVp8LOUGk8RRQASqn_K_qrUfjHaDyaX-YU8tQbZbsINeltrs-6BlBl", // Reemplazar con la URL real
 };
@@ -44,7 +45,7 @@ export default function CoinviertePage() {
             <VideoSection videoId={CONFIG.youtubeVideoId} />
 
             {/* Video de la oportunidad activa */}
-            <OpportunityVideoSection videoId={CONFIG.opportunityVideoId} onCtaClick={scrollToCalendar} />
+            <OpportunityVideoSection videoId={CONFIG.opportunityVideoId} urlDocs={CONFIG.opportunityUrlDocs} onCtaClick={scrollToCalendar} />
 
             {/* Beneficios de coinvertir */}
             <WhyUsSection onCtaClick={scrollToCalendar} />

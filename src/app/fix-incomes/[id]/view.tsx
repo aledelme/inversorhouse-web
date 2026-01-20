@@ -124,6 +124,11 @@ export default function FixIncomeDetailView({ op }: { op: IFixIncome }) {
                             🗒️ Descargar nota simple de la propiedad
                         </Link>
                     )}
+                    {op.urlDocs && (
+                        <Link href={op.urlDocs} target="_blank" className="text-blue-500 underline text-lg sm:text-2xl font-bold align-text-top mb-4">
+                            📂 Acceso a toda la documentación
+                        </Link>
+                    )}
                 </div>
             </div>
             {/* <div className="mb-4">

@@ -18,4 +18,5 @@ export type IFixIncome = {
     starred: boolean
     status: "OPEN" | "COMPLETED" | "IN_PROGRESS"
     summary?: string
+    urlDocs?: string
 }

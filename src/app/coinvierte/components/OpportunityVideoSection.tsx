@@ -1,7 +1,10 @@
 "use client";
 
+import Link from "next/link";
+
 interface OpportunityVideoSectionProps {
     videoId: string;
+    urlDocs: string;
     title?: string;
     description?: string;
     onCtaClick: () => void;
@@ -9,6 +12,7 @@ interface OpportunityVideoSectionProps {
 
 export default function OpportunityVideoSection({
     videoId,
+    urlDocs,
     title = "Oportunidad Activa",
     description = "Conoce en detalle la operación de coinversión que tenemos abierta actualmente. En este vídeo te presentamos el proyecto, las condiciones y las rentabilidades esperadas.",
     onCtaClick,
@@ -57,6 +61,12 @@ export default function OpportunityVideoSection({
                                 allowFullScreen
                             />
                         </div>
+                    </div>
+
+                    <div className="text-center mt-6 text-xl">
+                        <Link href={urlDocs} target="_blank" className="text-blue-500 underline">
+                            📁 Acceso a toda la documentación
+                        </Link>
                     </div>
 
                     {/* Info Cards */}
