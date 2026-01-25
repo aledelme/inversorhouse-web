@@ -80,13 +80,13 @@ export async function getTelegramSubscriptionByTelegramId(
  * Actualiza la fecha de acceso al canal y el ID de usuario de Telegram
  */
 export async function updateChannelAccessDate(
-    subscription_id: string,
+    invite_link: string,
     telegram_user_id: string
 ): Promise<ITelegramSubscription | null> {
     await dbConnect();
 
-    const subscription = await TelegramSubscription.findByIdAndUpdate(
-        subscription_id,
+    const subscription = await TelegramSubscription.findOneAndUpdate(
+        { invite_link },
         {
             channel_access_date: new Date(),
             telegram_user_id,
