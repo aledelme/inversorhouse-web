@@ -1,9 +1,5 @@
 "use server"
 
-import { serialize } from "@/utils/functions";
-import dbConnect from "./dbConnect";
-import TelegramSubscription from "./models/TelegramSubscription";
-
 const CHANNEL_ID = process.env.TELEGRAM_CHAT_ID;
 
 async function telegramBot(method: string, params: unknown) {
@@ -55,10 +51,3 @@ export async function banChatMember(telegramUserId: number) {
     });
 }
 
-/// base de datos
-
-export async function checkUserSubscription(clerkId: string) {
-    await dbConnect();
-    const telegramSubscription = await TelegramSubscription.findOne({ user_clerk_id: clerkId }).lean();
-    return serialize(telegramSubscription);
-}

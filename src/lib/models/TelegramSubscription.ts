@@ -3,13 +3,13 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 
 const TelegramSubscriptionSchema = new Schema({
     _id: { type: String, required: true },
-    email: { type: String, required: true },
     clerk_user_id: { type: String, required: true },
     stripe_user_id: { type: String, required: true },
     telegram_user_id: { type: String, required: false },
     purchase_date: { type: Date, default: Date.now },
     invite_link: { type: String, required: true },
-    channel_access_date: { type: Date, required: false }
+    channel_access_date: { type: Date, required: false },
+    status: { type: String, enum: ['active', 'canceled'], default: 'active' },
 });
 
 

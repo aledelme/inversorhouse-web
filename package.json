@@ -6,19 +6,22 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "stripe-listen": "stripe listen --forward-to localhost:3000/api/webhooks/stripe --events customer.subscription.created,customer.subscription.deleted"
   },
   "dependencies": {
     "@clerk/localizations": "^3.17.2",
     "@clerk/nextjs": "^6.23.1",
     "@heroicons/react": "^2.2.0",
+    "@stripe/stripe-js": "^8.6.3",
     "exceljs": "^4.4.0",
     "flowbite-react": "^0.12.2",
     "mongoose": "^8.16.1",
     "next": "15.3.8",
     "nodemailer": "^7.0.4",
     "react": "19.0.1",
-    "react-dom": "19.0.1"
+    "react-dom": "19.0.1",
+    "stripe": "^20.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
