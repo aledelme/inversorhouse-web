@@ -58,7 +58,7 @@ export async function POST(request: Request) {
 
     if (body.chat_member.chat.id !== Number(process.env.TELEGRAM_CHAT_ID)) {
         console.log(`Forbidden. Received chat ID ${body.chat_member.chat.id} does not match expected ${process.env.TELEGRAM_CHAT_ID}`);
-        return new Response("Forbidden. Not the correct chat", { status: 403 });
+        return new Response("Forbidden. Not the correct chat", { status: 200 });
         // console.log("Forbidden. Not the correct chat");
     } const user = body.chat_member.new_chat_member.user;
     const telegramUserId = user.id;
