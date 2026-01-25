@@ -36,25 +36,25 @@ export function generateWelcomeEmail({ userName, inviteLink, websiteUrl = 'https
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Bienvenido a InversorHouse Premium!</title>
+    <title>¡Bienvenido al Canal de Oportunidades!</title>
     <style>${baseStyles}</style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>¡Bienvenido a InversorHouse Premium!</h1>
+            <h1>¡Bienvenido al Canal de Oportunidades!</h1>
         </div>
         
         <div class="content">
             <h2>Hola ${userName || 'Inversor'},</h2>
             
-            <p>¡Gracias por unirte a nuestra comunidad premium! Tu suscripción ha sido activada correctamente y ya tienes acceso a nuestro <span class="highlight">canal exclusivo de Telegram</span>.</p>
+            <p>¡Gracias por unirte a nuestra comunidad! Tu suscripción ha sido activada correctamente y ya tienes acceso a nuestro <span class="highlight">canal exclusivo de Telegram</span>.</p>
             
             <p>En este canal recibirás:</p>
             <ul>
                 <li>🏠 Oportunidades de inversión inmobiliaria exclusivas</li>
-                <li>📊 Análisis detallados de mercado</li>
-                <li>💡 Consejos y estrategias de inversión</li>
+                <li>📊 Conoce a inversores profesionales del sector inmobiliario</li>
+                <li>💡 Conecta con inversores de todos los perfiles</li>
                 <li>🔔 Alertas de nuevas oportunidades antes que nadie</li>
             </ul>
             
@@ -113,13 +113,12 @@ export function generateFarewellEmail({ userName, websiteUrl = 'https://inversor
         <div class="content">
             <h2>Hola ${userName || 'Inversor'},</h2>
             
-            <p>Lamentamos verte partir. Tu suscripción al canal premium de InversorHouse ha sido cancelada.</p>
+            <p>Lamentamos verte partir. Tu suscripción al canal de oportunidades de InversorHouse ha sido cancelada.</p>
             
             <p>A partir de este momento:</p>
             <ul>
                 <li>❌ Tu acceso al canal de Telegram ha sido revocado</li>
                 <li>❌ Ya no recibirás las oportunidades exclusivas</li>
-                <li>❌ No tendrás acceso a los análisis premium</li>
             </ul>
             
             <div class="info-box">
