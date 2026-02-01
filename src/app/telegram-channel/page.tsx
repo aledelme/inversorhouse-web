@@ -1,12 +1,27 @@
 "use client";
 
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import { useState } from "react";
+import { SignedIn, SignedOut, SignInButton, useAuth } from "@clerk/nextjs";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 type PlanType = 'monthly' | 'quarterly';
 
 export default function TelegramChannelPage() {
     const [selectedPlan, setSelectedPlan] = useState<PlanType>('quarterly');
+    const { isSignedIn, isLoaded } = useAuth();
+    const searchParams = useSearchParams();
+
+    // Redirigir automáticamente al checkout si el usuario acaba de iniciar sesión/registrarse
+    // y tiene un plan pendiente en la URL
+    useEffect(() => {
+        if (isLoaded && isSignedIn) {
+            const pendingPlan = searchParams.get('pendingPlan') as PlanType | null;
+            if (pendingPlan && (pendingPlan === 'monthly' || pendingPlan === 'quarterly')) {
+                // Limpiar el parámetro de la URL y redirigir al checkout
+                handleSubscribe(pendingPlan);
+            }
+        }
+    }, [isLoaded, isSignedIn, searchParams]);
 
     const handleSubscribe = async (planType: PlanType) => {
         const form = document.createElement('form');
@@ -415,18 +430,18 @@ export default function TelegramChannelPage() {
                         </SignedIn>                        <SignedOut>
                             <SignInButton
                                 mode="modal"
-                                forceRedirectUrl="/telegram-channel"
-                                signUpForceRedirectUrl="/telegram-channel"
+                                forceRedirectUrl={`/telegram-channel?pendingPlan=${selectedPlan}`}
+                                signUpForceRedirectUrl={`/telegram-channel?pendingPlan=${selectedPlan}`}
                             >
                                 <button className="btn btn-primary text-lg px-12 py-4 group">
-                                    Regístrate para Suscribirte
+                                    {selectedPlan === 'monthly' ? 'Suscribirse por 2,50€/mes' : 'Suscribirse por 6,00€/trimestre'}
                                     <svg className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                     </svg>
                                 </button>
                             </SignInButton>
                             <p className="mt-4 text-sm text-muted">
-                                Crea una cuenta gratuita para continuar con la suscripción
+                                Inicia sesión o regístrate para continuar con la suscripción
                             </p>
                         </SignedOut>
                     </div>
