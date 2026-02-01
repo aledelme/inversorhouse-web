@@ -412,10 +412,12 @@ export default function TelegramChannelPage() {
                             <p className="mt-4 text-sm text-muted">
                                 Al continuar, serás redirigido al proceso de pago seguro
                             </p>
-                        </SignedIn>
-
-                        <SignedOut>
-                            <SignInButton mode="modal">
+                        </SignedIn>                        <SignedOut>
+                            <SignInButton
+                                mode="modal"
+                                forceRedirectUrl="/telegram-channel"
+                                signUpForceRedirectUrl="/telegram-channel"
+                            >
                                 <button className="btn btn-primary text-lg px-12 py-4 group">
                                     Regístrate para Suscribirte
                                     <svg className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
