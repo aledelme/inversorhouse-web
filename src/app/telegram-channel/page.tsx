@@ -1,23 +1,27 @@
 "use client";
 
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-// import { useState } from "react";
-// import { sendTelegramChannelInviteLink } from "./action";
+import { useState } from "react";
+
+type PlanType = 'monthly' | 'quarterly';
 
 export default function TelegramChannelPage() {
-    // const [confirmationMsg, setConfirmationMsg] = useState<{ ok: boolean, message: string } | null>(null);
-    // const [isPending, setIsPending] = useState(false);
+    const [selectedPlan, setSelectedPlan] = useState<PlanType>('quarterly');
 
-    // const handleRequestInvite = async () => {
-    //     setIsPending(true);
-    //     const result = await sendTelegramChannelInviteLink();
-    //     setIsPending(false);
-    //     if (result.ok) {
-    //         setConfirmationMsg({ ok: true, message: (await result.json()).message });
-    //     } else {
-    //         setConfirmationMsg({ ok: false, message: (await result.json()).message });
-    //     }
-    // };
+    const handleSubscribe = async (planType: PlanType) => {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/api/stripe/checkout';
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'plan';
+        input.value = planType;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
@@ -44,71 +48,16 @@ export default function TelegramChannelPage() {
                             Recibe alertas en tiempo real de nuevas inversiones con alto potencial de rentabilidad.
                         </p>
 
-                        {/* CTA Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <SignedIn>
-                                <form action="/api/stripe/checkout" method="post" role="link">
-                                    <button
-                                        type="submit"
-                                        // onClick={handleRequestInvite}
-                                        // disabled={isPending || !!confirmationMsg}
-                                        className="btn btn-primary text-lg px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed group"
-                                    >
-                                        {/* {isPending ? (
-                                            <>
-                                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                </svg>
-                                                Procesando...
-                                            </>
-                                        ) : confirmationMsg ? (
-                                            <>
-                                                ✓ Solicitud Enviada
-                                            </>
-                                        ) : ( */}
-                                        <>
-                                            Recibir Invitación
-                                            <svg className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                            </svg>
-                                        </>
-                                        {/* )} */}
-                                    </button>
-                                </form>
-                            </SignedIn>
-
-                            <SignedOut>
-                                <SignInButton mode="modal">
-                                    <button className="btn btn-primary text-lg px-8 py-4 group">
-                                        Regístrate para Unirte
-                                        <svg className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                        </svg>
-                                    </button>
-                                </SignInButton>
-                                <p className="text-sm text-muted">
-                                    ¿Ya tienes cuenta?{" "}
-                                    <SignInButton mode="modal">
-                                        <button className="text-secondary font-semibold hover:underline">
-                                            Inicia sesión
-                                        </button>
-                                    </SignInButton>
-                                </p>
-                            </SignedOut>
-                        </div>
-
-                        {/* Confirmation Message */}
-                        {/* {confirmationMsg && (
-                            <div className={`mt-6 p-4 bg-${confirmationMsg.ok ? "success" : "warning"}/10 border border-${confirmationMsg.ok ? "success" : "warning"}/20 rounded-lg max-w-2xl mx-auto`}>
-                                <p className={`text-${confirmationMsg.ok ? "success" : "warning"} font-semibold flex items-center justify-center gap-2`}>
-                                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                    </svg>
-                                    {confirmationMsg.message}
-                                </p>
-                            </div>
-                        )} */}
+                        {/* Scroll to plans CTA */}
+                        <a
+                            href="#planes"
+                            className="btn btn-primary text-lg px-8 py-4 group inline-flex items-center"
+                        >
+                            Ver Planes y Suscribirse
+                            <svg className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                        </a>
                     </div>
 
                     {/* Telegram Icon Decoration */}
@@ -251,10 +200,10 @@ export default function TelegramChannelPage() {
                             </div>
                             <div>
                                 <h3 className="text-xl font-bold text-primary mb-2">
-                                    Regístrate en la Plataforma
+                                    Elige tu Plan
                                 </h3>
                                 <p className="text-muted">
-                                    Si aún no tienes cuenta, regístrate de forma gratuita. Es rápido y seguro.
+                                    Selecciona el plan que mejor se adapte a ti: mensual o trimestral con descuento.
                                 </p>
                             </div>
                         </div>
@@ -263,12 +212,13 @@ export default function TelegramChannelPage() {
                         <div className="flex gap-6 items-start">
                             <div className="flex-shrink-0 w-12 h-12 bg-secondary text-white rounded-full flex items-center justify-center font-bold text-xl">
                                 2
-                            </div>                            <div>
+                            </div>
+                            <div>
                                 <h3 className="text-xl font-bold text-primary mb-2">
-                                    Solicita tu Invitación
+                                    Completa el Pago Seguro
                                 </h3>
                                 <p className="text-muted">
-                                    Una vez registrado, haz clic en el botón &quot;Recibir Invitación&quot; para solicitar acceso al canal.
+                                    Realiza el pago de forma segura con Stripe. Aceptamos tarjetas de crédito y débito.
                                 </p>
                             </div>
                         </div>
@@ -280,10 +230,10 @@ export default function TelegramChannelPage() {
                             </div>
                             <div>
                                 <h3 className="text-xl font-bold text-primary mb-2">
-                                    Recibe el Enlace Único
+                                    Recibe tu Enlace Único
                                 </h3>
                                 <p className="text-muted">
-                                    Recibirás un correo electrónico con un enlace único.
+                                    Recibirás un correo electrónico con un enlace de invitación personal al canal.
                                 </p>
                             </div>
                         </div>
@@ -306,7 +256,206 @@ export default function TelegramChannelPage() {
                 </div>
             </section>
 
-            {/* Final CTA */}
+            {/* Pricing Plans Section */}
+            <section id="planes" className="py-20 px-6 bg-gradient-to-r from-primary/5 to-secondary/5 scroll-mt-8">
+                <div className="max-w-6xl mx-auto">
+                    {/* Header */}
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+                            Elige tu Plan de Suscripción
+                        </h2>
+                        <p className="text-lg text-muted max-w-2xl mx-auto">
+                            Accede a oportunidades inmobiliarias exclusivas en nuestro canal privado de Telegram
+                        </p>
+                    </div>
+
+                    {/* Pricing Cards */}
+                    <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+                        {/* Monthly Plan */}
+                        <div
+                            className={`card p-8 cursor-pointer transition-all duration-300 relative ${selectedPlan === 'monthly'
+                                ? 'ring-2 ring-secondary shadow-professional-xl'
+                                : 'hover:shadow-professional-lg'
+                                }`}
+                            onClick={() => setSelectedPlan('monthly')}
+                        >
+                            {/* Selection indicator */}
+                            <div className={`absolute top-4 right-4 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${selectedPlan === 'monthly' ? 'border-secondary bg-secondary' : 'border-gray-300'
+                                }`}>
+                                {selectedPlan === 'monthly' && (
+                                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                )}
+                            </div>
+
+                            <div className="text-center">
+                                <h3 className="text-2xl font-bold text-primary mb-2">Plan Mensual</h3>
+                                <div className="mb-6">
+                                    <span className="text-5xl font-bold text-primary">2,50€</span>
+                                    <span className="text-muted">/mes</span>
+                                </div>
+                                <p className="text-muted mb-6">Flexibilidad total, cancela cuando quieras</p>
+
+                                <div className="space-y-3 text-left">
+                                    <div className="flex items-center gap-3">
+                                        <svg className="w-5 h-5 text-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-sm text-gray-700">Alertas en tiempo real</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <svg className="w-5 h-5 text-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-sm text-gray-700">Análisis de oportunidades</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <svg className="w-5 h-5 text-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-sm text-gray-700">Contenido exclusivo</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <svg className="w-5 h-5 text-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-sm text-gray-700">Cancela cuando quieras</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Quarterly Plan */}
+                        <div
+                            className={`card p-8 cursor-pointer transition-all duration-300 relative ${selectedPlan === 'quarterly'
+                                ? 'ring-2 ring-accent shadow-professional-xl'
+                                : 'hover:shadow-professional-lg'
+                                }`}
+                            onClick={() => setSelectedPlan('quarterly')}
+                        >
+                            {/* Best Value Badge */}
+                            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                                <span className="bg-accent text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                                    Mejor Valor
+                                </span>
+                            </div>
+
+                            {/* Selection indicator */}
+                            <div className={`absolute top-4 right-4 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${selectedPlan === 'quarterly' ? 'border-accent bg-accent' : 'border-gray-300'
+                                }`}>
+                                {selectedPlan === 'quarterly' && (
+                                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                )}
+                            </div>
+
+                            <div className="text-center">
+                                <h3 className="text-2xl font-bold text-primary mb-2">Plan Trimestral</h3>
+                                <div className="mb-2">
+                                    <span className="text-5xl font-bold text-primary">6,00€</span>
+                                    <span className="text-muted">/trimestre</span>
+                                </div>
+                                <div className="mb-6">
+                                    <span className="text-sm text-accent font-semibold">
+                                        Equivalente a 2,00€/mes
+                                    </span>
+                                    <div className="inline-block ml-2 px-2 py-1 bg-success/10 text-success rounded-full text-xs font-bold">
+                                        Ahorra 23%
+                                    </div>
+                                </div>
+                                <p className="text-muted mb-6">Mayor ahorro con compromiso trimestral</p>
+
+                                <div className="space-y-3 text-left">
+                                    <div className="flex items-center gap-3">
+                                        <svg className="w-5 h-5 text-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-sm text-gray-700">Alertas en tiempo real</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <svg className="w-5 h-5 text-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-sm text-gray-700">Análisis de oportunidades</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <svg className="w-5 h-5 text-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-sm text-gray-700">Contenido exclusivo</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <svg className="w-5 h-5 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-sm text-gray-700 font-semibold">Ahorro del 23%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* CTA Button */}
+                    <div className="text-center">
+                        <SignedIn>
+                            <button
+                                onClick={() => handleSubscribe(selectedPlan)}
+                                className="btn btn-primary text-lg px-12 py-4 group"
+                            >
+                                {selectedPlan === 'monthly' ? 'Suscribirse por 2,50€/mes' : 'Suscribirse por 6,00€/trimestre'}
+                                <svg className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </button>
+                            <p className="mt-4 text-sm text-muted">
+                                Al continuar, serás redirigido al proceso de pago seguro
+                            </p>
+                        </SignedIn>
+
+                        <SignedOut>
+                            <SignInButton mode="modal">
+                                <button className="btn btn-primary text-lg px-12 py-4 group">
+                                    Regístrate para Suscribirte
+                                    <svg className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </button>
+                            </SignInButton>
+                            <p className="mt-4 text-sm text-muted">
+                                Crea una cuenta gratuita para continuar con la suscripción
+                            </p>
+                        </SignedOut>
+                    </div>
+
+                    {/* Trust indicators */}
+                    <div className="mt-12 text-center">
+                        <div className="inline-flex flex-wrap items-center justify-center gap-6 text-sm text-muted">
+                            <div className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                <span>Pago 100% seguro con Stripe</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>Cancela cuando quieras</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                <span>Acceso inmediato</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Final CTA - Social Proof */}
             <section className="py-16 px-6 bg-gradient-to-r from-primary to-secondary text-white">
                 <div className="container mx-auto max-w-3xl text-center">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6">
@@ -315,22 +464,15 @@ export default function TelegramChannelPage() {
                     <p className="text-lg mb-8 opacity-90">
                         Únete hoy a más de 200 inversores que ya están aprovechando nuestras alertas exclusivas.
                     </p>
-                    <SignedIn>
-                        {/* <button
-                            onClick={handleRequestInvite}
-                            disabled={isPending || !!confirmationMsg}
-                            className="bg-white text-primary font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {confirmationMsg ? "✓ Solicitud Enviada" : "Solicitar Invitación Ahora"}
-                        </button> */}
-                    </SignedIn>
-                    <SignedOut>
-                        <SignInButton mode="modal">
-                            <button className="bg-white text-primary font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition">
-                                Regístrate Gratis
-                            </button>
-                        </SignInButton>
-                    </SignedOut>
+                    <a
+                        href="#planes"
+                        className="bg-white text-primary font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition inline-flex items-center gap-2"
+                    >
+                        Elegir mi Plan
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                        </svg>
+                    </a>
                 </div>
             </section>
         </div>

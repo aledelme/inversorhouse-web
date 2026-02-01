@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
 
                 await sendEmail({
                     to: customerEmail,
-                    subject: '🎉 ¡Bienvenido a InversorHouse Premium! - Tu acceso al canal exclusivo',
+                    subject: '🎉 ¡Bienvenido a InversorHouse! - Tu acceso al canal de oportunidades',
                     html: welcomeHtml,
                 });
 
@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
 
                 await sendEmail({
                     to: customerEmail,
-                    subject: 'Hasta pronto - Tu suscripción a InversorHouse Premium ha sido cancelada',
+                    subject: 'Hasta pronto - Tu suscripción al canal de oportunidades ha sido cancelada',
                     html: farewellHtml,
                 });
 

@@ -1,4 +1,6 @@
 
+const billingPortalUrl = process.env.STRIPE_CLIENT_PORTAL_URL || '';
+
 const baseStyles = `
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
     .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
@@ -68,6 +70,12 @@ export function generateWelcomeEmail({ userName, inviteLink, websiteUrl = 'https
                 <p><strong>⚠️ Importante:</strong> Este enlace es personal e intransferible. Solo puede ser usado una vez y expira en 30 días. Por favor, únete al canal lo antes posible.</p>
             </div>
             
+            ${billingPortalUrl ? `
+            <div class="info-box" style="border-left-color: #28a745;">
+                <p><strong>💳 Gestiona tu suscripción:</strong> Puedes ver tus facturas, actualizar tu método de pago o cancelar tu suscripción en cualquier momento desde tu <a href="${billingPortalUrl}" style="color: #0088cc; text-decoration: underline;">portal de cliente</a>.</p>
+            </div>
+            ` : ''}
+            
             <div class="divider"></div>
             
             <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos respondiendo a este email.</p>
@@ -130,6 +138,12 @@ export function generateFarewellEmail({ userName, websiteUrl = 'https://inversor
                     🔄 Volver a Suscribirse
                 </a>
             </div>
+            
+            ${billingPortalUrl ? `
+            <div class="info-box" style="border-left-color: #6c757d;">
+                <p><strong>📄 Historial de pagos:</strong> Si necesitas acceder a tus facturas o historial de pagos, puedes hacerlo desde tu <a href="${billingPortalUrl}" style="color: #0088cc; text-decoration: underline;">portal de cliente</a>.</p>
+            </div>
+            ` : ''}
             
             <div class="divider"></div>
             

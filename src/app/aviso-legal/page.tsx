@@ -6,10 +6,10 @@ export default function AvisoLegalPage() {
             <section className="mb-6">
                 <h2 className="text-xl font-semibold mb-2 text-blue-800">1. Datos identificativos del titular</h2>
                 <ul className="list-disc pl-6 space-y-1 text-gray-700">
-                    <li><strong>Denominación Social:</strong> HermesGod S.L.</li>
+                    <li><strong>Denominación Social:</strong> Andrés Iván Del Medico Bravo</li>
                     <li><strong>Nombre Comercial:</strong> InversorHouse</li>
-                    <li><strong>NIF:</strong> B22684815</li>
-                    {/* <li><strong>Domicilio Social:</strong> [Dirección fiscal completa, calle, número, código postal, ciudad, provincia]</li> */}
+                    <li><strong>NIF:</strong> 42242231V</li>
+                    <li><strong>Domicilio Social:</strong> Plaza de España s/n, CP 36920, Marín (Pontevedra).</li>
                     <li><strong>Correo Electrónico de Contacto:</strong> atencion@inversorhouse.com</li>
                     {/* <li><strong>Datos de Inscripción Registral:</strong> [Inscrita en el Registro Mercantil de [Ciudad], Tomo XXX, Folio XXX, Hoja XX-XXXXX, Inscripción Xª] (Si aplica)</li> */}
                 </ul>
