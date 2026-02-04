@@ -5,6 +5,7 @@ import Image from "next/image";
 
 const footerLinks = {
 	platform: [
+		{ name: 'Canal de Oportunidades', href: '/telegram-channel' },
 		{ name: 'Oportunidades', href: '/oportunidades' },
 		{ name: 'Renta Fija', href: '/#fix-incomes' },
 		{ name: 'Alto Volumen', href: '/#high-volumens' },

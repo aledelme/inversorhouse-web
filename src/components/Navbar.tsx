@@ -1,10 +1,10 @@
-
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import ClerkButton from "@/components/ClerkButton";
+import { usePathname } from "next/navigation";
 
 const navigation = [
   { name: 'Oportunidades', href: '/oportunidades' },
@@ -16,6 +16,7 @@ const navigation = [
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,12 +68,14 @@ export default function Navbar() {
 
           {/* CTA and Auth */}
           <div className="flex items-center space-x-4">
-            <Link
-              href="/oportunidades"
-              className="hidden md:inline-flex btn btn-primary text-sm px-4 py-2"
-            >
-              Ver Oportunidades
-            </Link>
+            {pathname !== "/telegram-channel" && (
+              <Link
+                href="/oportunidades"
+                className="hidden md:inline-flex btn btn-primary text-sm px-4 py-2"
+              >
+                Ver Oportunidades
+              </Link>
+            )}
             <ClerkButton />
 
             {/* Mobile menu button */}
